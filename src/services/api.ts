@@ -4,8 +4,8 @@ import axios from 'axios';
 import type {Expenditure, Journey, newUser} from '@/types';
 
 const apiClient = axios.create({
-    baseURL: //'https://travel-fund-backend.onrender.com/',
-        'http://localhost:8080/',
+    baseURL: 'https://travel-fund-backend.onrender.com/',
+        //'http://localhost:8080/',
     withCredentials: true,
     headers: {
         'Content-Type': 'application/json'

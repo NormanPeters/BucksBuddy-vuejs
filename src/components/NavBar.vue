@@ -17,11 +17,11 @@ const logout = () => {
 </script>
 
 <template>
-  <nav class="navbar shadow rounded-3 m-3 navbar-expand bg-body-tertiary">
+  <nav class="navbar shadow rounded-3 m-3 navbar-expand">
     <div class="container row-cols-2">
       <div class="col-2 d-flex align-items-center">
         <RouterLink to="/main">
-          <img src="@/assets/logo2.png" alt="Bootstrap" style="width: auto; height: 70px;">
+          <img src="@/assets/logo.png" alt="Bootstrap" style="width: auto; height: 70px;">
         </RouterLink>
       </div>
       <div class="col-10 d-flex justify-content-end">

@@ -1,6 +1,6 @@
 :root {
-    --bg-light: linear-gradient(to bottom, #f6f1d3, #648880 85%, #293f50);
-    --bg-dark: linear-gradient(to bottom, #293f50, #648880 85%, #f6f1d3);
+    --bg-light: var(--bs-light);
+    --bg-dark: var(--bs-dark);
 }
 
 /* Light/Dark Mode begins*/
@@ -32,7 +32,6 @@ body {
 }
 
 .card {
-    background-color: var(--bs-tertiary-bg);
     border: none;
 }
 

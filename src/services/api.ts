@@ -4,7 +4,7 @@ import axios from 'axios';
 import type {Expenditure, Journey, newUser} from '@/types';
 
 const apiClient = axios.create({
-    baseURL: 'https://bucksbuddybackend.onrender.com/',
+    baseURL: 'https://traval-fund-backend.onrender.com/',
         //'http://localhost:8080/',
     withCredentials: true,
     headers: {

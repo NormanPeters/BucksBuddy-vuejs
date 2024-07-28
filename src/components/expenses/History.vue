@@ -1,8 +1,8 @@
 <!--History-->
 <script setup lang="ts">
-import {ref, onMounted, watch} from 'vue';
+import { ref, onMounted, watch } from 'vue';
 import api from '@/services/api';
-import {type Expenditure} from '@/types';
+import { type Expenditure } from '@/types';
 import eventBus from '@/services/eventBus';
 
 const expendituresList = ref<Expenditure[]>([]);
@@ -28,9 +28,9 @@ const fetchExpenditures = async () => {
       isEditing: false,
     }));
     sortExpenditures();
-    const homeCurrencyResponse = await api.getHomeCurrency(journeyId.value)
+    const homeCurrencyResponse = await api.getHomeCurrency(journeyId.value);
     homeCurrency.value = homeCurrencyResponse.data;
-    const vacCurrencyResponse = await api.getVacCurrency(journeyId.value)
+    const vacCurrencyResponse = await api.getVacCurrency(journeyId.value);
     vacCurrency.value = vacCurrencyResponse.data;
   } catch (error) {
     console.error('Error fetching expenditures:', error);
@@ -79,8 +79,8 @@ const saveExpenditure = async (id: number, updatedExpenditure: Expenditure) => {
   }
 };
 
-const amountInHomeCurrency = (amount: number): string => {
-  return exchangeRate.value !== null ? (amount / exchangeRate.value).toFixed(2) : 'N/A';
+const amountInHomeCurrency = (amount: number): number => {
+  return exchangeRate.value !== null ? (amount / exchangeRate.value) : NaN;
 };
 
 const sortExpenditures = () => {
@@ -90,12 +90,24 @@ const sortExpenditures = () => {
       comparison = a.amount - b.amount;
     } else if (sortCriteria.value === 'date') {
       comparison = new Date(a.date).getTime() - new Date(b.date).getTime();
+    } else if (sortCriteria.value === 'homeCurrency') {
+      comparison = amountInHomeCurrency(a.amount) - amountInHomeCurrency(b.amount);
     } else {
       comparison = a.name.localeCompare(b.name);
     }
 
     return sortOrder.value === 'asc' ? comparison : -comparison;
   });
+};
+
+const toggleSort = (criteria: string) => {
+  if (sortCriteria.value === criteria) {
+    sortOrder.value = sortOrder.value === 'asc' ? 'desc' : 'asc';
+  } else {
+    sortCriteria.value = criteria;
+    sortOrder.value = 'asc';
+  }
+  sortExpenditures();
 };
 
 watch([expendituresList, sortCriteria, sortOrder], sortExpenditures);
@@ -148,29 +160,17 @@ const formatAmount = (amount: number): string => {
 <template>
   <div class="card shadow mb-3">
     <div class="card-body">
-      <h3 class="card-title">History</h3>
+      <h3 class="card-title">Expenses History</h3>
 
-      <!-- Sort Controls -->
-      <div class="row mb-2">
-        <div class="col">
-          <label for="sortCriteria" class="form-label">Sort By</label>
-          <select id="sortCriteria" v-model="sortCriteria" class="form-select">
-            <option value="name">Name</option>
-            <option value="amount">Amount</option>
-            <option value="date">Date</option>
-          </select>
-        </div>
-        <div class="col">
-          <label for="sortOrder" class="form-label">Order</label>
-          <select id="sortOrder" v-model="sortOrder" class="form-select">
-            <option value="asc">Ascending</option>
-            <option value="desc">Descending</option>
-          </select>
-        </div>
+      <div class="titlebox d-flex align-items-center p-1 mb-2 fw-bold">
+        <div class="col-3" @click="toggleSort('name')" style="cursor: pointer;">Name</div>
+        <div class="col-2 text-end" @click="toggleSort('amount')" style="cursor: pointer;">{{ vacCurrency }}</div>
+        <div class="col-2 text-end" @click="toggleSort('homeCurrency')" style="cursor: pointer;">{{ homeCurrency }}</div>
+        <div class="col-2 text-end" @click="toggleSort('date')" style="cursor: pointer;">Datum</div>
       </div>
-
-      <div class="historycard mb-2" v-for="item in sortedExpenditures" :key="item.id">
-        <div class="historycard-body d-flex align-items-center p-1 ms-2">
+      <hr>
+      <div class="historycard shadow-sm mb-2" v-for="item in sortedExpenditures" :key="item.id">
+        <div class="historycard-body d-flex align-items-center p-1 ms-1">
           <div class="col-3 fw-bold" v-if="!item.isEditing">
             {{ item.name }}
           </div>
@@ -178,41 +178,41 @@ const formatAmount = (amount: number): string => {
             <input v-model="item.name" class="form-control"/>
           </div>
 
-          <div class="col-2 text-center" v-if="!item.isEditing">
-            {{ formatAmount(item.amount) }} {{ vacCurrency }}
+          <div class="col-2 text-end" v-if="!item.isEditing">
+            {{ formatAmount(item.amount) }}
           </div>
           <div class="col-3" v-else>
             <input v-model="item.amount" type="number" class="form-control ms-2"/>
           </div>
 
-          <div class="col-2 text-center" v-if="!item.isEditing">
-            {{ amountInHomeCurrency(item.amount) }} {{ homeCurrency }}
+          <div class="col-2 text-end" v-if="!item.isEditing">
+            {{ amountInHomeCurrency(item.amount).toFixed(2) }}
           </div>
 
-          <div class="col-2 text-center" v-if="!item.isEditing">
+          <div class="col-2 text-end" v-if="!item.isEditing">
             {{ formatDate(item.date) }}
           </div>
-          <div class="col-3" v-else>
+          <div class="col-3 text-end" v-else>
             <input v-model="item.date" type="date" class="form-control ms-3"/>
           </div>
 
           <div class="col-3 d-flex justify-content-end">
             <button
-                class="btn bi bi-pencil-square fs-5"
-                title="edit"
-                v-if="!item.isEditing"
-                @click="editExpenditure(item.id)">
+              class="btn bi bi-pencil-square fs-5"
+              title="edit"
+              v-if="!item.isEditing"
+              @click="editExpenditure(item.id)">
             </button>
             <button
-                class="btn bi bi-save fs-5"
-                title="save"
-                v-else
-                @click="saveExpenditure(item.id, item)">
+              class="btn bi bi-save fs-5"
+              title="save"
+              v-else
+              @click="saveExpenditure(item.id, item)">
             </button>
             <button
-                class="btn bi bi-trash fs-5"
-                title="delete"
-                @click="deleteExpenditure(item.id)">
+              class="btn bi bi-trash fs-5"
+              title="delete"
+              @click="deleteExpenditure(item.id)">
             </button>
           </div>
         </div>
@@ -223,9 +223,7 @@ const formatAmount = (amount: number): string => {
 
 <style scoped>
 .historycard {
-  background-color: var(--bs-body-bg);
-  border: 1px solid; /* Fügt einen festen Rahmen hinzu */
-  border-color: var(--bs-border-color); /* Setzt die Rahmenfarbe */
+  border-bottom: 1px solid #ddd;
   border-radius: 5px;
 }
 </style>

@@ -244,6 +244,7 @@ onMounted(async () => {
             <option disabled value="">Please select one</option>
             <option v-for="journey in journeys" :key="journey.id" :value="journey.id">{{ journey.name }}</option>
           </select>
+          <button class="btn bi bi-plus-lg fs-5" @click="$router.push('/newjourney')"></button>
           <button class="btn bi bi-trash fs-5" @click="confirmAndDeleteJourney(selectedJourneyId)"></button>
         </div>
       </div>

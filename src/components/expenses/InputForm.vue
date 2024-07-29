@@ -76,14 +76,9 @@ onMounted(async () => {
       </div>
       <div class="row mb-2">
         <div class="col">
-          <label for="amountInput" class="form-label">Amount in {{ vacCurrency.valueOf() }}</label>
+          <label for="amountInput" class="form-label">Amount</label>
           <input type="number" class="form-control" id="amountInput" v-model.number="amount"
                  @keyup.enter="addExpenditure">
-        </div>
-        <div class="col">
-          <label for="exchangeRateDisplay" class="form-label">Exchange Rate: </label>
-          <br>
-          <span id="exchangeRateDisplay">{{ exchangeRate }}</span>
         </div>
         <div class="col">
           <label for="dateInput" class="form-label">Date</label>

@@ -1,19 +1,27 @@
 <!--NavBar.vue -->
 <script setup lang="ts">
-import {useThemeStore} from '@/stores/themeStore';
-import {useRouter} from "vue-router";
+import { useThemeStore } from '@/stores/themeStore';
+import { useRouter } from 'vue-router';
+import { computed } from 'vue';
+import logoLight from '@/assets/logo.png';
+import logoDark from '@/assets/logo_invert.png';
 
 const themeStore = useThemeStore();
+
 const toggleTheme = () => {
   themeStore.applyTheme(themeStore.theme === 'light' ? 'dark' : 'light');
-}
+};
+
+const logoSrc = computed(() => {
+  return themeStore.theme === 'light' ? logoLight : logoDark;
+});
 
 const router = useRouter();
 const logout = () => {
-  localStorage.removeItem('UUID')
-  localStorage.removeItem('selectedJourney')
+  localStorage.removeItem('UUID');
+  localStorage.removeItem('selectedJourney');
   router.push('/login');
-}
+};
 </script>
 
 <template>
@@ -21,7 +29,7 @@ const logout = () => {
     <div class="container row-cols-2">
       <div class="col-2 d-flex align-items-center">
         <RouterLink to="/main">
-          <img src="@/assets/logo.png" alt="Bootstrap" style="width: auto; height: 70px;">
+          <img :src="logoSrc" alt="Logo" style="width: auto; height: 70px;">
         </RouterLink>
       </div>
       <div class="col-10 d-flex justify-content-end">

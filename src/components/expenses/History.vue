@@ -11,6 +11,7 @@ const journeyId = ref<number | null>(Number(localStorage.getItem('selectedJourne
 const vacCurrency = ref<string>('');
 const homeCurrency = ref<string>('');
 const exchangeRate = ref<number | null>(null);
+const selectedExpenditureId = ref<number | null>(null); // Track the selected expenditure
 
 const sortCriteria = ref<string>('name');
 const sortOrder = ref<string>('asc');
@@ -62,6 +63,7 @@ const editExpenditure = (id: number) => {
   const index = expendituresList.value.findIndex(item => item.id === id);
   if (index !== -1) {
     expendituresList.value[index].isEditing = true;
+    selectedExpenditureId.value = id; // Set the selected expenditure
   }
 };
 
@@ -74,6 +76,7 @@ const saveExpenditure = async (id: number, updatedExpenditure: Expenditure) => {
     await api.updateExpenditure(journeyId.value, id, updatedExpenditure);
     await fetchExpenditures();
     eventBus.emit('expenditureUpdated', journeyId.value);
+    selectedExpenditureId.value = null; // Clear the selected expenditure after saving
   } catch (error) {
     console.error(error);
   }
@@ -108,6 +111,10 @@ const toggleSort = (criteria: string) => {
     sortOrder.value = 'asc';
   }
   sortExpenditures();
+};
+
+const selectExpenditure = (id: number) => {
+  selectedExpenditureId.value = selectedExpenditureId.value === id ? null : id;
 };
 
 watch([expendituresList, sortCriteria, sortOrder], sortExpenditures);
@@ -162,15 +169,15 @@ const formatAmount = (amount: number): string => {
     <div class="card-body">
       <h3 class="card-title">Expenses History</h3>
 
-      <div class="titlebox d-flex align-items-center p-1 mb-2 fw-bold">
+      <div class="titlebox d-flex ps-2 pt-2 fw-bold">
         <div class="col-3" @click="toggleSort('name')" style="cursor: pointer;">Name</div>
-        <div class="col-2 text-end" @click="toggleSort('amount')" style="cursor: pointer;">{{ vacCurrency }}</div>
-        <div class="col-2 text-end" @click="toggleSort('homeCurrency')" style="cursor: pointer;">{{ homeCurrency }}</div>
-        <div class="col-2 text-end" @click="toggleSort('date')" style="cursor: pointer;">Datum</div>
+        <div class="col-3 text-end" @click="toggleSort('amount')" style="cursor: pointer;">{{ vacCurrency }}</div>
+        <div class="col-3 text-end" @click="toggleSort('homeCurrency')" style="cursor: pointer;">{{ homeCurrency }}</div>
+        <div class="col-3 text-end" @click="toggleSort('date')" style="cursor: pointer;">Datum</div>
       </div>
       <hr>
-      <div class="historycard shadow-sm mb-2" v-for="item in sortedExpenditures" :key="item.id">
-        <div class="historycard-body d-flex align-items-center p-1 ms-1">
+      <div class="historycard p-2 mb-2" v-for="item in sortedExpenditures" :key="item.id">
+        <div class="historycard-body d-flex align-items-center" @click="selectExpenditure(item.id)">
           <div class="col-3 fw-bold" v-if="!item.isEditing">
             {{ item.name }}
           </div>
@@ -178,52 +185,45 @@ const formatAmount = (amount: number): string => {
             <input v-model="item.name" class="form-control"/>
           </div>
 
-          <div class="col-2 text-end" v-if="!item.isEditing">
+          <div class="col-3 text-end" v-if="!item.isEditing">
             {{ formatAmount(item.amount) }}
           </div>
           <div class="col-3" v-else>
             <input v-model="item.amount" type="number" class="form-control ms-2"/>
           </div>
 
-          <div class="col-2 text-end" v-if="!item.isEditing">
+          <div class="col-3 text-end" v-if="!item.isEditing">
             {{ amountInHomeCurrency(item.amount).toFixed(2) }}
           </div>
 
-          <div class="col-2 text-end" v-if="!item.isEditing">
+          <div class="col-3 text-end" v-if="!item.isEditing">
             {{ formatDate(item.date) }}
           </div>
           <div class="col-3 text-end" v-else>
             <input v-model="item.date" type="date" class="form-control ms-3"/>
           </div>
-
-          <div class="col-3 d-flex justify-content-end">
-            <button
-              class="btn bi bi-pencil-square fs-5"
-              title="edit"
-              v-if="!item.isEditing"
-              @click="editExpenditure(item.id)">
-            </button>
-            <button
-              class="btn bi bi-save fs-5"
-              title="save"
-              v-else
-              @click="saveExpenditure(item.id, item)">
-            </button>
-            <button
-              class="btn bi bi-trash fs-5"
-              title="delete"
-              @click="deleteExpenditure(item.id)">
-            </button>
-          </div>
+        </div>
+        <div v-if="selectedExpenditureId === item.id" class="d-flex m-2">
+          <button
+            class="btn btn-primary me-2"
+            title="edit"
+            @click="editExpenditure(item.id)">
+            Bearbeiten
+          </button>
+          <button
+            class="btn btn-success me-2"
+            title="save"
+            @click="saveExpenditure(item.id, item)">
+            Speichern
+          </button>
+          <button
+            class="btn btn-danger"
+            title="delete"
+            @click="deleteExpenditure(item.id)">
+            Löschen
+          </button>
         </div>
       </div>
     </div>
   </div>
 </template>
-
-<style scoped>
-.historycard {
-  border-bottom: 1px solid #ddd;
-  border-radius: 5px;
-}
-</style>

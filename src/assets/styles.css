@@ -25,16 +25,8 @@ body {
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
+    background-color: var(--bs-secondary-bg);
 }
-
-.main-content {
-    flex: 1;
-}
-
-.card {
-    border: none;
-}
-
 h2 {
     text-transform: uppercase;
 }
@@ -48,4 +40,23 @@ h4 {
     color: var(--bs-tertiary-color);
     text-transform: uppercase;
     font-size: 1.1rem;
+}
+.navbar {
+    background-color: var(--bs-body-bg);
+}
+.main-content {
+    flex: 1;
+}
+.card {
+    border: none;
+    border-radius: 15px;
+}
+.historycard {
+    background-color: var(--bs-body-bg);
+    cursor: pointer;
+    transition: transform 0.3s;
+    border-radius: 5px;
+}
+.historycard:hover {
+    transform: scale(1.02);
 }

@@ -19,3 +19,4 @@ export const useThemeStore = defineStore('theme', () => {
 
     return {theme, applyTheme, loadTheme};
 });
+

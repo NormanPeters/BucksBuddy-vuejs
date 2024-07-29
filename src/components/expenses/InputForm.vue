@@ -86,8 +86,8 @@ onMounted(async () => {
         </div>
       </div>
       <div class="row mb-2">
-        <div class="col">
-          <button type="button" class="btn btn-primary" @click="addExpenditure">Submit</button>
+        <div class="col-3">
+          <button type="button" class="btn btn-primary w-100" @click="addExpenditure">Submit</button>
         </div>
       </div>
     </div>

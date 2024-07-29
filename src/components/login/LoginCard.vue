@@ -1,8 +1,17 @@
 <!--LoginCard-->
 <script setup lang="ts">
-import {reactive, ref} from 'vue';
+import { computed, reactive, ref } from 'vue'
 import {useRouter} from 'vue-router';
 import api from '@/services/api';
+import {useThemeStore} from '@/stores/themeStore';
+import logoLight from '@/assets/logo.png';
+import logoDark from '@/assets/logo_invert.png';
+
+const themeStore = useThemeStore();
+
+const logoSrc = computed(() => {
+  return themeStore.theme === 'light' ? logoLight : logoDark;
+});
 
 const router = useRouter();
 const loginData = reactive({
@@ -35,7 +44,7 @@ const login = async () => {
   <div class="card shadow m-3 p-3">
     <div class="card-body">
       <div class="d-flex justify-content-center align-items-center">
-        <img src="@/assets/logo.png" alt="Bootstrap" style="width: auto; height: auto;">
+        <img :src="logoSrc" alt="Logo" style="width: auto; height: 70px;">
       </div>
       <form @submit.prevent="login">
         <div class="mb-3">

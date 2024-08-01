@@ -207,7 +207,13 @@ onMounted(async () => {
     await fetchExpenditures(storedJourneyId);
   } else {
     localStorage.removeItem('selectedJourney');
-    selectedJourneyId.value = null;
+    if (journeys.value.length > 0) {
+      selectedJourneyId.value = journeys.value[0].id;
+      await fetchJourneyDetails(journeys.value[0].id);
+      await fetchExpenditures(journeys.value[0].id);
+    } else {
+      selectedJourneyId.value = null;
+    }
     eventBus.emit('journeyIdChanged', null);
   }
 
@@ -231,6 +237,12 @@ onMounted(async () => {
       await fetchExpenditures(selectedJourneyId.value);
     }
   });
+});
+
+watch(journeys, (newJourneys) => {
+  if (newJourneys.length > 0 && !selectedJourneyId.value) {
+    selectedJourneyId.value = newJourneys[0].id;
+  }
 });
 </script>
 

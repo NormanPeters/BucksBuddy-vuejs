@@ -1,8 +1,17 @@
 <!--SignUpCard-->
 <script setup lang="ts">
-import {ref} from 'vue';
+import { computed, ref } from 'vue'
 import {useRouter} from 'vue-router';
 import api from '@/services/api';
+import logoLight from '@/assets/logo.png';
+import logoDark from '@/assets/logo_invert.png';
+import { useThemeStore } from '@/stores/themeStore'
+
+const themeStore = useThemeStore();
+
+const logoSrc = computed(() => {
+  return themeStore.theme === 'light' ? logoLight : logoDark;
+});
 
 interface SignupData {
   email: string;
@@ -63,7 +72,7 @@ const signup = async () => {
   <div class="card shadow m-3 p-3">
     <div class="card-body">
       <div class="d-flex justify-content-center align-items-center">
-        <img src="@/assets/logo.png" alt="Bootstrap" style="width: auto; height: auto;">
+        <img :src="logoSrc" alt="Logo" style="width: auto; height: 70px;">
       </div>
       <form @submit.prevent="signup">
         <div class="mb-3">

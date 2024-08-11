@@ -59,10 +59,10 @@ const login = async () => {
           <button type="submit" class="btn btn-primary custom-width-btn">Log in</button>
         </div>
       </form>
-      <hr>
-      <div class="text-center mt-3">
-        <a href="#/signup" class="btn btn-secondary custom-width-btn">Sign up</a>
-      </div>
+<!--      <hr>-->
+<!--      <div class="text-center mt-3">-->
+<!--        <a href="#/signup" class="btn btn-secondary custom-width-btn">Sign up</a>-->
+<!--      </div>-->
       <div v-if="successMessage" class="alert alert-success mt-3">{{ successMessage }}</div>
       <div v-if="errorMessage" class="alert alert-danger mt-3">{{ errorMessage }}</div>
     </div>

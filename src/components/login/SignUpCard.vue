@@ -1,4 +1,5 @@
-<!--SignUpCard-->
+<!--
+&lt;!&ndash;SignUpCard&ndash;&gt;
 <script setup lang="ts">
 import { computed, ref } from 'vue'
 import {useRouter} from 'vue-router';
@@ -107,3 +108,4 @@ const signup = async () => {
   width: 100%;
 }
 </style>
+-->

@@ -1,5 +1,3 @@
-<!--src/views/User.vue-->
-
 <script setup lang="ts">
 import UserCard from "@/components/UserCard.vue";
 </script>

@@ -163,13 +163,17 @@ const averageExpenditurePerDayInHomeCurrency = computed(() => {
 })
 
 // Funktion zum Formatieren eines Datums als String im Format 'DD.MM.YY'
-const formatDate = (dateString: Date): string => {
-  const date = new Date(dateString)
-  const day = String(date.getDate()).padStart(2, '0')
-  const month = String(date.getMonth() + 1).padStart(2, '0')
-  const year = date.getFullYear().toString().slice(-2)
-  return `${day}.${month}.${year}`
-}
+const formatDate = (dateString: Date | null): string => {
+  if (!dateString) {
+    return '';
+  }
+  const date = new Date(dateString);
+  const day = String(date.getDate()).padStart(2, '0');
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const year = date.getFullYear().toString().slice(-2);
+  return `${day}.${month}.${year}`;
+};
+
 
 // Watcher: Setzt die erste Reise als ausgewählte Reise, wenn keine ausgewählt ist
 watch(journeys, (newJourneys) => {

@@ -80,8 +80,11 @@ onMounted(async () => {
       <div class="row mb-2">
         <div class="col">
           <label for="amountInput" class="form-label">Amount</label>
-          <input type="number" class="form-control" id="amountInput" v-model.number="amount"
-                 @keyup.enter="addExpenditure">
+          <div class="input-group">
+            <span class="input-group-text">$</span>
+            <input type="number" class="form-control" id="amountInput" v-model.number="amount"
+                   @keyup.enter="addExpenditure">
+          </div>
         </div>
         <div class="col">
           <label for="dateInput" class="form-label">Date</label>

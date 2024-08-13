@@ -257,7 +257,7 @@ watch(journeys, (newJourneys) => {
 <template>
   <div class="card shadow mb-3">
     <div class="card-body">
-      <div class="d-flex mb-2">
+      <div class="d-flex mb-3">
         <select class="form-select me-2" v-model="selectedJourneyId">
           <option v-if="journeys.length === 0" disabled value="">Please Create A Journey</option>
           <option v-for="journey in journeys" :key="journey.id" :value="journey.id">{{ journey.name }}</option>
@@ -269,30 +269,30 @@ watch(journeys, (newJourneys) => {
         <thead>
         <tr>
           <th scope="col"></th>
-          <th scope="col">{{ getCurrencyName(vacCurrency) }}</th>
-          <th scope="col">{{ getCurrencyName(homeCurrency) }}</th>
+          <th scope="col" class="text-end">{{ getCurrencyName(vacCurrency) }}</th>
+          <th scope="col" class="text-end">{{ getCurrencyName(homeCurrency) }}</th>
         </tr>
         </thead>
         <tbody>
         <tr>
           <th scope="row">Budget</th>
-          <td>{{ budgetInVacationCurrency }}</td>
-          <td>{{ budget }}</td>
+          <td class="text-end">{{ budgetInVacationCurrency }}</td>
+          <td class="text-end">{{ budget }}</td>
         </tr>
         <tr>
           <th scope="row">Available</th>
-          <td>{{ budgetLeftInVacationCurrency }}</td>
-          <td>{{ budgetLeftInHomeCurrency }}</td>
+          <td class="text-end">{{ budgetLeftInVacationCurrency }}</td>
+          <td class="text-end">{{ budgetLeftInHomeCurrency }}</td>
         </tr>
         <tr>
           <th scope="row">Total Expenses</th>
-          <td>{{ totalExpenditures }}</td>
-          <td>{{ totalExpensesInHomeCurrency }}</td>
+          <td class="text-end">{{ totalExpenditures }}</td>
+          <td class="text-end">{{ totalExpensesInHomeCurrency }}</td>
         </tr>
         <tr>
           <th scope="row">Average Per Day</th>
-          <td>{{ averageExpenditurePerDayInVacationCurrency }}</td>
-          <td>{{ averageExpenditurePerDayInHomeCurrency }}</td>
+          <td class="text-end">{{ averageExpenditurePerDayInVacationCurrency }}</td>
+          <td class="text-end">{{ averageExpenditurePerDayInHomeCurrency }}</td>
         </tr>
         </tbody>
       </table>
@@ -301,15 +301,15 @@ watch(journeys, (newJourneys) => {
         <tbody>
         <tr>
           <th scope="row">Period</th>
-          <td colspan="2">{{ formatDate(startDate) }} - {{ formatDate(endDate) }}</td>
+          <td colspan="2" class="text-end">{{ formatDate(startDate) }} - {{ formatDate(endDate) }}</td>
         </tr>
         <tr>
           <th scope="row">Travel Duration</th>
-          <td colspan="2">{{ (travelDurationInDays) + 1 }}</td>
+          <td colspan="2" class="text-end">{{ (travelDurationInDays) + 1 }}</td>
         </tr>
         <tr>
           <th scope="row">Exchange Rate</th>
-          <td colspan="2">{{ formatExchangeRate(exchangeRate) }}</td>
+          <td colspan="2" class="text-end">{{ formatExchangeRate(exchangeRate) }}</td>
         </tr>
         </tbody>
       </table>

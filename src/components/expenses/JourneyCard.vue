@@ -18,42 +18,7 @@ const exchangeRate = ref<number | null>(null)
 const startDate = ref<Date | null>(null)
 const endDate = ref<Date | null>(null)
 
-const currencyNames: Record<string, string> = {
-  EUR: 'Euro',
-  USD: 'US Dollar',
-  JPY: 'Japanese Yen',
-  BGN: 'Bulgarian Lev',
-  CZK: 'Czech Republic Koruna',
-  DKK: 'Danish Krone',
-  GBP: 'British Pound Sterling',
-  HUF: 'Hungarian Forint',
-  PLN: 'Polish Zloty',
-  RON: 'Romanian Leu',
-  SEK: 'Swedish Krona',
-  CHF: 'Swiss Franc',
-  ISK: 'Icelandic Króna',
-  NOK: 'Norwegian Krone',
-  HRK: 'Croatian Kuna',
-  RUB: 'Russian Ruble',
-  TRY: 'Turkish Lira',
-  AUD: 'Australian Dollar',
-  BRL: 'Brazilian Real',
-  CAD: 'Canadian Dollar',
-  CNY: 'Chinese Yuan',
-  HKD: 'Hong Kong Dollar',
-  IDR: 'Indonesian Rupiah',
-  ILS: 'Israeli New Sheqel',
-  INR: 'Indian Rupee',
-  KRW: 'South Korean Won',
-  MXN: 'Mexican Peso',
-  MYR: 'Malaysian Ringgit',
-  NZD: 'New Zealand Dollar',
-  PHP: 'Philippine Peso',
-  SGD: 'Singapore Dollar',
-  THB: 'Thai Baht',
-  ZAR: 'South African Rand'
-}
-
+// Funktion zum Abrufen der Ausgaben für eine bestimmte Reise
 const fetchExpenditures = async (journeyId: number) => {
   try {
     const response = await api.getAllExpenditures(journeyId)
@@ -63,6 +28,7 @@ const fetchExpenditures = async (journeyId: number) => {
   }
 }
 
+// Funktion zum Bestätigen und Löschen einer Reise
 const confirmAndDeleteJourney = async (journeyId: number | null) => {
   if (journeyId === null) return
 
@@ -81,6 +47,7 @@ const confirmAndDeleteJourney = async (journeyId: number | null) => {
   }
 }
 
+// Watcher: Reagiert auf Änderungen bei der ausgewählten Reise und lädt die entsprechenden Daten neu
 watch(selectedJourneyId, async (newVal) => {
   if (newVal !== null) {
     localStorage.setItem('selectedJourney', newVal.toString())
@@ -96,6 +63,7 @@ watch(selectedJourneyId, async (newVal) => {
   }
 })
 
+// Funktion zum Abrufen der Details einer bestimmten Reise
 const fetchJourneyDetails = async (journeyId: number) => {
   try {
     const journeyResponse = await api.getJourneyById(journeyId)
@@ -115,6 +83,7 @@ const fetchJourneyDetails = async (journeyId: number) => {
   }
 }
 
+// Funktion zum Abrufen aller Reisen des Benutzers
 const fetchJourneys = async () => {
   try {
     if (!uuid) {
@@ -132,18 +101,22 @@ const fetchJourneys = async () => {
   }
 }
 
+// Berechnet die Gesamtausgaben für die aktuelle Reise
 const totalExpenditures = computed(() => {
   return expendituresList.value.reduce((sum, expenditure) => sum + expenditure.amount, 0)
 })
 
+// Funktion zum Abrufen des Währungsnamens anhand des Währungscodes
 const getCurrencyName = (code: string) => {
   return code
 }
 
+// Funktion zum Formatieren des Wechselkurses auf zwei Nachkommastellen
 const formatExchangeRate = (rate: number | null) => {
   return rate !== null ? rate.toFixed(2) : 'N/A'
 }
 
+// Berechnet die Gesamtausgaben in der Heimatwährung basierend auf dem Wechselkurs
 const totalExpensesInHomeCurrency = computed(() => {
   if (typeof exchangeRate.value === 'number' && typeof totalExpenditures.value === 'number') {
     return parseFloat((totalExpenditures.value / exchangeRate.value).toFixed(2))
@@ -152,6 +125,7 @@ const totalExpensesInHomeCurrency = computed(() => {
   }
 })
 
+// Berechnet das Budget in der Urlaubswährung basierend auf dem Wechselkurs
 const budgetInVacationCurrency = computed(() => {
   if (typeof exchangeRate.value === 'number' && typeof budget.value === 'number') {
     return parseFloat((budget.value * exchangeRate.value).toFixed(2))
@@ -160,6 +134,7 @@ const budgetInVacationCurrency = computed(() => {
   }
 })
 
+// Berechnet das verbleibende Budget in der Urlaubswährung
 const budgetLeftInVacationCurrency = computed(() => {
   if (typeof exchangeRate.value === 'number' && typeof totalExpenditures.value === 'number') {
     const budgetInVacCurr = parseFloat((budget.value * exchangeRate.value).toFixed(2))
@@ -169,6 +144,7 @@ const budgetLeftInVacationCurrency = computed(() => {
   }
 })
 
+// Berechnet das verbleibende Budget in der Heimatwährung
 const budgetLeftInHomeCurrency = computed(() => {
   if (typeof budget.value === 'number' && typeof totalExpensesInHomeCurrency.value === 'number') {
     return parseFloat((budget.value - totalExpensesInHomeCurrency.value).toFixed(2))
@@ -177,6 +153,7 @@ const budgetLeftInHomeCurrency = computed(() => {
   }
 })
 
+// Berechnet die Reisedauer in Tagen basierend auf Start- und Enddatum
 const travelDurationInDays = computed(() => {
   if (startDate.value && endDate.value) {
     const start = new Date(startDate.value).getTime()
@@ -187,17 +164,20 @@ const travelDurationInDays = computed(() => {
   return 0
 })
 
+// Berechnet die durchschnittlichen Ausgaben pro Tag in der Urlaubswährung
 const averageExpenditurePerDayInVacationCurrency = computed(() => {
   const days = travelDurationInDays.value
   return days > 0 ? (totalExpenditures.value / days).toFixed(2) : 'N/A'
 })
 
+// Berechnet die durchschnittlichen Ausgaben pro Tag in der Heimatwährung
 const averageExpenditurePerDayInHomeCurrency = computed(() => {
   const days = travelDurationInDays.value
   const totalExpenditureInHomeCurrency = totalExpensesInHomeCurrency.value
   return days > 0 ? (totalExpenditureInHomeCurrency / days).toFixed(2) : 'N/A'
 })
 
+// Funktion zum Formatieren eines Datums als String im Format 'DD.MM.YY'
 const formatDate = (dateString: Date): string => {
   const date = new Date(dateString)
   const day = String(date.getDate()).padStart(2, '0')
@@ -206,6 +186,14 @@ const formatDate = (dateString: Date): string => {
   return `${day}.${month}.${year}`
 }
 
+// Watcher: Setzt die erste Reise als ausgewählte Reise, wenn keine ausgewählt ist
+watch(journeys, (newJourneys) => {
+  if (newJourneys.length > 0 && !selectedJourneyId.value) {
+    selectedJourneyId.value = newJourneys[0].id
+  }
+})
+
+// Wird beim Mounten der Komponente ausgeführt: Lädt Reisen und setzt die ausgewählte Reise
 onMounted(async () => {
   await fetchJourneys()
   const storedJourneyId = Number(localStorage.getItem('selectedJourney'))
@@ -225,6 +213,7 @@ onMounted(async () => {
     eventBus.emit('journeyIdChanged', null)
   }
 
+  // EventListener für das Hinzufügen, Löschen und Aktualisieren von Ausgaben
   eventBus.on('expenditureAdded', async () => {
     if (selectedJourneyId.value !== null) {
       await fetchJourneyDetails(selectedJourneyId.value)
@@ -247,11 +236,6 @@ onMounted(async () => {
   })
 })
 
-watch(journeys, (newJourneys) => {
-  if (newJourneys.length > 0 && !selectedJourneyId.value) {
-    selectedJourneyId.value = newJourneys[0].id
-  }
-})
 </script>
 
 <template>

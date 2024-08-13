@@ -179,37 +179,40 @@ const formatAmount = (amount: number): string => {
         </thead>
         <tbody>
         <tr v-for="item in sortedExpenditures" :key="item.id">
-          <td v-if="!item.isEditing">
+          <td class="align-middle" v-if="!item.isEditing">
             {{ item.name }}
           </td>
-          <td v-else>
+          <td class="align-middle" v-else>
             <input v-model="item.name" class="form-control" />
           </td>
 
-          <td class="text-end" v-if="!item.isEditing">
+          <td class="text-end align-middle" v-if="!item.isEditing">
             {{ formatAmount(item.amount) }}
           </td>
-          <td v-else>
+          <td class="align-middle" v-else>
             <input v-model="item.amount" type="number" class="form-control" />
           </td>
 
-          <td class="text-end" v-if="!item.isEditing">
+          <td class="text-end align-middle" v-if="!item.isEditing">
             {{ amountInHomeCurrency(item.amount).toFixed(2) }}
           </td>
+          <td class="align-middle" v-else>
+            <input :value="amountInHomeCurrency(item.amount).toFixed(2)" type="number" class="form-control" disabled />
+          </td>
 
-          <td class="text-end" v-if="!item.isEditing">
+          <td class="text-end align-middle" v-if="!item.isEditing">
             {{ formatDate(item.date) }}
           </td>
-          <td v-else>
+          <td class="align-middle" v-else>
             <input v-model="item.date" type="date" class="form-control" />
           </td>
 
-          <td class="text-center">
+          <td class="text-center align-middle">
             <div class="d-flex justify-content-center align-items-center">
               <div
                 class="bi bi-pencil-square fs-5 ps-3"
                 v-if="!item.isEditing"
-                title="save"
+                title="edit"
                 style="cursor: pointer;"
                 @click="editExpenditure(item.id, item)">
               </div>
@@ -222,6 +225,7 @@ const formatAmount = (amount: number): string => {
               </div>
               <div
                 class="bi bi-trash fs-5 ps-3 ms-2"
+                v-if="!item.isEditing"
                 title="delete"
                 style="cursor: pointer;"
                 @click="deleteExpenditure(item.id)">

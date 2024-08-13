@@ -170,7 +170,7 @@ const formatAmount = (amount: number): string => {
       <table class="table table-hover align-text-bottom">
         <thead>
         <tr class="fw-bold">
-          <th @click="toggleSort('name')" style="cursor: pointer;">Name</th>
+          <th @click="toggleSort('name')" style="cursor: pointer;">Title</th>
           <th class="text-end" @click="toggleSort('amount')" style="cursor: pointer;">{{ vacCurrency }}</th>
           <th class="text-end" @click="toggleSort('homeCurrency')" style="cursor: pointer;">{{ homeCurrency }}</th>
           <th class="text-end" @click="toggleSort('date')" style="cursor: pointer;">Datum</th>

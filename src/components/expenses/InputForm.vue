@@ -45,20 +45,25 @@ const addExpenditure = async () => {
 
 onMounted(async () => {
   try {
+    // Listen for the journey ID change event
     eventBus.on('journeyIdChanged', (newJourneyId: number | null) => {
       if (newJourneyId !== null) {
         journeyId.value = newJourneyId
       }
     })
+
+    // Listen for the vacation currency update event
+    eventBus.on('vacCurrencyUpdated', (vacCurrencyName: string) => {
+      vacCurrency.value = vacCurrencyName
+    })
+
+    // Listen for the exchange rate update event
+    eventBus.on('exchangeRateUpdated', (rate: number | null) => {
+      exchangeRate.value = rate
+    })
   } catch (error) {
     console.error('Error fetching journey details:', error)
   }
-  eventBus.on('exchangeRateUpdated', (rate: number | null) => {
-    exchangeRate.value = rate
-  })
-  eventBus.on('vacCurrencyUpdated', (vacCurrencyName: string) => {
-    vacCurrency.value = vacCurrencyName
-  })
   setDateToToday()
 })
 </script>
@@ -81,7 +86,7 @@ onMounted(async () => {
         <div class="col">
           <label for="amountInput" class="form-label">Amount</label>
           <div class="input-group">
-            <span class="input-group-text">$</span>
+            <span class="input-group-text">{{vacCurrency}}</span>
             <input type="number" class="form-control" id="amountInput" v-model.number="amount"
                    @keyup.enter="addExpenditure">
           </div>

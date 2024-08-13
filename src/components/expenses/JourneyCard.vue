@@ -47,22 +47,6 @@ const confirmAndDeleteJourney = async (journeyId: number | null) => {
   }
 }
 
-// Watcher: Reagiert auf Änderungen bei der ausgewählten Reise und lädt die entsprechenden Daten neu
-watch(selectedJourneyId, async (newVal) => {
-  if (newVal !== null) {
-    localStorage.setItem('selectedJourney', newVal.toString())
-    console.log('selectedJourneyIdnewVal:', newVal)
-    console.log('selectedJourneyId:', localStorage.getItem('selectedJourney'))
-    expendituresList.value = []
-    await fetchJourneyDetails(newVal)
-    await fetchExpenditures(newVal)
-    eventBus.emit('journeyIdChanged', newVal)
-  } else {
-    localStorage.removeItem('selectedJourney')
-    eventBus.emit('journeyIdChanged', null)
-  }
-})
-
 // Funktion zum Abrufen der Details einer bestimmten Reise
 const fetchJourneyDetails = async (journeyId: number) => {
   try {
@@ -77,6 +61,7 @@ const fetchJourneyDetails = async (journeyId: number) => {
       base_currency: homeCurrency.value,
       currencies: vacCurrency.value
     }).then((response: any) => response.data[vacCurrency.value])
+    eventBus.emit('vacCurrencyUpdated', vacCurrency.value)
     eventBus.emit('exchangeRateUpdated', exchangeRate.value)
   } catch (error) {
     console.error('Error fetching journey details:', error)
@@ -159,7 +144,7 @@ const travelDurationInDays = computed(() => {
     const start = new Date(startDate.value).getTime()
     const end = new Date(endDate.value).getTime()
     const diff = end - start
-    return diff > 0 ? diff / (1000 * 3600 * 24) : 0
+    return diff > 0 ? diff / (1000 * 3600 * 24) + 1 : 0
   }
   return 0
 })
@@ -190,6 +175,22 @@ const formatDate = (dateString: Date): string => {
 watch(journeys, (newJourneys) => {
   if (newJourneys.length > 0 && !selectedJourneyId.value) {
     selectedJourneyId.value = newJourneys[0].id
+  }
+})
+
+// Watcher: Reagiert auf Änderungen bei der ausgewählten Reise und lädt die entsprechenden Daten neu
+watch(selectedJourneyId, async (newVal) => {
+  if (newVal !== null) {
+    localStorage.setItem('selectedJourney', newVal.toString())
+    console.log('selectedJourneyIdnewVal:', newVal)
+    console.log('selectedJourneyId:', localStorage.getItem('selectedJourney'))
+    expendituresList.value = []
+    await fetchJourneyDetails(newVal)
+    await fetchExpenditures(newVal)
+    eventBus.emit('journeyIdChanged', newVal)
+  } else {
+    localStorage.removeItem('selectedJourney')
+    eventBus.emit('journeyIdChanged', null)
   }
 })
 
@@ -289,7 +290,7 @@ onMounted(async () => {
         </tr>
         <tr>
           <th scope="row">Travel Duration</th>
-          <td colspan="2" class="text-end">{{ (travelDurationInDays) + 1 }}</td>
+          <td colspan="2" class="text-end">{{ (travelDurationInDays)}}</td>
         </tr>
         <tr>
           <th scope="row">Exchange Rate</th>

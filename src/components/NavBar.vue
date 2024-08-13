@@ -50,6 +50,7 @@ const logout = () => {
 
           <!-- Dropdown Menu -->
           <li class="nav-item dropdown">
+            <div class="dropstart">
             <button
               class="btn bi bi-list m-2 fs-3"
               data-bs-toggle="dropdown"
@@ -90,6 +91,7 @@ const logout = () => {
                 </a>
               </li>
             </ul>
+            </div>
           </li>
         </ul>
       </div>

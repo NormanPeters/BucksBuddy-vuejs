@@ -82,42 +82,43 @@ watch([startDate, endDate], calculateDuration);
           <div class="mb-3">
             <label for="homeCurrency" class="form-label">Home Currency</label>
             <div class="col text-end">
-              <select class="form-select" v-model="homeCurr">
+              <select class="form-select" v-model="vacCurr">
                 <option disabled value="">Please select one</option>
-                <option value="EUR">Euro</option>
-                <option value="USD">US Dollar</option>
-                <option value="JPY">Japanese Yen</option>
-                <option value="BGN">Bulgarian Lev</option>
-                <option value="CZK">Czech Republic Koruna</option>
-                <option value="DKK">Danish Krone</option>
-                <option value="GBP">British Pound Sterling</option>
-                <option value="HUF">Hungarian Forint</option>
-                <option value="PLN">Polish Zloty</option>
-                <option value="RON">Romanian Leu</option>
-                <option value="SEK">Swedish Krona</option>
-                <option value="CHF">Swiss Franc</option>
-                <option value="ISK">Icelandic Króna</option>
-                <option value="NOK">Norwegian Krone</option>
-                <option value="HRK">Croatian Kuna</option>
-                <option value="RUB">Russian Ruble</option>
-                <option value="TRY">Turkish Lira</option>
                 <option value="AUD">Australian Dollar</option>
+                <option value="BGN">Bulgarian Lev</option>
                 <option value="BRL">Brazilian Real</option>
                 <option value="CAD">Canadian Dollar</option>
+                <option value="CHF">Swiss Franc</option>
                 <option value="CNY">Chinese Yuan</option>
+                <option value="CZK">Czech Republic Koruna</option>
+                <option value="DKK">Danish Krone</option>
+                <option value="EUR">Euro</option>
+                <option value="GBP">British Pound Sterling</option>
                 <option value="HKD">Hong Kong Dollar</option>
+                <option value="HRK">Croatian Kuna</option>
+                <option value="HUF">Hungarian Forint</option>
                 <option value="IDR">Indonesian Rupiah</option>
                 <option value="ILS">Israeli New Sheqel</option>
                 <option value="INR">Indian Rupee</option>
+                <option value="ISK">Icelandic Króna</option>
+                <option value="JPY">Japanese Yen</option>
                 <option value="KRW">South Korean Won</option>
                 <option value="MXN">Mexican Peso</option>
                 <option value="MYR">Malaysian Ringgit</option>
+                <option value="NOK">Norwegian Krone</option>
                 <option value="NZD">New Zealand Dollar</option>
                 <option value="PHP">Philippine Peso</option>
+                <option value="PLN">Polish Zloty</option>
+                <option value="RON">Romanian Leu</option>
+                <option value="RUB">Russian Ruble</option>
+                <option value="SEK">Swedish Krona</option>
                 <option value="SGD">Singapore Dollar</option>
                 <option value="THB">Thai Baht</option>
+                <option value="TRY">Turkish Lira</option>
+                <option value="USD">US Dollar</option>
                 <option value="ZAR">South African Rand</option>
               </select>
+
             </div>
           </div>
           <div class="mb-3">
@@ -125,40 +126,41 @@ watch([startDate, endDate], calculateDuration);
             <div class="col text-end">
               <select class="form-select" v-model="vacCurr">
                 <option disabled value="">Please select one</option>
-                <option value="EUR">Euro</option>
-                <option value="USD">US Dollar</option>
-                <option value="JPY">Japanese Yen</option>
-                <option value="BGN">Bulgarian Lev</option>
-                <option value="CZK">Czech Republic Koruna</option>
-                <option value="DKK">Danish Krone</option>
-                <option value="GBP">British Pound Sterling</option>
-                <option value="HUF">Hungarian Forint</option>
-                <option value="PLN">Polish Zloty</option>
-                <option value="RON">Romanian Leu</option>
-                <option value="SEK">Swedish Krona</option>
-                <option value="CHF">Swiss Franc</option>
-                <option value="ISK">Icelandic Króna</option>
-                <option value="NOK">Norwegian Krone</option>
-                <option value="HRK">Croatian Kuna</option>
-                <option value="RUB">Russian Ruble</option>
-                <option value="TRY">Turkish Lira</option>
                 <option value="AUD">Australian Dollar</option>
+                <option value="BGN">Bulgarian Lev</option>
                 <option value="BRL">Brazilian Real</option>
                 <option value="CAD">Canadian Dollar</option>
+                <option value="CHF">Swiss Franc</option>
                 <option value="CNY">Chinese Yuan</option>
+                <option value="CZK">Czech Republic Koruna</option>
+                <option value="DKK">Danish Krone</option>
+                <option value="EUR">Euro</option>
+                <option value="GBP">British Pound Sterling</option>
                 <option value="HKD">Hong Kong Dollar</option>
+                <option value="HRK">Croatian Kuna</option>
+                <option value="HUF">Hungarian Forint</option>
                 <option value="IDR">Indonesian Rupiah</option>
                 <option value="ILS">Israeli New Sheqel</option>
                 <option value="INR">Indian Rupee</option>
+                <option value="ISK">Icelandic Króna</option>
+                <option value="JPY">Japanese Yen</option>
                 <option value="KRW">South Korean Won</option>
                 <option value="MXN">Mexican Peso</option>
                 <option value="MYR">Malaysian Ringgit</option>
+                <option value="NOK">Norwegian Krone</option>
                 <option value="NZD">New Zealand Dollar</option>
                 <option value="PHP">Philippine Peso</option>
+                <option value="PLN">Polish Zloty</option>
+                <option value="RON">Romanian Leu</option>
+                <option value="RUB">Russian Ruble</option>
+                <option value="SEK">Swedish Krona</option>
                 <option value="SGD">Singapore Dollar</option>
                 <option value="THB">Thai Baht</option>
+                <option value="TRY">Turkish Lira</option>
+                <option value="USD">US Dollar</option>
                 <option value="ZAR">South African Rand</option>
               </select>
+
             </div>
           </div>
           <div class="mb-3">

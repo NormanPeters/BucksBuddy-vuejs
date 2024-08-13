@@ -290,7 +290,7 @@ onMounted(async () => {
         <tbody>
         <tr>
           <th scope="row">Period</th>
-          <td colspan="2" class="text-end">{{ formatDate(startDate.value) }} - {{ formatDate(endDate.value) }}</td>
+          <td colspan="2" class="text-end">{{ formatDate(startDate) }} - {{ formatDate(endDate) }}</td>
         </tr>
         <tr>
           <th scope="row">Travel Duration</th>

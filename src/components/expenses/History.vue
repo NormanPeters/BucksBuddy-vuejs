@@ -16,7 +16,7 @@ const selectedExpenditureId = ref<number | null>(null) // Track the selected exp
 const sortCriteria = ref<string>('name')
 const sortOrder = ref<string>('asc')
 
-const fetchExpenditures = async () => {
+const fetchExpenditures = async (journeyId: number) => {
   if (journeyId.value === null) {
     console.error('Cannot fetch expenditures: journeyId is null')
     return

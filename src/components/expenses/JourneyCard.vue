@@ -198,6 +198,14 @@ const averageExpenditurePerDayInHomeCurrency = computed(() => {
   return days > 0 ? (totalExpenditureInHomeCurrency / days).toFixed(2) : 'N/A'
 })
 
+const formatDate = (dateString: Date): string => {
+  const date = new Date(dateString)
+  const day = String(date.getDate()).padStart(2, '0')
+  const month = String(date.getMonth() + 1).padStart(2, '0')
+  const year = date.getFullYear().toString().slice(-2)
+  return `${day}.${month}.${year}`
+}
+
 onMounted(async () => {
   await fetchJourneys()
   const storedJourneyId = Number(localStorage.getItem('selectedJourney'))
@@ -249,30 +257,15 @@ watch(journeys, (newJourneys) => {
 <template>
   <div class="card shadow mb-3">
     <div class="card-body">
-      <div class="d-flex justify-content-between align-items-center">
-        <h3>Journey</h3>
-        <div class="d-flex align-items-center">
-          <select class="form-select me-2" v-model="selectedJourneyId">
-            <option disabled value="">Please select one</option>
-            <option v-for="journey in journeys" :key="journey.id" :value="journey.id">{{ journey.name }}</option>
-          </select>
-          <button class="btn bi bi-plus-lg fs-5" @click="$router.push('/newjourney')"></button>
-          <button class="btn bi bi-trash fs-5" @click="confirmAndDeleteJourney(selectedJourneyId)"></button>
-        </div>
+      <div class="d-flex">
+        <select class="form-select me-2" v-model="selectedJourneyId">
+          <option v-if="journeys.length === 0" disabled value="">Please Create A Journey</option>
+          <option v-for="journey in journeys" :key="journey.id" :value="journey.id">{{ journey.name }}</option>
+        </select>
+        <button class="btn bi bi-plus-lg fs-5" @click="$router.push('/newjourney')"></button>
+        <button class="btn bi bi-trash fs-5" @click="confirmAndDeleteJourney(selectedJourneyId)"></button>
       </div>
       <hr>
-      <div class="card col-5">
-        <div class="card-body">
-          <div class="d-flex justify-content-between">
-            <span class="fw-bold">Exchange Rate</span>
-            <span>{{ formatExchangeRate(exchangeRate) }}</span>
-          </div>
-<!--          <div class="d-flex justify-content-between mt-2">
-            <span class="fw-bold">Travel Duration</span>
-            <span> Day {{ (travelDurationInDays) + 1 }} </span>
-          </div>-->
-        </div>
-      </div>
       <table class="table">
         <thead>
         <tr>
@@ -283,12 +276,12 @@ watch(journeys, (newJourneys) => {
         </thead>
         <tbody>
         <tr>
-          <th scope="row">Total Budget</th>
+          <th scope="row">Budget</th>
           <td>{{ budgetInVacationCurrency }}</td>
           <td>{{ budget }}</td>
         </tr>
         <tr>
-          <th scope="row">Left Budget</th>
+          <th scope="row">Available</th>
           <td>{{ budgetLeftInVacationCurrency }}</td>
           <td>{{ budgetLeftInHomeCurrency }}</td>
         </tr>
@@ -298,9 +291,32 @@ watch(journeys, (newJourneys) => {
           <td>{{ totalExpensesInHomeCurrency }}</td>
         </tr>
         <tr>
-          <th scope="row">AVG / Day</th>
+          <th scope="row">Average Per Day</th>
           <td>{{ averageExpenditurePerDayInVacationCurrency }}</td>
           <td>{{ averageExpenditurePerDayInHomeCurrency }}</td>
+        </tr>
+        </tbody>
+      </table>
+
+      <table class="table">
+        <thead>
+        <tr>
+          <th scope="col"></th>
+          <th scope="col" colspan="2">Details</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <th scope="row">Period</th>
+          <td colspan="2">{{ formatDate(startDate) }} - {{ formatDate(endDate) }}</td>
+        </tr>
+        <tr>
+          <th scope="row">Travel Duration</th>
+          <td colspan="2">{{ (travelDurationInDays) + 1 }}</td>
+        </tr>
+        <tr>
+          <th scope="row">Exchange Rate</th>
+          <td colspan="2">{{ formatExchangeRate(exchangeRate) }}</td>
         </tr>
         </tbody>
       </table>

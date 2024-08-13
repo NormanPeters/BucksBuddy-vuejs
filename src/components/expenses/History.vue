@@ -167,60 +167,71 @@ const formatAmount = (amount: number): string => {
 <template>
   <div class="card shadow mb-3">
     <div class="card-body">
-      <h3 class="card-title">Expenses History</h3>
+      <table class="table table-striped">
+        <thead>
+        <tr class="fw-bold">
+          <th @click="toggleSort('name')" style="cursor: pointer;">Name</th>
+          <th class="text-end" @click="toggleSort('amount')" style="cursor: pointer;">{{ vacCurrency }}</th>
+          <th class="text-end" @click="toggleSort('homeCurrency')" style="cursor: pointer;">{{ homeCurrency }}</th>
+          <th class="text-end" @click="toggleSort('date')" style="cursor: pointer;">Datum</th>
+          <th class="text-center"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr v-for="item in sortedExpenditures" :key="item.id">
+          <td v-if="!item.isEditing">
+            {{ item.name }}
+          </td>
+          <td v-else>
+            <input v-model="item.name" class="form-control" />
+          </td>
 
-      <div class="titlebox d-flex ps-2 pt-2 fw-bold">
-        <div class="col-3" @click="toggleSort('name')" style="cursor: pointer;">Name</div>
-        <div class="col-3 text-end" @click="toggleSort('amount')" style="cursor: pointer;">{{ vacCurrency }}</div>
-        <div class="col-3 text-end" @click="toggleSort('homeCurrency')" style="cursor: pointer;">{{ homeCurrency }}
-        </div>
-        <div class="col-3 text-end" @click="toggleSort('date')" style="cursor: pointer;">Datum</div>
-      </div>
-      <hr>
-      <div class="historycard-container">
-        <div class="historycard p-2 mb-2" v-for="item in sortedExpenditures" :key="item.id">
-          <div class="historycard-body d-flex align-items-center" @click="editExpenditure(item.id)">
-            <div class="col-3 fw-bold" v-if="!item.isEditing">
-              {{ item.name }}
-            </div>
-            <div class="col-3" v-else>
-              <input v-model="item.name" class="form-control" />
-            </div>
+          <td class="text-end" v-if="!item.isEditing">
+            {{ formatAmount(item.amount) }}
+          </td>
+          <td v-else>
+            <input v-model="item.amount" type="number" class="form-control" />
+          </td>
 
-            <div class="col-3 text-end" v-if="!item.isEditing">
-              {{ formatAmount(item.amount) }}
-            </div>
-            <div class="col-3" v-else>
-              <input v-model="item.amount" type="number" class="form-control ms-2" />
-            </div>
+          <td class="text-end" v-if="!item.isEditing">
+            {{ amountInHomeCurrency(item.amount).toFixed(2) }}
+          </td>
 
-            <div class="col-3 text-end" v-if="!item.isEditing">
-              {{ amountInHomeCurrency(item.amount).toFixed(2) }}
-            </div>
+          <td class="text-end" v-if="!item.isEditing">
+            {{ formatDate(item.date) }}
+          </td>
+          <td v-else>
+            <input v-model="item.date" type="date" class="form-control" />
+          </td>
 
-            <div class="col-3 text-end" v-if="!item.isEditing">
-              {{ formatDate(item.date) }}
-            </div>
-            <div class="col-3 text-end" v-else>
-              <input v-model="item.date" type="date" class="form-control ms-3" />
-            </div>
-            <div class="col-3 d-flex justify-content-center">
+          <td class="text-center">
+            <div class="d-flex justify-content-center">
+              <div
+                class="bi bi-pencil-square fs-5 ps-3"
+                v-if="!item.isEditing"
+                title="save"
+                style="cursor: pointer;"
+                @click="editExpenditure(item.id, item)">
+              </div>
               <div
                 class="bi bi-save fs-5 ps-3"
                 v-if="item.isEditing"
                 title="save"
+                style="cursor: pointer;"
                 @click="saveExpenditure(item.id, item)">
               </div>
               <div
                 class="bi bi-trash fs-5 ps-3 ms-2"
-                v-if="item.isEditing"
                 title="delete"
+                style="cursor: pointer;"
                 @click="deleteExpenditure(item.id)">
               </div>
             </div>
-          </div>
-        </div>
-      </div>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+
     </div>
   </div>
 </template>

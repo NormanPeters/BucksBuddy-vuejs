@@ -214,7 +214,7 @@ const formatAmount = (amount: number): string => {
                 v-if="!item.isEditing"
                 title="edit"
                 style="cursor: pointer;"
-                @click="editExpenditure(item.id, item)">
+                @click="editExpenditure(item.id)">
               </div>
               <div
                 class="bi bi-save fs-5 ps-3"

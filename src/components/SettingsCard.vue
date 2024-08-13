@@ -88,7 +88,7 @@ const deleteUser = async () => {
 <template>
   <div class="card shadow m-3 p-3">
     <div class="card-body">
-      <h3 class="text-center mb-4">User Settings</h3>
+      <h3 class="text-center mb-4">Settings</h3>
       <div class="mb-3">
         <label for="userEmail" class="form-label">Email</label>
         <input type="email" class="form-control" id="userEmail" v-model="userData.email" disabled>

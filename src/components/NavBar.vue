@@ -51,46 +51,47 @@ const logout = () => {
           <!-- Dropdown Menu -->
           <li class="nav-item dropdown">
             <div class="dropstart">
-            <button
-              class="btn bi bi-list m-2 fs-3"
-              data-bs-toggle="dropdown"
-              aria-expanded="false">
-            </button>
-            <ul class="dropdown-menu">
-              <li class="dropdown-item">
-                <RouterLink
-                  to="/main"
-                  :class="[
-          'bi bi-card-list fs-6 icon-link-hover text-decoration-none',
-          themeStore.theme === 'light' ? 'text-dark' : 'text-white'
-        ]">
-                  Main
-                </RouterLink>
-              </li>
-              <li class="dropdown-item">
-                <RouterLink
-                  to="/user"
-                  :class="[
-          'bi bi-gear fs-6 icon-link-hover text-decoration-none',
-          themeStore.theme === 'light' ? 'text-dark' : 'text-white'
-        ]"
-                >
-                  Settings
-                </RouterLink>
-              </li>
-              <li class="dropdown-item">
-                <a
-                  @click="logout"
-                  :class="[
-          'bi bi-box-arrow-right fs-6 icon-link-hover text-decoration-none',
-          themeStore.theme === 'light' ? 'text-dark' : 'text-white'
-        ]"
-
-                  style="cursor: pointer;">
-                  Logout
-                </a>
-              </li>
-            </ul>
+              <button
+                class="btn bi bi-list m-2 fs-3"
+                data-bs-toggle="dropdown"
+                aria-expanded="false">
+              </button>
+              <ul class="dropdown-menu dropdown-menu-start">
+                <li>
+                  <RouterLink
+                    to="/main"
+                    class="dropdown-item d-flex align-items-center"
+                    :class="[
+            'bi bi-card-list fs-6 icon-link-hover text-decoration-none w-100',
+            themeStore.theme === 'light' ? 'text-dark' : 'text-white'
+          ]">
+                    <span class="ms-2">Main</span>
+                  </RouterLink>
+                </li>
+                <li>
+                  <RouterLink
+                    to="/settings"
+                    class="dropdown-item d-flex align-items-center"
+                    :class="[
+            'bi bi-gear fs-6 icon-link-hover text-decoration-none w-100',
+            themeStore.theme === 'light' ? 'text-dark' : 'text-white'
+          ]">
+                    <span class="ms-2">Settings</span>
+                  </RouterLink>
+                </li>
+                <li>
+                  <a
+                    @click="logout"
+                    class="dropdown-item d-flex align-items-center"
+                    :class="[
+            'bi bi-box-arrow-right fs-6 icon-link-hover text-decoration-none w-100',
+            themeStore.theme === 'light' ? 'text-dark' : 'text-white'
+          ]"
+                    style="cursor: pointer;">
+                    <span class="ms-2">Logout</span>
+                  </a>
+                </li>
+              </ul>
             </div>
           </li>
         </ul>

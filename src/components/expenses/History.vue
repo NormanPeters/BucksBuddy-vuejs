@@ -17,21 +17,21 @@ const sortCriteria = ref<string>('name')
 const sortOrder = ref<string>('asc')
 
 const fetchExpenditures = async (journeyId: number) => {
-  if (journeyId.value === null) {
+  if (journeyId.valueOf() === null) {
     console.error('Cannot fetch expenditures: journeyId is null')
     return
   }
 
   try {
-    const response = await api.getAllExpenditures(journeyId.value)
+    const response = await api.getAllExpenditures(journeyId.valueOf())
     expendituresList.value = response.data.map((expenditure: Expenditure) => ({
       ...expenditure,
       isEditing: false
     }))
     sortExpenditures()
-    const homeCurrencyResponse = await api.getHomeCurrency(journeyId.value)
+    const homeCurrencyResponse = await api.getHomeCurrency(journeyId.valueOf())
     homeCurrency.value = homeCurrencyResponse.data
-    const vacCurrencyResponse = await api.getVacCurrency(journeyId.value)
+    const vacCurrencyResponse = await api.getVacCurrency(journeyId.valueOf())
     vacCurrency.value = vacCurrencyResponse.data
   } catch (error) {
     console.error('Error fetching expenditures:', error)
@@ -52,7 +52,7 @@ const deleteExpenditure = async (id: number) => {
       return
     }
     await api.deleteExpenditure(journeyId.value, id)
-    await fetchExpenditures()
+    await fetchExpenditures( journeyId.value)
     eventBus.emit('expenditureDeleted', journeyId.value)
   } catch (error) {
     console.error(error)
@@ -74,7 +74,7 @@ const saveExpenditure = async (id: number, updatedExpenditure: Expenditure) => {
       return
     }
     await api.updateExpenditure(journeyId.value, id, updatedExpenditure)
-    await fetchExpenditures()
+    await fetchExpenditures(journeyId.value)
     eventBus.emit('expenditureUpdated', journeyId.value)
     selectedExpenditureId.value = null // Clear the selected expenditure after saving
   } catch (error) {
@@ -124,7 +124,7 @@ onMounted(() => {
     if (newJourneyId !== null) {
       journeyId.value = newJourneyId
       clearExpenditures()
-      fetchExpenditures()
+      fetchExpenditures(journeyId.value)
     } else {
       clearExpenditures()
     }
@@ -143,7 +143,7 @@ onMounted(() => {
   })
 
   if (journeyId.value !== null) {
-    fetchExpenditures()
+    fetchExpenditures(journeyId.value)
   }
 })
 

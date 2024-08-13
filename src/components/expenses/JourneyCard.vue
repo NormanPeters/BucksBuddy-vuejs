@@ -257,7 +257,7 @@ watch(journeys, (newJourneys) => {
 <template>
   <div class="card shadow mb-3">
     <div class="card-body">
-      <div class="d-flex">
+      <div class="d-flex mb-2">
         <select class="form-select me-2" v-model="selectedJourneyId">
           <option v-if="journeys.length === 0" disabled value="">Please Create A Journey</option>
           <option v-for="journey in journeys" :key="journey.id" :value="journey.id">{{ journey.name }}</option>
@@ -265,8 +265,7 @@ watch(journeys, (newJourneys) => {
         <button class="btn bi bi-plus-lg fs-5" @click="$router.push('/newjourney')"></button>
         <button class="btn bi bi-trash fs-5" @click="confirmAndDeleteJourney(selectedJourneyId)"></button>
       </div>
-      <hr>
-      <table class="table">
+      <table class="table table-hover">
         <thead>
         <tr>
           <th scope="col"></th>
@@ -297,14 +296,8 @@ watch(journeys, (newJourneys) => {
         </tr>
         </tbody>
       </table>
-
-      <table class="table">
-        <thead>
-        <tr>
-          <th scope="col"></th>
-          <th scope="col" colspan="2">Details</th>
-        </tr>
-        </thead>
+      <hr>
+      <table class="table table-hover">
         <tbody>
         <tr>
           <th scope="row">Period</th>
@@ -324,3 +317,10 @@ watch(journeys, (newJourneys) => {
     </div>
   </div>
 </template>
+
+<style scoped>
+table.table-hover td,
+table.table-hover th {
+  border: none !important;
+}
+</style>

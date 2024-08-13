@@ -65,9 +65,12 @@ onMounted(async () => {
 
 <template>
   <div class="card shadow mb-3">
-    <div class="card-body">
-      <h3 class="card-title">New Expense</h3>
-
+    <div class="card-body ">
+      <div class="mb-2">
+      <span class="fw-bold">
+        New Expense
+      </span>
+      </div>
       <div class="row mb-2">
         <div class="col">
           <label for="titleInput" class="form-label">Title</label>

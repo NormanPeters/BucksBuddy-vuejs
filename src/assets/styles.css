@@ -28,14 +28,6 @@ body {
     background-attachment: fixed;
     background-color: var(--bs-secondary-bg);
 }
-h2 {
-    text-transform: uppercase;
-}
-
-h3 {
-    text-transform: uppercase;
-    font-size: 1.3rem;
-}
 
 h4 {
     color: var(--bs-tertiary-color);

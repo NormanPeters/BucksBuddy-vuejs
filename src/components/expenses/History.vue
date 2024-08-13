@@ -167,7 +167,7 @@ const formatAmount = (amount: number): string => {
 <template>
   <div class="card shadow mb-3">
     <div class="card-body">
-      <table class="table table-striped">
+      <table class="table table-hover align-text-bottom">
         <thead>
         <tr class="fw-bold">
           <th @click="toggleSort('name')" style="cursor: pointer;">Name</th>
@@ -205,7 +205,7 @@ const formatAmount = (amount: number): string => {
           </td>
 
           <td class="text-center">
-            <div class="d-flex justify-content-center">
+            <div class="d-flex justify-content-center align-items-center">
               <div
                 class="bi bi-pencil-square fs-5 ps-3"
                 v-if="!item.isEditing"
@@ -231,15 +231,13 @@ const formatAmount = (amount: number): string => {
         </tr>
         </tbody>
       </table>
-
     </div>
   </div>
 </template>
 
 <style scoped>
-.historycard-container {
-  max-height: 600px; /* Adjust the height as needed */
-  overflow-y: auto;
-  overflow-x: hidden;
+table.table-hover td,
+table.table-hover th {
+  border: none !important;
 }
 </style>

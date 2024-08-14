@@ -14,7 +14,7 @@ const uuid = localStorage.getItem('UUID') || 'default-uuid'
 const homeCurrency = ref<string>('')
 const vacCurrency = ref<string>('')
 const budget = ref<number>(0)
-const exchangeRate = ref<number | null>(null)
+const exchangeRate = ref<number>(0)
 const startDate = ref<Date | null>(null)
 const endDate = ref<Date | null>(null)
 
@@ -98,30 +98,22 @@ const getCurrencyName = (code: string) => {
 
 // Funktion zum Formatieren des Wechselkurses auf zwei Nachkommastellen
 const formatExchangeRate = (rate: number | null) => {
-  return rate !== null ? rate.toFixed(2) : 'N/A'
+  return rate !== null ? rate : 'N/A'
 }
 
 // Berechnet die Gesamtausgaben in der Heimatwährung basierend auf dem Wechselkurs
 const totalExpensesInHomeCurrency = computed(() => {
-  if (typeof exchangeRate.value === 'number' && typeof totalExpenditures.value === 'number') {
     return parseFloat((totalExpenditures.value / exchangeRate.value).toFixed(2))
-  } else {
-    return 0
-  }
 })
 
 // Berechnet das Budget in der Urlaubswährung basierend auf dem Wechselkurs
 const budgetInVacationCurrency = computed(() => {
-  if (typeof exchangeRate.value === 'number' && typeof budget.value === 'number') {
     return parseFloat((budget.value * exchangeRate.value).toFixed(2))
-  } else {
-    return 0
-  }
 })
 
 // Berechnet das verbleibende Budget in der Urlaubswährung
 const budgetLeftInVacationCurrency = computed(() => {
-  if (typeof exchangeRate.value === 'number' && typeof totalExpenditures.value === 'number') {
+  if (exchangeRate.value) {
     const budgetInVacCurr = parseFloat((budget.value * exchangeRate.value).toFixed(2))
     return parseFloat((budgetInVacCurr - totalExpenditures.value).toFixed(2))
   } else {
@@ -131,11 +123,7 @@ const budgetLeftInVacationCurrency = computed(() => {
 
 // Berechnet das verbleibende Budget in der Heimatwährung
 const budgetLeftInHomeCurrency = computed(() => {
-  if (typeof budget.value === 'number' && typeof totalExpensesInHomeCurrency.value === 'number') {
-    return parseFloat((budget.value - totalExpensesInHomeCurrency.value).toFixed(2))
-  } else {
-    return 0
-  }
+  return parseFloat((budget.value - totalExpensesInHomeCurrency.value).toFixed(2))
 })
 
 // Berechnet die Reisedauer in Tagen basierend auf Start- und Enddatum
@@ -173,7 +161,6 @@ const formatDate = (dateString: Date | null): string => {
   const year = date.getFullYear().toString().slice(-2);
   return `${day}.${month}.${year}`;
 };
-
 
 // Watcher: Setzt die erste Reise als ausgewählte Reise, wenn keine ausgewählt ist
 watch(journeys, (newJourneys) => {
@@ -240,7 +227,6 @@ onMounted(async () => {
     }
   })
 })
-
 </script>
 
 <template>
@@ -265,18 +251,18 @@ onMounted(async () => {
         <tbody>
         <tr>
           <th scope="row">Budget</th>
-          <td class="text-end">{{ budgetInVacationCurrency }}</td>
-          <td class="text-end">{{ budget }}</td>
+          <td class="text-end">{{ budgetInVacationCurrency.toFixed(2) }}</td>
+          <td class="text-end">{{ budget.toFixed(2) }}</td>
         </tr>
         <tr>
           <th scope="row">Available</th>
-          <td class="text-end">{{ budgetLeftInVacationCurrency }}</td>
-          <td class="text-end">{{ budgetLeftInHomeCurrency }}</td>
+          <td class="text-end">{{ budgetLeftInVacationCurrency.toFixed(2) }}</td>
+          <td class="text-end">{{ budgetLeftInHomeCurrency.toFixed(2) }}</td>
         </tr>
         <tr>
           <th scope="row">Total Expenses</th>
-          <td class="text-end">{{ totalExpenditures }}</td>
-          <td class="text-end">{{ totalExpensesInHomeCurrency }}</td>
+          <td class="text-end">{{ totalExpenditures.toFixed(2) }}</td>
+          <td class="text-end">{{ totalExpensesInHomeCurrency.toFixed(2) }}</td>
         </tr>
         <tr>
           <th scope="row">Average Per Day</th>
@@ -302,7 +288,6 @@ onMounted(async () => {
         </tr>
         </tbody>
       </table>
-
     </div>
   </div>
 </template>

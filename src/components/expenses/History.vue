@@ -113,10 +113,6 @@ const toggleSort = (criteria: string) => {
   sortExpenditures()
 }
 
-const selectExpenditure = (id: number) => {
-  selectedExpenditureId.value = selectedExpenditureId.value === id ? null : id
-}
-
 watch([expendituresList, sortCriteria, sortOrder], sortExpenditures)
 
 onMounted(() => {
@@ -194,7 +190,7 @@ const formatAmount = (amount: number): string => {
           </td>
 
           <td class="text-end align-middle" v-if="!item.isEditing">
-            {{ amountInHomeCurrency(item.amount).toFixed(2) }}
+            {{ formatAmount(amountInHomeCurrency(item.amount)) }}
           </td>
           <td class="align-middle" v-else>
             <input :value="amountInHomeCurrency(item.amount).toFixed(2)" type="number" class="form-control" disabled />

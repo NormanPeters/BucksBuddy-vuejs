@@ -1,10 +1,11 @@
 import { shallowMount, flushPromises } from '@vue/test-utils';
 import History from '../expenses/History.vue';
-import { describe, it, expect, vi } from 'vitest';
+import { describe, it, expect, vi, beforeEach } from 'vitest';
 import type { AxiosResponse } from 'axios';
 import type { Expenditure } from '../../types';
 import api from "../../services/api";
 import { AxiosHeaders } from 'axios';
+
 
 describe('History', () => {
     const twoItemResponse: Expenditure[] = [
@@ -25,14 +26,24 @@ describe('History', () => {
     vi.mock('../../services/api');
     const mockedApi = vi.mocked(api, true);
 
+    beforeEach(() => {
+        // Mocking localStorage to have a selected journeyId
+        vi.spyOn(Storage.prototype, 'getItem').mockImplementation((key: string) => {
+            if (key === 'selectedJourney') {
+                return '1'; // Setting a valid journeyId
+            }
+            return null;
+        });
+    });
+
     it('should render the expenditure list in history', async () => {
         mockedApi.getAllExpenditures.mockResolvedValueOnce(mockAxiosResponse(twoItemResponse));
 
         const wrapper = shallowMount(History);
         await flushPromises();
 
-        const items = wrapper.findAll('.historycard-body');
-        expect(items.length).toBe(2);
+        const rows = wrapper.findAll('tbody tr');
+        expect(rows.length).toBe(2);
         expect(wrapper.text()).toContain('Hotel');
         expect(wrapper.text()).toContain('Food');
     });

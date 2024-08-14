@@ -17,7 +17,7 @@ const sortCriteria = ref<string>('name')
 const sortOrder = ref<string>('asc')
 
 const fetchExpenditures = async (journeyId: number) => {
-  if (journeyId.valueOf() === null) {
+  if (!journeyId.valueOf()) {
     console.error('Cannot fetch expenditures: journeyId is null')
     return
   }
@@ -88,7 +88,7 @@ const amountInHomeCurrency = (amount: number): number => {
 
 const sortExpenditures = () => {
   sortedExpenditures.value = [...expendituresList.value].sort((a, b) => {
-    let comparison = 0
+    let comparison;
     if (sortCriteria.value === 'amount') {
       comparison = a.amount - b.amount
     } else if (sortCriteria.value === 'date') {

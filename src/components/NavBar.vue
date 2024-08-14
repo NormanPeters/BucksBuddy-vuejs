@@ -25,7 +25,7 @@ const logout = () => {
 </script>
 
 <template>
-  <nav class="navbar shadow rounded-3 m-3 navbar-expand">
+  <nav class="navbar shadow m-2 mb-3 navbar-expand">
     <div class="container row-cols-2">
       <!-- Logo -->
       <div class="col-2 d-flex align-items-center">

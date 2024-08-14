@@ -36,20 +36,12 @@ h4 {
 }
 .navbar {
     background-color: var(--bs-body-bg);
+    border-radius: 5px;
 }
 .main-content {
     flex: 1;
 }
 .card {
     border: none;
-    border-radius: 15px;
 }
-.historycard {
-    background-color: var(--bs-body-bg);
-    cursor: pointer;
-    transition: transform 0.3s;
-    border-radius: 5px;
-}
-.historycard:hover {
-    transform: scale(1.02);
-}
+

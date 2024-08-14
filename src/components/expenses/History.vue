@@ -52,7 +52,7 @@ const deleteExpenditure = async (id: number) => {
       return
     }
     await api.deleteExpenditure(journeyId.value, id)
-    await fetchExpenditures( journeyId.value)
+    await fetchExpenditures(journeyId.value)
     eventBus.emit('expenditureDeleted', journeyId.value)
   } catch (error) {
     console.error(error)
@@ -160,71 +160,62 @@ const formatAmount = (amount: number): string => {
 }
 </script>
 
+
 <template>
-  <div class="card shadow mb-3">
+  <div class="card shadow p-1">
     <div class="card-body">
       <table class="table table-hover align-text-bottom">
         <thead>
-        <tr class="fw-bold">
-          <th @click="toggleSort('name')" style="cursor: pointer;">Title</th>
-          <th class="text-end" @click="toggleSort('amount')" style="cursor: pointer;">{{ vacCurrency }}</th>
-          <th class="text-end" @click="toggleSort('homeCurrency')" style="cursor: pointer;">{{ homeCurrency }}</th>
-          <th class="text-end" @click="toggleSort('date')" style="cursor: pointer;">Datum</th>
-          <th class="text-center"></th>
+        <tr class="row fw-bold">
+          <th class="col-3" @click="toggleSort('name')" style="cursor: pointer;">Title</th>
+          <th class="col-3 text-end" @click="toggleSort('amount')" style="cursor: pointer;">{{ vacCurrency }}</th>
+          <th class="col-3 text-end" @click="toggleSort('homeCurrency')" style="cursor: pointer;">{{ homeCurrency }}</th>
+          <th class="col-3 text-end" @click="toggleSort('date')" style="cursor: pointer;">Datum</th>
         </tr>
         </thead>
         <tbody>
-        <tr v-for="item in sortedExpenditures" :key="item.id">
-          <td class="align-middle" v-if="!item.isEditing">
+        <tr class="row" v-for="item in sortedExpenditures" :key="item.id" @click="editExpenditure(item.id)" style="cursor: pointer;">
+          <td class="col-3 align-middle" v-if="!item.isEditing">
             {{ item.name }}
           </td>
-          <td class="align-middle" v-else>
+          <td class="col-3 align-middle" v-else>
             <input v-model="item.name" class="form-control" />
           </td>
 
-          <td class="text-end align-middle" v-if="!item.isEditing">
+          <td class="col-3 text-end align-middle" v-if="!item.isEditing">
             {{ formatAmount(item.amount) }}
           </td>
-          <td class="align-middle" v-else>
+          <td class="col-2 align-middle" v-else>
             <input v-model="item.amount" type="number" class="form-control" />
           </td>
 
-          <td class="text-end align-middle" v-if="!item.isEditing">
+          <td class="col-3 text-end align-middle" v-if="!item.isEditing">
             {{ formatAmount(amountInHomeCurrency(item.amount)) }}
           </td>
-          <td class="align-middle" v-else>
+          <td class="col-2 align-middle" v-else>
             <input :value="amountInHomeCurrency(item.amount).toFixed(2)" type="number" class="form-control" disabled />
           </td>
 
-          <td class="text-end align-middle" v-if="!item.isEditing">
+          <td class="col-3 text-end align-middle" v-if="!item.isEditing">
             {{ formatDate(item.date) }}
           </td>
-          <td class="align-middle" v-else>
+          <td class="col-3 align-middle" v-else>
             <input v-model="item.date" type="date" class="form-control" />
           </td>
 
-          <td class="text-center align-middle">
+          <td class="col-2 text-center align-middle" v-if="item.isEditing">
             <div class="d-flex justify-content-center align-items-center">
               <div
-                class="bi bi-pencil-square fs-5 ps-3"
-                v-if="!item.isEditing"
-                title="edit"
-                style="cursor: pointer;"
-                @click="editExpenditure(item.id)">
-              </div>
-              <div
                 class="bi bi-save fs-5 ps-3"
-                v-if="item.isEditing"
                 title="save"
                 style="cursor: pointer;"
-                @click="saveExpenditure(item.id, item)">
+                @click.stop="saveExpenditure(item.id, item)">
               </div>
               <div
                 class="bi bi-trash fs-5 ps-3 ms-2"
-                v-if="!item.isEditing"
                 title="delete"
                 style="cursor: pointer;"
-                @click="deleteExpenditure(item.id)">
+                @click.stop="deleteExpenditure(item.id)">
               </div>
             </div>
           </td>
@@ -234,6 +225,7 @@ const formatAmount = (amount: number): string => {
     </div>
   </div>
 </template>
+
 
 <style scoped>
 table.table-hover td,

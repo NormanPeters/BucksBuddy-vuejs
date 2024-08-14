@@ -138,10 +138,17 @@ onMounted(() => {
     homeCurrency.value = homeCurrencyName
   })
 
+  eventBus.on('expenditureAdded', () => {
+    if (journeyId.value !== null) {
+      fetchExpenditures(journeyId.value)
+    }
+  })
+
   if (journeyId.value !== null) {
     fetchExpenditures(journeyId.value)
   }
 })
+
 
 defineExpose({
   fetchExpenditures

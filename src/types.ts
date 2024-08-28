@@ -2,7 +2,7 @@
 
 export interface User {
     id: number;
-    email?: string;
+    username?: string;
     password?: string;
     journeys: Journey[];
     uuid: string;
@@ -10,7 +10,7 @@ export interface User {
 }
 
 export interface newUser {
-    email: string;
+    username: string;
     password: string;
 }
 

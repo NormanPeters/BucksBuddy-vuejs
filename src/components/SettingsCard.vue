@@ -3,13 +3,13 @@ import {reactive, ref} from 'vue';
 import api from "@/services/api";
 
 interface UserData {
-  email: string;
+  username: string;
   newPassword: string;
   confirmPassword: string;
 }
 
 const userData = reactive<UserData>({
-  email: localStorage.getItem('email') || '',
+  username: localStorage.getItem('username') || '',
   newPassword: '',
   confirmPassword: ''
 });
@@ -90,8 +90,8 @@ const deleteUser = async () => {
     <div class="card-body">
       <h3 class="text-center mb-4">Settings</h3>
       <div class="mb-3">
-        <label for="userEmail" class="form-label">Email</label>
-        <input type="email" class="form-control" id="userEmail" v-model="userData.email" disabled>
+        <label for="userName" class="form-label">Username</label>
+        <input type="userName" class="form-control" id="userName" v-model="userData.username" disabled>
       </div>
       <div>
         <button class="btn btn-secondary mb-3 custom-width-btn" @click="toggleChangePassword">

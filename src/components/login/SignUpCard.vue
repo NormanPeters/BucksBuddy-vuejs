@@ -1,5 +1,4 @@
-<!--
-&lt;!&ndash;SignUpCard&ndash;&gt;
+<!--SignUpCard-->
 <script setup lang="ts">
 import { computed, ref } from 'vue'
 import {useRouter} from 'vue-router';
@@ -15,13 +14,13 @@ const logoSrc = computed(() => {
 });
 
 interface SignupData {
-  email: string;
+  username: string;
   password: string;
   confirmPassword: string;
 }
 
 const signupData = ref<SignupData>({
-  email: '',
+  username: '',
   password: '',
   confirmPassword: ''
 });
@@ -36,8 +35,8 @@ const signup = async () => {
   successMessage.value = null;
   errorMessage.value = null;
 
-  if (!emailPattern.test(signupData.value.email)) {
-    errorMessage.value = 'Invalid email format';
+  if (!emailPattern.test(signupData.value.username)) {
+    errorMessage.value = 'Invalid username format';
     return;
   }
 
@@ -47,7 +46,7 @@ const signup = async () => {
   }
 
   const newUser = {
-    email: signupData.value.email,
+    username: signupData.value.username,
     password: signupData.value.password
   };
 
@@ -61,7 +60,7 @@ const signup = async () => {
     if (error.response && error.response.status === 400) {
       errorMessage.value = 'Invalid input: ' + JSON.stringify(error.response.data);
     } else if (error.response && error.response.status === 409) {
-      errorMessage.value = 'E-Mail is already registered';
+      errorMessage.value = 'Username is already registered';
     } else {
       errorMessage.value = 'An error occurred';
     }
@@ -77,8 +76,8 @@ const signup = async () => {
       </div>
       <form @submit.prevent="signup">
         <div class="mb-3">
-          <label for="email" class="form-label">Email</label>
-          <input type="email" class="form-control" id="email" v-model="signupData.email" required>
+          <label for="username" class="form-label">Email</label>
+          <input type="userName" class="form-control" id="username" v-model="signupData.username" required>
         </div>
         <div class="mb-3">
           <label for="password" class="form-label">Password</label>
@@ -108,4 +107,3 @@ const signup = async () => {
   width: 100%;
 }
 </style>
--->

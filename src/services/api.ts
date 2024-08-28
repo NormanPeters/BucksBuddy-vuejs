@@ -39,8 +39,8 @@ apiClient.interceptors.request.use((config) => {
 
 export default {
     // User API
-    login(email: string, password: string) {
-        return apiClient.post('/users/login', {email, password});
+    login(username: string, password: string) {
+        return apiClient.post('/users/login', {username: username, password});
     },
     createUser(newUser: newUser) {
         return apiClient.post('/users', newUser);

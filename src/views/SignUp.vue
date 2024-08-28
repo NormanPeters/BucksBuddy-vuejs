@@ -12,6 +12,5 @@ import SignUp from '@/components/login/SignUpCard.vue';
     </div>
   </div>
 </template>
+
 -->
-
-

@@ -15,7 +15,7 @@ const logoSrc = computed(() => {
 
 const router = useRouter();
 const loginData = reactive({
-  email: '',
+  username: '',
   password: ''
 });
 
@@ -27,9 +27,9 @@ const login = async () => {
   successMessage.value = null;
 
   try {
-    const response = await api.login(loginData.email, loginData.password);
+    const response = await api.login(loginData.username, loginData.password);
     localStorage.setItem('UUID', response.data);
-    localStorage.setItem('email', loginData.email);
+    localStorage.setItem('username', loginData.username);
     successMessage.value = 'Login successful!';
     setTimeout(async () => {
       await router.push('/main');
@@ -48,8 +48,8 @@ const login = async () => {
       </div>
       <form @submit.prevent="login">
         <div class="mb-3">
-          <label for="email" class="form-label">Email</label>
-          <input type="email" class="form-control" id="email" v-model="loginData.email" required>
+          <label for="username" class="form-label">Username</label>
+          <input type="username" class="form-control" id="username" v-model="loginData.username" required>
         </div>
         <div class="mb-3">
           <label for="password" class="form-label">Password</label>
@@ -59,10 +59,10 @@ const login = async () => {
           <button type="submit" class="btn btn-primary custom-width-btn">Log in</button>
         </div>
       </form>
-<!--      <hr>-->
-<!--      <div class="text-center mt-3">-->
-<!--        <a href="#/signup" class="btn btn-secondary custom-width-btn">Sign up</a>-->
-<!--      </div>-->
+      <hr>
+      <div class="text-center mt-3">
+        <a href="#/signup" class="btn btn-secondary custom-width-btn">Sign up</a>
+      </div>
       <div v-if="successMessage" class="alert alert-success mt-3">{{ successMessage }}</div>
       <div v-if="errorMessage" class="alert alert-danger mt-3">{{ errorMessage }}</div>
     </div>

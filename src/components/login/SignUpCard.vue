@@ -6,7 +6,7 @@ import api from '@/services/api';
 import logoLight from '@/assets/logo.png';
 import logoDark from '@/assets/logo_invert.png';
 import { useThemeStore } from '@/stores/themeStore';
-import { SignupData } from '@/types';
+import type { SignupData } from '@/types';
 
 import CardComponent from '@/atoms/CardComponent.vue';
 import InputField from '@/atoms/InputField.vue';

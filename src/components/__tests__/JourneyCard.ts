@@ -1,5 +1,5 @@
 import {shallowMount, flushPromises} from '@vue/test-utils';
-import JourneyCard from '../expenses/JourneyCard.vue';
+import JourneyCard from '../expensesCards/JourneyCard.vue';
 import {describe, it, expect, vi} from 'vitest';
 import type {AxiosResponse} from 'axios';
 import type {Expenditure, Journey} from '../../types';

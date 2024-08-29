@@ -1,4 +1,3 @@
-<!--
 <script setup lang="ts">
 import SignUp from '@/components/login/SignUpCard.vue';
 </script>
@@ -13,4 +12,3 @@ import SignUp from '@/components/login/SignUpCard.vue';
   </div>
 </template>
 
--->

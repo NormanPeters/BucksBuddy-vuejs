@@ -1,23 +1,22 @@
-<!--SignUpCard-->
+<!-- src/components/SignUpCard.vue -->
 <script setup lang="ts">
-import { computed, ref } from 'vue'
-import {useRouter} from 'vue-router';
+import { computed, ref } from 'vue';
+import { useRouter } from 'vue-router';
 import api from '@/services/api';
 import logoLight from '@/assets/logo.png';
 import logoDark from '@/assets/logo_invert.png';
-import { useThemeStore } from '@/stores/themeStore'
+import { useThemeStore } from '@/stores/themeStore';
+import { SignupData } from '@/types';
+
+import CardComponent from '@/atoms/CardComponent.vue';
+import InputField from '@/atoms/InputField.vue';
+import BaseButton from '@/atoms/BaseButton.vue';
 
 const themeStore = useThemeStore();
 
 const logoSrc = computed(() => {
   return themeStore.theme === 'light' ? logoLight : logoDark;
 });
-
-interface SignupData {
-  username: string;
-  password: string;
-  confirmPassword: string;
-}
 
 const signupData = ref<SignupData>({
   username: '',
@@ -28,14 +27,13 @@ const signupData = ref<SignupData>({
 const successMessage = ref<string | null>(null);
 const errorMessage = ref<string | null>(null);
 const router = useRouter();
-
-const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const usernamePattern = /^[a-zA-Z0-9._-]{3,20}$/;
 
 const signup = async () => {
   successMessage.value = null;
   errorMessage.value = null;
 
-  if (!emailPattern.test(signupData.value.username)) {
+  if (!usernamePattern.test(signupData.value.username)) {
     errorMessage.value = 'Invalid username format';
     return;
   }
@@ -51,7 +49,7 @@ const signup = async () => {
   };
 
   try {
-    const response = await api.createUser(newUser);
+    await api.createUser(newUser);
     successMessage.value = 'User created successfully';
     setTimeout(() => {
       router.push('/login');
@@ -69,41 +67,26 @@ const signup = async () => {
 </script>
 
 <template>
-  <div class="card shadow m-3 p-3">
-    <div class="card-body">
-      <div class="d-flex justify-content-center align-items-center">
-        <img :src="logoSrc" alt="Logo" style="width: auto; height: 70px;">
-      </div>
-      <form @submit.prevent="signup">
-        <div class="mb-3">
-          <label for="username" class="form-label">Email</label>
-          <input type="userName" class="form-control" id="username" v-model="signupData.username" required>
-        </div>
-        <div class="mb-3">
-          <label for="password" class="form-label">Password</label>
-          <input type="password" class="form-control" id="password" v-model="signupData.password" required>
-        </div>
-        <div class="mb-3">
-          <label for="confirmPassword" class="form-label">Confirm Password</label>
-          <input type="password" class="form-control" id="confirmPassword" v-model="signupData.confirmPassword"
-                 required>
-        </div>
-        <div class="text-center mb-3">
-          <button type="submit" class="btn btn-primary custom-width-btn">Sign up</button>
-        </div>
-      </form>
-      <hr>
-      <div class="text-center">
-        <a href="#/login" class="text-decoration-none">Already have an account? Log in</a>
-      </div>
-      <div v-if="successMessage" class="alert alert-success mt-3">{{ successMessage }}</div>
-      <div v-if="errorMessage" class="alert alert-danger mt-3">{{ errorMessage }}</div>
+  <CardComponent>
+    <div class="d-flex justify-content-center align-items-center">
+      <img :src="logoSrc" alt="Logo" style="width: auto; height: 70px;">
     </div>
-  </div>
+    <form @submit.prevent="signup">
+      <InputField id="username" label="Username" v-model="signupData.username" />
+      <InputField id="password" label="Password" type="password" v-model="signupData.password" />
+      <InputField id="confirmPassword" label="Confirm Password" type="password" v-model="signupData.confirmPassword" />
+      <div class="text-center mb-3">
+        <BaseButton>Sign up</BaseButton>
+      </div>
+    </form>
+    <hr>
+    <div class="text-center">
+      <a href="#/login" class="text-decoration-none">Already have an account? Log in</a>
+    </div>
+    <div v-if="successMessage" class="alert alert-success mt-3">{{ successMessage }}</div>
+    <div v-if="errorMessage" class="alert alert-danger mt-3">{{ errorMessage }}</div>
+  </CardComponent>
 </template>
 
 <style scoped>
-.custom-width-btn {
-  width: 100%;
-}
 </style>

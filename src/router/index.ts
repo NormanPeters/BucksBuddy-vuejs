@@ -5,6 +5,7 @@ import NewJourney from '@/views/NewJourney.vue';
 import Main from '@/views/Main.vue';
 import Login from '@/views/Login.vue';
 import Settings from '@/views/Settings.vue'
+import SignUp from '@/views/SignUp.vue';
 
 const router = createRouter({
     history: createWebHashHistory(import.meta.env.BASE_URL),
@@ -18,11 +19,11 @@ const router = createRouter({
             name: 'login',
             component: Login
         },
-/*        {
+        {
             path: '/signup',
             name: 'signup',
             component: SignUp
-        },*/
+        },
         {
             path: '/newjourney',
             name: 'newjourney',

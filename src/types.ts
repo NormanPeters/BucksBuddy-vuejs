@@ -34,3 +34,9 @@ export interface Expenditure {
     journeyId: number;
     isEditing?: boolean;
 }
+
+export interface SignupData {
+    username: string;
+    password: string;
+    confirmPassword: string;
+}

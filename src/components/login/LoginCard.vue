@@ -1,11 +1,15 @@
-<!--LoginCard-->
+<!-- src/components/LoginCard.vue -->
 <script setup lang="ts">
-import { computed, reactive, ref } from 'vue'
-import {useRouter} from 'vue-router';
+import { computed, reactive, ref } from 'vue';
+import { useRouter } from 'vue-router';
 import api from '@/services/api';
-import {useThemeStore} from '@/stores/themeStore';
+import { useThemeStore } from '@/stores/themeStore';
 import logoLight from '@/assets/logo.png';
 import logoDark from '@/assets/logo_invert.png';
+
+import CardComponent from '@/atoms/CardComponent.vue';
+import InputField from '@/atoms/InputField.vue';
+import BaseButton from '@/atoms/BaseButton.vue';
 
 const themeStore = useThemeStore();
 
@@ -41,36 +45,25 @@ const login = async () => {
 </script>
 
 <template>
-  <div class="card shadow m-3 p-3">
-    <div class="card-body">
-      <div class="d-flex justify-content-center align-items-center">
-        <img :src="logoSrc" alt="Logo" style="width: auto; height: 70px;">
-      </div>
-      <form @submit.prevent="login">
-        <div class="mb-3">
-          <label for="username" class="form-label">Username</label>
-          <input type="username" class="form-control" id="username" v-model="loginData.username" required>
-        </div>
-        <div class="mb-3">
-          <label for="password" class="form-label">Password</label>
-          <input type="password" class="form-control" id="password" v-model="loginData.password" required>
-        </div>
-        <div class="text-center mb-3">
-          <button type="submit" class="btn btn-primary custom-width-btn">Log in</button>
-        </div>
-      </form>
-      <hr>
-      <div class="text-center mt-3">
-        <a href="#/signup" class="btn btn-secondary custom-width-btn">Sign up</a>
-      </div>
-      <div v-if="successMessage" class="alert alert-success mt-3">{{ successMessage }}</div>
-      <div v-if="errorMessage" class="alert alert-danger mt-3">{{ errorMessage }}</div>
+  <CardComponent>
+    <div class="d-flex justify-content-center align-items-center">
+      <img :src="logoSrc" alt="Logo" style="width: auto; height: 70px;">
     </div>
-  </div>
+    <form @submit.prevent="login">
+      <InputField id="username" label="Username" v-model="loginData.username" />
+      <InputField id="password" label="Password" type="password" v-model="loginData.password" />
+      <div class="text-center mb-3">
+        <BaseButton>Log in</BaseButton>
+      </div>
+    </form>
+    <hr>
+    <div class="text-center mt-3">
+      <BaseButton @click="$router.push('/signup')" class="btn-secondary">Sign up</BaseButton>
+    </div>
+    <div v-if="successMessage" class="alert alert-success mt-3">{{ successMessage }}</div>
+    <div v-if="errorMessage" class="alert alert-danger mt-3">{{ errorMessage }}</div>
+  </CardComponent>
 </template>
 
 <style scoped>
-.custom-width-btn {
-  width: 100%;
-}
 </style>

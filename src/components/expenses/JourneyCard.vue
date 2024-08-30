@@ -5,6 +5,7 @@ import api from '@/services/api'
 import type { Expenditure, Journey } from '@/types'
 import FreeCurrencyAPI from '@everapi/freecurrencyapi-js'
 import eventBus from '@/services/eventBus'
+import CardComponent from '@/components/atoms/CardComponent.vue'
 
 const expendituresList = ref<Expenditure[]>([])
 const currencyAPI = new FreeCurrencyAPI(import.meta.env.VITE_API_KEY)
@@ -14,9 +15,9 @@ const uuid = localStorage.getItem('UUID') || 'default-uuid'
 const homeCurrency = ref<string>('')
 const vacCurrency = ref<string>('')
 const budget = ref<number>(0)
-const exchangeRate = ref<number>(0)
 const startDate = ref<Date | null>(null)
 const endDate = ref<Date | null>(null)
+const exchangeRate = ref<number>(0)
 
 // Funktion zum Abrufen der Ausgaben für eine bestimmte Reise
 const fetchExpenditures = async (journeyId: number) => {
@@ -52,15 +53,17 @@ const fetchJourneyDetails = async (journeyId: number) => {
   try {
     const journeyResponse = await api.getJourneyById(journeyId)
     const journey = journeyResponse.data
-    homeCurrency.value = await api.getHomeCurrency(journeyId).then(response => response.data)
-    vacCurrency.value = await api.getVacCurrency(journeyId).then(response => response.data)
-    budget.value = await api.getBudget(journeyId).then(response => response.data)
+    homeCurrency.value = await api.getHomeCurrency(journeyId).then((response) => response.data)
+    vacCurrency.value = await api.getVacCurrency(journeyId).then((response) => response.data)
+    budget.value = await api.getBudget(journeyId).then((response) => response.data)
     startDate.value = new Date(journey.startDate)
     endDate.value = new Date(journey.endDate)
-    exchangeRate.value = await currencyAPI.latest({
-      base_currency: homeCurrency.value,
-      currencies: vacCurrency.value
-    }).then((response: any) => response.data[vacCurrency.value])
+    exchangeRate.value = await currencyAPI
+      .latest({
+        base_currency: homeCurrency.value,
+        currencies: vacCurrency.value
+      })
+      .then((response: any) => response.data[vacCurrency.value])
     eventBus.emit('vacCurrencyUpdated', vacCurrency.value)
     eventBus.emit('exchangeRateUpdated', exchangeRate.value)
   } catch (error) {
@@ -103,12 +106,12 @@ const formatExchangeRate = (rate: number | null) => {
 
 // Berechnet die Gesamtausgaben in der Heimatwährung basierend auf dem Wechselkurs
 const totalExpensesInHomeCurrency = computed(() => {
-    return parseFloat((totalExpenditures.value / exchangeRate.value).toFixed(2))
+  return parseFloat((totalExpenditures.value / exchangeRate.value).toFixed(2))
 })
 
 // Berechnet das Budget in der Urlaubswährung basierend auf dem Wechselkurs
 const budgetInVacationCurrency = computed(() => {
-    return parseFloat((budget.value * exchangeRate.value).toFixed(2))
+  return parseFloat((budget.value * exchangeRate.value).toFixed(2))
 })
 
 // Berechnet das verbleibende Budget in der Urlaubswährung
@@ -153,14 +156,14 @@ const averageExpenditurePerDayInHomeCurrency = computed(() => {
 // Funktion zum Formatieren eines Datums als String im Format 'DD.MM.YY'
 const formatDate = (dateString: Date | null): string => {
   if (!dateString) {
-    return '';
+    return ''
   }
-  const date = new Date(dateString);
-  const day = String(date.getDate()).padStart(2, '0');
-  const month = String(date.getMonth() + 1).padStart(2, '0');
-  const year = date.getFullYear().toString().slice(-2);
-  return `${day}.${month}.${year}`;
-};
+  const date = new Date(dateString)
+  const day = String(date.getDate()).padStart(2, '0')
+  const month = String(date.getMonth() + 1).padStart(2, '0')
+  const year = date.getFullYear().toString().slice(-2)
+  return `${day}.${month}.${year}`
+}
 
 // Watcher: Setzt die erste Reise als ausgewählte Reise, wenn keine ausgewählt ist
 watch(journeys, (newJourneys) => {
@@ -189,7 +192,7 @@ watch(selectedJourneyId, async (newVal) => {
 onMounted(async () => {
   await fetchJourneys()
   const storedJourneyId = Number(localStorage.getItem('selectedJourney'))
-  if (storedJourneyId && journeys.value.some(j => j.id === storedJourneyId)) {
+  if (storedJourneyId && journeys.value.some((j) => j.id === storedJourneyId)) {
     selectedJourneyId.value = storedJourneyId
     await fetchJourneyDetails(storedJourneyId)
     await fetchExpenditures(storedJourneyId)
@@ -230,25 +233,29 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="card shadow mb-3">
-    <div class="card-body">
-      <div class="d-flex mb-3">
-        <select class="form-select me-2" v-model="selectedJourneyId">
-          <option v-if="journeys.length === 0" disabled value="">Please Create A Journey</option>
-          <option v-for="journey in journeys" :key="journey.id" :value="journey.id">{{ journey.name }}</option>
-        </select>
-        <button class="btn bi bi-plus-lg fs-5" @click="$router.push('/newjourney')"></button>
-        <button class="btn bi bi-trash fs-5" @click="confirmAndDeleteJourney(selectedJourneyId)"></button>
-      </div>
-      <table class="table table-hover">
-        <thead>
+  <CardComponent>
+    <div class="d-flex mb-3">
+      <select class="form-select me-2" v-model="selectedJourneyId">
+        <option v-if="journeys.length === 0" disabled value="">Please Create A Journey</option>
+        <option v-for="journey in journeys" :key="journey.id" :value="journey.id">
+          {{ journey.name }}
+        </option>
+      </select>
+      <button class="btn bi bi-plus-lg fs-5" @click="$router.push('/newjourney')"></button>
+      <button
+        class="btn bi bi-trash fs-5"
+        @click="confirmAndDeleteJourney(selectedJourneyId)"
+      ></button>
+    </div>
+    <table class="table table-hover">
+      <thead>
         <tr>
           <th scope="col"></th>
           <th scope="col" class="text-end">{{ getCurrencyName(vacCurrency) }}</th>
           <th scope="col" class="text-end">{{ getCurrencyName(homeCurrency) }}</th>
         </tr>
-        </thead>
-        <tbody>
+      </thead>
+      <tbody>
         <tr>
           <th scope="row">Budget</th>
           <td class="text-end">{{ budgetInVacationCurrency.toFixed(2) }}</td>
@@ -269,27 +276,28 @@ onMounted(async () => {
           <td class="text-end">{{ averageExpenditurePerDayInVacationCurrency }}</td>
           <td class="text-end">{{ averageExpenditurePerDayInHomeCurrency }}</td>
         </tr>
-        </tbody>
-      </table>
-      <hr>
-      <table class="table table-hover">
-        <tbody>
+      </tbody>
+    </table>
+    <hr />
+    <table class="table table-hover">
+      <tbody>
         <tr>
           <th scope="row">Period</th>
-          <td colspan="2" class="text-end">{{ formatDate(startDate) }} - {{ formatDate(endDate) }}</td>
+          <td colspan="2" class="text-end">
+            {{ formatDate(startDate) }} - {{ formatDate(endDate) }}
+          </td>
         </tr>
         <tr>
           <th scope="row">Travel Duration</th>
-          <td colspan="2" class="text-end">{{ (travelDurationInDays)}}</td>
+          <td colspan="2" class="text-end">{{ travelDurationInDays }}</td>
         </tr>
         <tr>
           <th scope="row">Exchange Rate</th>
           <td colspan="2" class="text-end">{{ formatExchangeRate(exchangeRate) }}</td>
         </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
+      </tbody>
+    </table>
+  </CardComponent>
 </template>
 
 <style scoped>

@@ -4,6 +4,7 @@ import { defineEmits, onMounted, ref } from 'vue'
 import api from '@/services/api'
 import { type Expenditure } from '@/types'
 import eventBus from '@/services/eventBus'
+import CardComponent from '@/components/atoms/CardComponent.vue'
 
 const title = ref('')
 const amount = ref<number | null>(null)
@@ -69,8 +70,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="card shadow mb-3">
-    <div class="card-body ">
+<CardComponent>
       <div class="mb-2">
       <span class="fw-bold">
         New Expense
@@ -101,6 +101,5 @@ onMounted(async () => {
           <button type="button" class="btn btn-primary w-25" @click="addExpenditure">Submit</button>
         </div>
       </div>
-    </div>
-  </div>
+</CardComponent>
 </template>

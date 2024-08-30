@@ -1,6 +1,6 @@
 <!-- src/components/CardComponent.vue -->
 <template>
-  <div class="card shadow m-3 p-3">
+  <div class="card shadow mb-3 p-1">
     <div class="card-body">
       <slot></slot>
     </div>

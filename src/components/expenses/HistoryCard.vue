@@ -4,6 +4,7 @@ import { ref, onMounted, watch } from 'vue'
 import api from '@/services/api'
 import { type Expenditure } from '@/types'
 import eventBus from '@/services/eventBus'
+import CardComponent from '@/components/atoms/CardComponent.vue'
 
 const expendituresList = ref<Expenditure[]>([])
 const sortedExpenditures = ref<Expenditure[]>([])
@@ -60,7 +61,7 @@ const deleteExpenditure = async (id: number) => {
 }
 
 const editExpenditure = (id: number) => {
-  const index = expendituresList.value.findIndex(item => item.id === id)
+  const index = expendituresList.value.findIndex((item) => item.id === id)
   if (index !== -1) {
     expendituresList.value[index].isEditing = true
     selectedExpenditureId.value = id // Set the selected expenditure
@@ -83,12 +84,12 @@ const saveExpenditure = async (id: number, updatedExpenditure: Expenditure) => {
 }
 
 const amountInHomeCurrency = (amount: number): number => {
-  return exchangeRate.value !== null ? (amount / exchangeRate.value) : NaN
+  return exchangeRate.value !== null ? amount / exchangeRate.value : NaN
 }
 
 const sortExpenditures = () => {
   sortedExpenditures.value = [...expendituresList.value].sort((a, b) => {
-    let comparison;
+    let comparison
     if (sortCriteria.value === 'amount') {
       comparison = a.amount - b.amount
     } else if (sortCriteria.value === 'date') {
@@ -149,7 +150,6 @@ onMounted(() => {
   }
 })
 
-
 defineExpose({
   fetchExpenditures
 })
@@ -167,21 +167,29 @@ const formatAmount = (amount: number): string => {
 }
 </script>
 
-
 <template>
-  <div class="card shadow p-1">
-    <div class="card-body">
-      <table class="table table-hover align-text-bottom">
-        <thead>
+  <CardComponent>
+    <table class="table table-hover align-text-bottom">
+      <thead>
         <tr class="row fw-bold">
-          <th class="col-3" @click="toggleSort('name')" style="cursor: pointer;">Title</th>
-          <th class="col-3 text-end" @click="toggleSort('amount')" style="cursor: pointer;">{{ vacCurrency }}</th>
-          <th class="col-3 text-end" @click="toggleSort('homeCurrency')" style="cursor: pointer;">{{ homeCurrency }}</th>
-          <th class="col-3 text-end" @click="toggleSort('date')" style="cursor: pointer;">Datum</th>
+          <th class="col-3" @click="toggleSort('name')" style="cursor: pointer">Title</th>
+          <th class="col-3 text-end" @click="toggleSort('amount')" style="cursor: pointer">
+            {{ vacCurrency }}
+          </th>
+          <th class="col-3 text-end" @click="toggleSort('homeCurrency')" style="cursor: pointer">
+            {{ homeCurrency }}
+          </th>
+          <th class="col-3 text-end" @click="toggleSort('date')" style="cursor: pointer">Datum</th>
         </tr>
-        </thead>
-        <tbody>
-        <tr class="row" v-for="item in sortedExpenditures" :key="item.id" @click="editExpenditure(item.id)" style="cursor: pointer;">
+      </thead>
+      <tbody>
+        <tr
+          class="row"
+          v-for="item in sortedExpenditures"
+          :key="item.id"
+          @click="editExpenditure(item.id)"
+          style="cursor: pointer"
+        >
           <td class="col-3 align-middle" v-if="!item.isEditing">
             {{ item.name }}
           </td>
@@ -200,7 +208,12 @@ const formatAmount = (amount: number): string => {
             {{ formatAmount(amountInHomeCurrency(item.amount)) }}
           </td>
           <td class="col-2 align-middle" v-else>
-            <input :value="amountInHomeCurrency(item.amount).toFixed(2)" type="number" class="form-control" disabled />
+            <input
+              :value="amountInHomeCurrency(item.amount).toFixed(2)"
+              type="number"
+              class="form-control"
+              disabled
+            />
           </td>
 
           <td class="col-3 text-end align-middle" v-if="!item.isEditing">
@@ -215,24 +228,22 @@ const formatAmount = (amount: number): string => {
               <div
                 class="bi bi-save fs-5 ps-3"
                 title="save"
-                style="cursor: pointer;"
-                @click.stop="saveExpenditure(item.id, item)">
-              </div>
+                style="cursor: pointer"
+                @click.stop="saveExpenditure(item.id, item)"
+              ></div>
               <div
                 class="bi bi-trash fs-5 ps-3 ms-2"
                 title="delete"
-                style="cursor: pointer;"
-                @click.stop="deleteExpenditure(item.id)">
-              </div>
+                style="cursor: pointer"
+                @click.stop="deleteExpenditure(item.id)"
+              ></div>
             </div>
           </td>
         </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
+      </tbody>
+    </table>
+  </CardComponent>
 </template>
-
 
 <style scoped>
 table.table-hover td,

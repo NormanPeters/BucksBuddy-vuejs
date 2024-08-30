@@ -1,12 +1,7 @@
 <script setup lang="ts">
 import {reactive, ref} from 'vue';
 import api from "@/services/api";
-
-interface UserData {
-  username: string;
-  newPassword: string;
-  confirmPassword: string;
-}
+import type {UserData} from "@/types";
 
 const userData = reactive<UserData>({
   username: localStorage.getItem('username') || '',

@@ -1,9 +1,8 @@
-<!--src/views/Main.vue-->
-
+<!--src/views/MainView.vue-->
 <script setup lang="ts">
 import {ref} from 'vue';
 import TotalExpenditures from "@/components/expensesCards/JourneyCard.vue";
-import History from "@/components/expensesCards/History.vue";
+import History from "@/components/expensesCards/HistoryCard.vue";
 import InputForm from "@/components/expensesCards/InputForm.vue";
 
 const historyComponent = ref();

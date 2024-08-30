@@ -40,3 +40,9 @@ export interface SignupData {
     password: string;
     confirmPassword: string;
 }
+
+export interface UserData {
+    username: string;
+    newPassword: string;
+    confirmPassword: string;
+}

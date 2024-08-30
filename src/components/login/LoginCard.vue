@@ -38,16 +38,20 @@ const login = async () => {
     setTimeout(async () => {
       await router.push('/main');
     }, 1000);
-  } catch (error) {
-    errorMessage.value = 'Login failed. Please check your credentials and try again.';
+  } catch (error: any) {
+    if (error.response && error.response.status === 401) {
+      errorMessage.value = 'Incorrect username or password.';
+    } else {
+      errorMessage.value = 'Login failed. Please check your credentials and try again.';
+    }
   }
 };
 </script>
 
 <template>
   <CardComponent>
-    <div class="d-flex justify-content-center align-items-center">
-      <img :src="logoSrc" alt="Logo" style="width: auto; height: 70px;">
+    <div class="text-center my-5">
+      <img :src="logoSrc" alt="Logo" class="img-fluid" style="height: 70px;">
     </div>
     <form @submit.prevent="login">
       <InputField id="username" label="Username" v-model="loginData.username" />
@@ -64,6 +68,3 @@ const login = async () => {
     <div v-if="errorMessage" class="alert alert-danger mt-3">{{ errorMessage }}</div>
   </CardComponent>
 </template>
-
-<style scoped>
-</style>

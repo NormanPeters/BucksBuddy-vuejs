@@ -68,8 +68,8 @@ const signup = async () => {
 
 <template>
   <CardComponent>
-    <div class="d-flex justify-content-center align-items-center">
-      <img :src="logoSrc" alt="Logo" style="width: auto; height: 70px;">
+    <div class="text-center my-5">
+      <img :src="logoSrc" alt="Logo" class="img-fluid" style="height: 70px;">
     </div>
     <form @submit.prevent="signup">
       <InputField id="username" label="Username" v-model="signupData.username" />
@@ -80,7 +80,7 @@ const signup = async () => {
       </div>
     </form>
     <hr>
-    <div class="text-center">
+    <div class="text-center mt-3">
       <a href="#/login" class="text-decoration-none">Already have an account? Log in</a>
     </div>
     <div v-if="successMessage" class="alert alert-success mt-3">{{ successMessage }}</div>

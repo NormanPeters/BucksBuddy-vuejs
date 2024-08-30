@@ -1,5 +1,5 @@
 import { shallowMount, flushPromises } from '@vue/test-utils';
-import History from '../expensesCards/History.vue';
+import History from '../expensesCards/HistoryCard.vue';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import type { AxiosResponse } from 'axios';
 import type { Expenditure } from '../../types';

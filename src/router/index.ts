@@ -1,11 +1,11 @@
 // src/router/index.ts
 
 import {createRouter, createWebHashHistory} from 'vue-router';
-import NewJourney from '@/views/NewJourney.vue';
-import Main from '@/views/Main.vue';
-import Login from '@/views/Login.vue';
-import Settings from '@/views/Settings.vue'
-import SignUp from '@/views/SignUp.vue';
+import NewJourney from '@/views/NewJourneyView.vue';
+import Main from '@/views/MainView.vue';
+import Login from '@/views/LoginView.vue';
+import Settings from '@/views/SettingsView.vue'
+import SignUp from '@/views/SignUpView.vue';
 
 const router = createRouter({
     history: createWebHashHistory(import.meta.env.BASE_URL),

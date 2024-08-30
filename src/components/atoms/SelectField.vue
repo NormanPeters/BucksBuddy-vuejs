@@ -14,13 +14,13 @@
 <script setup lang="ts">
 import { defineProps, defineEmits } from 'vue';
 
-defineProps({
-  id: String,
-  label: String,
-  options: Array,
-  modelValue: String,
-  placeholder: String,
-});
+defineProps<{
+  id: string;
+  label: string;
+  options: { value: string; text: string }[];
+  modelValue: string;
+  placeholder: string;
+}>();
 
 const emits = defineEmits(['update:modelValue']);
 

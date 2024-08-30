@@ -4,7 +4,7 @@ import { ref, computed } from 'vue'
 import { useRouter } from 'vue-router'
 import api from '@/services/api'
 import type { Journey } from '@/types'
-import type { currencyOptions } from '@/constants/currencyOptions'
+import { currencyOptions } from '@/constants/currencyOptions'
 import InputField from '@/components/atoms/InputField.vue'
 import SelectField from '@/components/atoms/SelectField.vue'
 import BaseButton from '@/components/atoms/BaseButton.vue'
@@ -16,7 +16,7 @@ const uuid = localStorage.getItem('UUID')
 const name = ref('')
 const homeCurr = ref('')
 const vacCurr = ref('')
-const budget = ref(0)
+const budget = ref<string>('0');
 const startDate = ref('')
 const endDate = ref('')
 
@@ -31,7 +31,7 @@ const addJourney = async () => {
     name: name.value,
     homeCurr: homeCurr.value,
     vacCurr: vacCurr.value,
-    budget: budget.value,
+    budget: parseFloat(budget.value),
     startDate: new Date(startDate.value),
     endDate: new Date(endDate.value),
     travelDuration: travelDuration.value

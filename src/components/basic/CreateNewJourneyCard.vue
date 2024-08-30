@@ -1,12 +1,12 @@
 <!-- CreateNewJourneyCard.vue -->
 <script setup lang="ts">
 import { ref, computed } from 'vue'
+import { useRouter } from 'vue-router'
 import api from '@/services/api'
 import type { Journey } from '@/types'
-import { useRouter } from 'vue-router'
+import type { currencyOptions } from '@/constants/currencyOptions'
 import InputField from '@/components/atoms/InputField.vue'
 import SelectField from '@/components/atoms/SelectField.vue'
-import { currencyOptions } from '@/constants/currencyOptions'
 import BaseButton from '@/components/atoms/BaseButton.vue'
 import CardComponent from '@/components/atoms/CardComponent.vue'
 

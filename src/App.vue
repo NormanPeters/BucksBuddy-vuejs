@@ -15,3 +15,9 @@ const isAuthPage = computed(() => ['login', 'signup'].includes(route.name as str
     <router-view/>
   </div>
 </template>
+
+<style scoped>
+.main-content {
+  flex: 1;
+}
+</style>

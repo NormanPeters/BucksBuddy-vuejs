@@ -3,11 +3,11 @@
 import { computed, onMounted, ref, watch } from 'vue'
 import api from '@/services/api'
 import type { Expenditure, Journey } from '@/types'
-import Freecurrencyapi from '@everapi/freecurrencyapi-js'
+import FreeCurrencyAPI from '@everapi/freecurrencyapi-js'
 import eventBus from '@/services/eventBus'
 
 const expendituresList = ref<Expenditure[]>([])
-const currencyapi = new Freecurrencyapi(import.meta.env.VITE_API_KEY)
+const currencyAPI = new FreeCurrencyAPI(import.meta.env.VITE_API_KEY)
 const journeys = ref<Journey[]>([])
 const selectedJourneyId = ref<number | null>(Number(localStorage.getItem('selectedJourney')))
 const uuid = localStorage.getItem('UUID') || 'default-uuid'
@@ -57,7 +57,7 @@ const fetchJourneyDetails = async (journeyId: number) => {
     budget.value = await api.getBudget(journeyId).then(response => response.data)
     startDate.value = new Date(journey.startDate)
     endDate.value = new Date(journey.endDate)
-    exchangeRate.value = await currencyapi.latest({
+    exchangeRate.value = await currencyAPI.latest({
       base_currency: homeCurrency.value,
       currencies: vacCurrency.value
     }).then((response: any) => response.data[vacCurrency.value])

@@ -99,3 +99,10 @@ const logout = () => {
     </div>
   </nav>
 </template>
+
+<style scoped>
+.navbar {
+  background-color: var(--bs-body-bg);
+  border-radius: 5px;
+}
+</style>

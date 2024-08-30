@@ -7,9 +7,9 @@ import { useThemeStore } from '@/stores/themeStore';
 import logoLight from '@/assets/logo.png';
 import logoDark from '@/assets/logo_invert.png';
 
-import CardComponent from '@/atoms/CardComponent.vue';
-import InputField from '@/atoms/InputField.vue';
-import BaseButton from '@/atoms/BaseButton.vue';
+import CardComponent from '@/components/atoms/CardComponent.vue';
+import InputField from '@/components/atoms/InputField.vue';
+import BaseButton from '@/components/atoms/BaseButton.vue';
 
 const themeStore = useThemeStore();
 

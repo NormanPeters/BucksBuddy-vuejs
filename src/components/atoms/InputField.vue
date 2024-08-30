@@ -16,7 +16,7 @@
 <script setup lang="ts">
 import { defineProps, defineEmits } from 'vue';
 
-const props = defineProps({
+defineProps({
   id: String,
   label: String,
   type: {
@@ -32,6 +32,3 @@ function updateValue(event: Event) {
   emits('update:modelValue', (event.target as HTMLInputElement).value);
 }
 </script>
-
-<style scoped>
-</style>

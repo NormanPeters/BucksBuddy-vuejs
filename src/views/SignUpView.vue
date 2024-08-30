@@ -5,7 +5,7 @@ import CenteredContainer from '@/views/viewAtoms/CenteredContainer.vue';
 </script>
 
 <template>
-  <CenteredContainer>
+  <CenteredContainer class="align-items-center">
         <SignUp/>
   </CenteredContainer>
 </template>

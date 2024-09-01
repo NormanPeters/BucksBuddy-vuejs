@@ -1,6 +1,6 @@
 // src/main.ts
 
-import './assets/styles.css'
+import './input.css'
 
 import {createApp} from 'vue'
 import App from './App.vue'

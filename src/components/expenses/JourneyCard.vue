@@ -234,75 +234,72 @@ onMounted(async () => {
 
 <template>
   <CardComponent>
-    <div class="d-flex mb-3">
-      <select class="form-select me-2" v-model="selectedJourneyId">
+    <div class="flex items-center mb-4 space-x-2">
+      <select class="w-full border border-gray-300 rounded-md py-2 px-3 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" v-model="selectedJourneyId">
         <option v-if="journeys.length === 0" disabled value="">Please Create A Journey</option>
         <option v-for="journey in journeys" :key="journey.id" :value="journey.id">
           {{ journey.name }}
         </option>
       </select>
-      <button class="btn bi bi-plus-lg fs-5" @click="$router.push('/newjourney')"></button>
+      <button class="text-gray-600 dark:text-gray-300 text-xl" @click="$router.push('/newjourney')">
+        <i class="bi bi-plus-lg"></i>
+      </button>
       <button
-        class="btn bi bi-trash fs-5"
+        class="text-gray-600 dark:text-gray-300 text-xl"
         @click="confirmAndDeleteJourney(selectedJourneyId)"
-      ></button>
+      >
+        <i class="bi bi-trash"></i>
+      </button>
     </div>
-    <table class="table table-hover">
+    <table class="w-full text-left">
       <thead>
-        <tr>
-          <th scope="col"></th>
-          <th scope="col" class="text-end">{{ getCurrencyName(vacCurrency) }}</th>
-          <th scope="col" class="text-end">{{ getCurrencyName(homeCurrency) }}</th>
-        </tr>
+      <tr>
+        <th scope="col"></th>
+        <th scope="col" class="text-right">{{ getCurrencyName(vacCurrency) }}</th>
+        <th scope="col" class="text-right">{{ getCurrencyName(homeCurrency) }}</th>
+      </tr>
       </thead>
       <tbody>
-        <tr>
-          <th scope="row">Budget</th>
-          <td class="text-end">{{ budgetInVacationCurrency.toFixed(2) }}</td>
-          <td class="text-end">{{ budget.toFixed(2) }}</td>
-        </tr>
-        <tr>
-          <th scope="row">Available</th>
-          <td class="text-end">{{ budgetLeftInVacationCurrency.toFixed(2) }}</td>
-          <td class="text-end">{{ budgetLeftInHomeCurrency.toFixed(2) }}</td>
-        </tr>
-        <tr>
-          <th scope="row">Total Expenses</th>
-          <td class="text-end">{{ totalExpenditures.toFixed(2) }}</td>
-          <td class="text-end">{{ totalExpensesInHomeCurrency.toFixed(2) }}</td>
-        </tr>
-        <tr>
-          <th scope="row">Average Per Day</th>
-          <td class="text-end">{{ averageExpenditurePerDayInVacationCurrency }}</td>
-          <td class="text-end">{{ averageExpenditurePerDayInHomeCurrency }}</td>
-        </tr>
+      <tr>
+        <th scope="row">Budget</th>
+        <td class="text-right">{{ budgetInVacationCurrency.toFixed(2) }}</td>
+        <td class="text-right">{{ budget.toFixed(2) }}</td>
+      </tr>
+      <tr>
+        <th scope="row">Available</th>
+        <td class="text-right">{{ budgetLeftInVacationCurrency.toFixed(2) }}</td>
+        <td class="text-right">{{ budgetLeftInHomeCurrency.toFixed(2) }}</td>
+      </tr>
+      <tr>
+        <th scope="row">Total Expenses</th>
+        <td class="text-right">{{ totalExpenditures.toFixed(2) }}</td>
+        <td class="text-right">{{ totalExpensesInHomeCurrency.toFixed(2) }}</td>
+      </tr>
+      <tr>
+        <th scope="row">Average Per Day</th>
+        <td class="text-right">{{ averageExpenditurePerDayInVacationCurrency }}</td>
+        <td class="text-right">{{ averageExpenditurePerDayInHomeCurrency }}</td>
+      </tr>
       </tbody>
     </table>
-    <hr />
-    <table class="table table-hover">
+    <hr class="my-4 border-gray-300" />
+    <table class="w-full text-left">
       <tbody>
-        <tr>
-          <th scope="row">Period</th>
-          <td colspan="2" class="text-end">
-            {{ formatDate(startDate) }} - {{ formatDate(endDate) }}
-          </td>
-        </tr>
-        <tr>
-          <th scope="row">Travel Duration</th>
-          <td colspan="2" class="text-end">{{ travelDurationInDays }}</td>
-        </tr>
-        <tr>
-          <th scope="row">Exchange Rate</th>
-          <td colspan="2" class="text-end">{{ formatExchangeRate(exchangeRate) }}</td>
-        </tr>
+      <tr>
+        <th scope="row">Period</th>
+        <td colspan="2" class="text-right">
+          {{ formatDate(startDate) }} - {{ formatDate(endDate) }}
+        </td>
+      </tr>
+      <tr>
+        <th scope="row">Travel Duration</th>
+        <td colspan="2" class="text-right">{{ travelDurationInDays }}</td>
+      </tr>
+      <tr>
+        <th scope="row">Exchange Rate</th>
+        <td colspan="2" class="text-right">{{ formatExchangeRate(exchangeRate) }}</td>
+      </tr>
       </tbody>
     </table>
   </CardComponent>
 </template>
-
-<style scoped>
-table.table-hover td,
-table.table-hover th {
-  border: none !important;
-}
-</style>

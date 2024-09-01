@@ -1,7 +1,6 @@
-<!-- src/atoms/CenteredContainer.vue -->
 <template>
-  <div class="d-flex justify-content-center" :style="{ minHeight: minHeight }">
-    <div class="col-xl-4 col-lg-5 col-md-7 col-sm-10">
+  <div class="flex justify-center items-center" :style="{ minHeight: minHeight }">
+    <div class="w-full max-w-xl md:max-w-lg lg:max-w-md xl:max-w-sm">
       <slot></slot>
     </div>
   </div>

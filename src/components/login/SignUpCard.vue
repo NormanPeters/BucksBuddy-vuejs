@@ -69,7 +69,7 @@ const signup = async () => {
 <template>
   <CardComponent>
     <div class="text-center my-5">
-      <img :src="logoSrc" alt="Logo" class="img-fluid" style="height: 70px;">
+      <img :src="logoSrc" alt="Logo" class="mx-auto h-18">
     </div>
     <form @submit.prevent="signup">
       <InputField id="username" label="Username" v-model="signupData.username" />
@@ -79,14 +79,16 @@ const signup = async () => {
         <BaseButton>Sign up</BaseButton>
       </div>
     </form>
-    <hr>
+    <hr class="border-gray-300 my-4">
     <div class="text-center mt-3">
-      <a href="#/login" class="text-decoration-none">Already have an account? Log in</a>
+      <a href="#/login" class="text-blue-500 hover:text-blue-700">Already have an account? Log in</a>
     </div>
-    <div v-if="successMessage" class="alert alert-success mt-3">{{ successMessage }}</div>
-    <div v-if="errorMessage" class="alert alert-danger mt-3">{{ errorMessage }}</div>
+    <div v-if="successMessage" class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mt-3" role="alert">
+      {{ successMessage }}
+    </div>
+    <div v-if="errorMessage" class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mt-3" role="alert">
+      {{ errorMessage }}
+    </div>
   </CardComponent>
 </template>
 
-<style scoped>
-</style>

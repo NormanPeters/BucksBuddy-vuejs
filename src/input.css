@@ -2,5 +2,31 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Grundlegende Styles, die nicht direkt von Tailwind abgedeckt werden */
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+/* Hintergrund und Font-Familie anpassen */
+body {
+    @apply bg-cover bg-no-repeat bg-fixed font-poppins;
+}
+
+/* Überschriften anpassen */
+h4 {
+    @apply text-lg uppercase;
+}
+
+/* Light/Dark Mode Anpassung mit Tailwind */
+body[data-bs-theme="light"] {
+    @apply bg-white;
+}
+
+body[data-bs-theme="dark"] {
+    @apply bg-gray-900;
+}
+
 
 

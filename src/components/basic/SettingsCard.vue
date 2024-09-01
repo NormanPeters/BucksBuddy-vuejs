@@ -89,12 +89,12 @@ function confirmDeleteUser() {
 <template>
   <CardComponent>
     <!-- Username -->
-    <h3 class="text-center mb-4">Settings</h3>
+    <h3 class="text-center mb-4 text-xl font-bold">Settings</h3>
     <div class="mb-3">
-      <label for="userName" class="form-label">Username</label>
+      <label for="userName" class="block text-sm font-medium text-gray-700">Username</label>
       <input
         type="text"
-        class="form-control"
+        class="mt-1 block w-full border border-gray-300 rounded-md py-2 px-3 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
         id="userName"
         v-model="userData.username"
         disabled
@@ -102,7 +102,7 @@ function confirmDeleteUser() {
     </div>
     <!-- Change Password -->
     <div>
-      <BaseButton class="btn-secondary" @click="toggleChangePassword">
+      <BaseButton class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded" @click="toggleChangePassword">
         {{ showChangePassword ? 'Hide' : 'Change Password' }}
       </BaseButton>
       <div class="mt-3" v-if="showChangePassword">
@@ -120,33 +120,34 @@ function confirmDeleteUser() {
             v-model="userData.confirmPassword"
           />
           <div class="text-center mb-3">
-            <BaseButton type="submit" class="btn-primary custom-width-btn"
-              >Change Password</BaseButton
-            >
+            <BaseButton type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-full">Change Password</BaseButton>
           </div>
         </form>
-        <div v-if="passwordErrorMessage" class="alert alert-danger mt-3">
+        <div v-if="passwordErrorMessage" class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mt-3" role="alert">
           {{ passwordErrorMessage }}
         </div>
-        <div v-if="passwordSuccessMessage" class="alert alert-success mt-3">
+        <div v-if="passwordSuccessMessage" class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mt-3" role="alert">
           {{ passwordSuccessMessage }}
         </div>
       </div>
     </div>
 
-    <hr />
+    <hr class="border-gray-300 my-4" />
 
     <!-- Delete User -->
-    <div class="text-center text-danger">
-      <h5>Danger Zone</h5>
+    <div class="text-center text-red-600">
+      <h5 class="font-bold">Danger Zone</h5>
       <p>Deleting your account is permanent and cannot be undone.</p>
     </div>
     <div class="text-center mb-3">
-      <BaseButton @click="confirmDeleteUser" class="btn-danger"> Delete User </BaseButton>
+      <BaseButton @click="confirmDeleteUser" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"> Delete User </BaseButton>
     </div>
-    <div v-if="deleteErrorMessage" class="alert alert-danger mt-3">{{ deleteErrorMessage }}</div>
-    <div v-if="deleteSuccessMessage" class="alert alert-success mt-3">
+    <div v-if="deleteErrorMessage" class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mt-3" role="alert">
+      {{ deleteErrorMessage }}
+    </div>
+    <div v-if="deleteSuccessMessage" class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mt-3" role="alert">
       {{ deleteSuccessMessage }}
     </div>
   </CardComponent>
 </template>
+

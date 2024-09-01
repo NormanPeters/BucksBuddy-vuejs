@@ -66,34 +66,34 @@ setupEventListeners();
 <template>
   <CardComponent>
     <div class="mb-2">
-      <span class="fw-bold">New Expense</span>
+      <span class="font-bold text-lg">New Expense</span>
     </div>
-    <div class="row mb-2">
-      <div class="col">
-        <InputField
-          id="titleInput"
-          label="Title"
-          type="text"
-          v-model="title"
-          @keyup.enter="addExpenditure"
-        />
-      </div>
+    <div class="mb-4">
+      <InputField
+        id="titleInput"
+        label="Title"
+        type="text"
+        v-model="title"
+        @keyup.enter="addExpenditure"
+      />
     </div>
-    <div class="row mb-2">
-      <div class="col">
-        <label for="amountInput" class="form-label">Amount</label>
-        <div class="input-group">
-          <span class="input-group-text">{{ vacCurrency }}</span>
+    <div class="flex space-x-4 mb-4">
+      <div class="flex-1">
+        <label for="amountInput" class="block text-sm font-medium text-gray-700">Amount</label>
+        <div class="mt-1 flex rounded-md shadow-sm">
+          <span class="inline-flex items-center px-3 rounded-l-md border border-r-0 border-gray-300 bg-gray-50 text-gray-500 text-sm">
+            {{ vacCurrency }}
+          </span>
           <input
             id="amountInput"
             type="number"
-            class="form-control"
+            class="flex-1 block w-full rounded-none rounded-r-md sm:text-sm border-gray-300"
             v-model.number="amount"
             @keyup.enter="addExpenditure"
           />
         </div>
       </div>
-      <div class="col">
+      <div class="flex-1">
         <InputField
           id="dateInput"
           label="Date"
@@ -103,10 +103,9 @@ setupEventListeners();
         />
       </div>
     </div>
-    <div class="row mb-2">
-      <div class="col">
-        <BaseButton @click="addExpenditure">Submit</BaseButton>
-      </div>
+    <div class="flex justify-end">
+      <BaseButton @click="addExpenditure" class="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Submit</BaseButton>
     </div>
   </CardComponent>
 </template>
+

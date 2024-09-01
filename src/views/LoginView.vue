@@ -5,7 +5,8 @@ import CenteredContainer from '@/views/viewAtoms/CenteredContainer.vue'
 </script>
 
 <template>
-  <CenteredContainer class="align-items-center">
+  <CenteredContainer>
     <LoginCard />
   </CenteredContainer>
 </template>
+

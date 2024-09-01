@@ -15,16 +15,17 @@ const handleRefreshExpenditures = () => {
 </script>
 
 <template>
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-6 col-md-9 col-sm-12">
-        <total-expenditures/>
-        <input-form @refreshExpenditures="handleRefreshExpenditures"/>
+  <div class="container mx-auto p-4">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div>
+        <TotalExpenditures />
+        <InputForm @refreshExpenditures="handleRefreshExpenditures" />
       </div>
-      <div class="col-lg-6 col-md-9 col-sm-12">
-        <history ref="historyComponent"/>
+      <div>
+        <History ref="historyComponent" />
       </div>
     </div>
   </div>
 </template>
+
 

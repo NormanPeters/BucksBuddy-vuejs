@@ -169,85 +169,82 @@ const formatAmount = (amount: number): string => {
 
 <template>
   <CardComponent>
-    <table class="table table-hover align-text-bottom">
+    <table class="w-full text-left">
       <thead>
-        <tr class="row fw-bold">
-          <th class="col-3" @click="toggleSort('name')" style="cursor: pointer">Title</th>
-          <th class="col-3 text-end" @click="toggleSort('amount')" style="cursor: pointer">
-            {{ vacCurrency }}
-          </th>
-          <th class="col-3 text-end" @click="toggleSort('homeCurrency')" style="cursor: pointer">
-            {{ homeCurrency }}
-          </th>
-          <th class="col-3 text-end" @click="toggleSort('date')" style="cursor: pointer">Datum</th>
-        </tr>
+      <tr class="grid grid-cols-12 font-bold">
+        <th class="col-span-3 cursor-pointer" @click="toggleSort('name')">Title</th>
+        <th class="col-span-3 text-right cursor-pointer" @click="toggleSort('amount')">
+          {{ vacCurrency }}
+        </th>
+        <th class="col-span-3 text-right cursor-pointer" @click="toggleSort('homeCurrency')">
+          {{ homeCurrency }}
+        </th>
+        <th class="col-span-3 text-right cursor-pointer" @click="toggleSort('date')">Date</th>
+      </tr>
       </thead>
       <tbody>
-        <tr
-          class="row"
-          v-for="item in sortedExpenditures"
-          :key="item.id"
-          @click="editExpenditure(item.id)"
-          style="cursor: pointer"
-        >
-          <td class="col-3 align-middle" v-if="!item.isEditing">
-            {{ item.name }}
-          </td>
-          <td class="col-3 align-middle" v-else>
-            <input v-model="item.name" class="form-control" />
-          </td>
+      <tr
+        class="grid grid-cols-12 cursor-pointer hover:bg-gray-100"
+        v-for="item in sortedExpenditures"
+        :key="item.id"
+        @click="editExpenditure(item.id)"
+      >
+        <td class="col-span-3 align-middle" v-if="!item.isEditing">
+          {{ item.name }}
+        </td>
+        <td class="col-span-3 align-middle" v-else>
+          <input v-model="item.name" class="w-full border border-gray-300 rounded-md py-1 px-2" />
+        </td>
 
-          <td class="col-3 text-end align-middle" v-if="!item.isEditing">
-            {{ formatAmount(item.amount) }}
-          </td>
-          <td class="col-2 align-middle" v-else>
-            <input v-model="item.amount" type="number" class="form-control" />
-          </td>
+        <td class="col-span-3 text-right align-middle" v-if="!item.isEditing">
+          {{ formatAmount(item.amount) }}
+        </td>
+        <td class="col-span-2 align-middle" v-else>
+          <input v-model="item.amount" type="number" class="w-full border border-gray-300 rounded-md py-1 px-2" />
+        </td>
 
-          <td class="col-3 text-end align-middle" v-if="!item.isEditing">
-            {{ formatAmount(amountInHomeCurrency(item.amount)) }}
-          </td>
-          <td class="col-2 align-middle" v-else>
-            <input
-              :value="amountInHomeCurrency(item.amount).toFixed(2)"
-              type="number"
-              class="form-control"
-              disabled
-            />
-          </td>
+        <td class="col-span-3 text-right align-middle" v-if="!item.isEditing">
+          {{ formatAmount(amountInHomeCurrency(item.amount)) }}
+        </td>
+        <td class="col-span-2 align-middle" v-else>
+          <input
+            :value="amountInHomeCurrency(item.amount).toFixed(2)"
+            type="number"
+            class="w-full border border-gray-300 rounded-md py-1 px-2"
+            disabled
+          />
+        </td>
 
-          <td class="col-3 text-end align-middle" v-if="!item.isEditing">
-            {{ formatDate(item.date) }}
-          </td>
-          <td class="col-3 align-middle" v-else>
-            <input v-model="item.date" type="date" class="form-control" />
-          </td>
+        <td class="col-span-3 text-right align-middle" v-if="!item.isEditing">
+          {{ formatDate(item.date) }}
+        </td>
+        <td class="col-span-3 align-middle" v-else>
+          <input v-model="item.date" type="date" class="w-full border border-gray-300 rounded-md py-1 px-2" />
+        </td>
 
-          <td class="col-2 text-center align-middle" v-if="item.isEditing">
-            <div class="d-flex justify-content-center align-items-center">
-              <div
-                class="bi bi-save fs-5 ps-3"
-                title="save"
-                style="cursor: pointer"
-                @click.stop="saveExpenditure(item.id, item)"
-              ></div>
-              <div
-                class="bi bi-trash fs-5 ps-3 ms-2"
-                title="delete"
-                style="cursor: pointer"
-                @click.stop="deleteExpenditure(item.id)"
-              ></div>
-            </div>
-          </td>
-        </tr>
+        <td class="col-span-2 text-center align-middle" v-if="item.isEditing">
+          <div class="flex justify-center items-center space-x-2">
+            <div
+              class="bi bi-save text-lg"
+              title="save"
+              @click.stop="saveExpenditure(item.id, item)"
+            ></div>
+            <div
+              class="bi bi-trash text-lg"
+              title="delete"
+              @click.stop="deleteExpenditure(item.id)"
+            ></div>
+          </div>
+        </td>
+      </tr>
       </tbody>
     </table>
   </CardComponent>
 </template>
 
 <style scoped>
-table.table-hover td,
-table.table-hover th {
+table td,
+table th {
   border: none !important;
 }
 </style>

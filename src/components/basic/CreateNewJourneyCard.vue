@@ -73,58 +73,59 @@ const dateError = computed(() => {
 
 <template>
   <CardComponent>
-      <h3 class="text-center mb-3">Create New Journey</h3>
+    <h3 class="text-center mb-3 text-xl font-bold">Create New Journey</h3>
 
-      <form @submit.prevent="addJourney">
-        <InputField id="name" label="Name" type="text" v-model="name" required />
+    <form @submit.prevent="addJourney">
+      <InputField id="name" label="Name" type="text" v-model="name" required />
 
-        <SelectField
-          id="homeCurrency"
-          label="Home Currency"
-          :options="currencyOptions"
-          v-model="homeCurr"
-          placeholder="Please select one"
+      <SelectField
+        id="homeCurrency"
+        label="Home Currency"
+        :options="currencyOptions"
+        v-model="homeCurr"
+        placeholder="Please select one"
+      />
+
+      <SelectField
+        id="vacationCurrency"
+        label="Vacation Currency"
+        :options="currencyOptions"
+        v-model="vacCurr"
+        placeholder="Please select one"
+      />
+
+      <InputField id="budget" label="Budget" type="number" v-model.number="budget" />
+
+      <div class="flex space-x-4">
+        <InputField
+          id="startDate"
+          label="Start Date"
+          type="date"
+          v-model="startDate"
+          required
+          class="flex-1"
         />
-
-        <SelectField
-          id="vacationCurrency"
-          label="Vacation Currency"
-          :options="currencyOptions"
-          v-model="vacCurr"
-          placeholder="Please select one"
+        <InputField
+          id="endDate"
+          label="End Date"
+          type="date"
+          v-model="endDate"
+          required
+          class="flex-1"
         />
+      </div>
+      <div v-if="dateError" class="text-red-500 mt-2">{{ dateError }}</div>
 
-        <InputField id="budget" label="Budget" type="number" v-model.number="budget" />
+      <div class="mb-3">
+        <label class="block text-sm font-medium text-gray-700">Travel Duration</label>
+        <input type="text" class="mt-1 block w-full border border-gray-300 rounded-md py-2 px-3 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm" :value="travelDuration" disabled />
+      </div>
 
-        <div class="row">
-          <InputField
-            id="startDate"
-            label="Start Date"
-            type="date"
-            v-model="startDate"
-            required
-            class="col-6"
-          />
-          <InputField
-            id="endDate"
-            label="End Date"
-            type="date"
-            v-model="endDate"
-            required
-            class="col-6"
-          />
-          <div v-if="dateError" class="text-danger">{{ dateError }}</div>
-        </div>
+      <BaseButton class="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Create Journey</BaseButton>
+    </form>
 
-        <div class="mb-3">
-          <label class="form-label">Travel Duration</label>
-          <input type="text" class="form-control" :value="travelDuration" disabled />
-        </div>
-
-        <BaseButton>Create Journey</BaseButton>
-      </form>
-
-      <div v-if="successMessage" class="alert alert-success mt-3">{{ successMessage }}</div>
-      <div v-if="errorMessage" class="alert alert-danger mt-3">{{ errorMessage }}</div>
+    <div v-if="successMessage" class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mt-3" role="alert">{{ successMessage }}</div>
+    <div v-if="errorMessage" class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mt-3" role="alert">{{ errorMessage }}</div>
   </CardComponent>
 </template>
+

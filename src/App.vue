@@ -10,14 +10,8 @@ const isAuthPage = computed(() => ['login', 'signup'].includes(route.name as str
 </script>
 
 <template>
-  <div class="main-content">
+  <div class="flex-1">
     <NavBar v-if="!isAuthPage"/>
     <router-view/>
   </div>
 </template>
-
-<style scoped>
-.main-content {
-  flex: 1;
-}
-</style>

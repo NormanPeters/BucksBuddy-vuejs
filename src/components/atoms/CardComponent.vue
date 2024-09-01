@@ -1,17 +1,13 @@
 <!-- src/components/CardComponent.vue -->
 <template>
-  <div class="card shadow mb-3 p-1">
-    <div class="card-body">
+  <div class="bg-white shadow-md mb-3 p-4 rounded">
+    <div>
       <slot></slot>
     </div>
   </div>
 </template>
 
+
 <script setup lang="ts">
 </script>
 
-<style scoped>
-.card {
-  border: none;
-}
-</style>

@@ -11870,8 +11870,10 @@ body {
 h1, .h1 {
   font-family: "Syncopate", sans-serif;
   font-weight: 700;
-  color: #d8fffb;
   text-align: center;
+  background: linear-gradient(90deg, #a6fff2, #00dac6, #00644a);
+  -webkit-background-clip: text;
+  color: transparent;
 }
 
 h4, .h4 {

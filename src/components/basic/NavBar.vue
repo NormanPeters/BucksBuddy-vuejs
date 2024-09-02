@@ -5,8 +5,6 @@ import { reactive } from 'vue'
 import type { UserData } from '@/types'
 import CustomButton from '@/components/atoms/NavBarLink.vue'
 
-const isActive = (path) => (router.currentRoute.value.path === path ? 'active' : '')
-
 const router = useRouter()
 const logout = () => {
   localStorage.removeItem('UUID')
@@ -61,7 +59,7 @@ const userData = reactive<UserData>({
           </CustomButton>
         </li>
         <li class="nav-item mb-3">
-          <CustomButton @click="logout">
+          <CustomButton @click="logout" to="/login">
             <template #icon>
               <i class="bi bi-box-arrow-right"></i>
             </template>

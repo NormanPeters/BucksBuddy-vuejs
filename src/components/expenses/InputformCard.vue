@@ -66,7 +66,7 @@ setupEventListeners();
 <template>
   <CardComponent>
     <div class="mb-2">
-      <span class="fw-bold">New Expense</span>
+      <h4>New Expense</h4>
     </div>
     <div class="row mb-2">
       <div class="col">

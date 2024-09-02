@@ -234,18 +234,26 @@ onMounted(async () => {
 
 <template>
   <CardComponent>
-    <div class="d-flex mb-3">
-      <select class="form-select me-2" v-model="selectedJourneyId">
-        <option v-if="journeys.length === 0" disabled value="">Please Create A Journey</option>
-        <option v-for="journey in journeys" :key="journey.id" :value="journey.id">
-          {{ journey.name }}
-        </option>
-      </select>
-      <button
-        class="btn bi bi-trash fs-5"
-        @click="confirmAndDeleteJourney(selectedJourneyId)"
-      ></button>
+    <div class="row d-flex justify-content-center align-items-center mb-3">
+      <div class="col-6 d-flex align-items-center">
+        <h4 class="mb-0">Journey</h4>
+      </div>
+      <div class="col-5">
+        <select class="form-select" v-model="selectedJourneyId">
+          <option v-if="journeys.length === 0" disabled value="">Please Create A Journey</option>
+          <option v-for="journey in journeys" :key="journey.id" :value="journey.id">
+            {{ journey.name }}
+          </option>
+        </select>
+      </div>
+      <div class="col-1 d-flex justify-content-end">
+        <button
+          class="btn bi bi-trash fs-5"
+          @click="confirmAndDeleteJourney(selectedJourneyId)"
+        ></button>
+      </div>
     </div>
+    <hr />
     <table class="table table-hover">
       <thead>
         <tr>
@@ -256,22 +264,22 @@ onMounted(async () => {
       </thead>
       <tbody>
         <tr>
-          <th scope="row">Budget</th>
+          <th scope="row"><i class="bi bi-wallet me-2"></i> Budget</th>
           <td class="text-end">{{ budgetInVacationCurrency.toFixed(2) }}</td>
           <td class="text-end">{{ budget.toFixed(2) }}</td>
         </tr>
         <tr>
-          <th scope="row">Available</th>
+          <th scope="row"><i class="bi bi-wallet2 me-2"></i> Available</th>
           <td class="text-end">{{ budgetLeftInVacationCurrency.toFixed(2) }}</td>
           <td class="text-end">{{ budgetLeftInHomeCurrency.toFixed(2) }}</td>
         </tr>
         <tr>
-          <th scope="row">Total Expenses</th>
+          <th scope="row"><i class="bi bi-cash-stack me-2"></i> Total Expenses</th>
           <td class="text-end">{{ totalExpenditures.toFixed(2) }}</td>
           <td class="text-end">{{ totalExpensesInHomeCurrency.toFixed(2) }}</td>
         </tr>
         <tr>
-          <th scope="row">Average Per Day</th>
+          <th scope="row"><i class="bi bi-calendar3 me-2"></i> Average Per Day</th>
           <td class="text-end">{{ averageExpenditurePerDayInVacationCurrency }}</td>
           <td class="text-end">{{ averageExpenditurePerDayInHomeCurrency }}</td>
         </tr>
@@ -281,17 +289,17 @@ onMounted(async () => {
     <table class="table table-hover">
       <tbody>
         <tr>
-          <th scope="row">Period</th>
+          <th scope="row"><i class="bi bi-calendar me-2"></i> Period</th>
           <td colspan="2" class="text-end">
             {{ formatDate(startDate) }} - {{ formatDate(endDate) }}
           </td>
         </tr>
         <tr>
-          <th scope="row">Travel Duration</th>
+          <th scope="row"><i class="bi bi-clock me-2"></i> Travel Duration</th>
           <td colspan="2" class="text-end">{{ travelDurationInDays }}</td>
         </tr>
         <tr>
-          <th scope="row">Exchange Rate</th>
+          <th scope="row"><i class="bi bi-currency-exchange me-2"></i> Exchange Rate</th>
           <td colspan="2" class="text-end">{{ formatExchangeRate(exchangeRate) }}</td>
         </tr>
       </tbody>
@@ -303,5 +311,9 @@ onMounted(async () => {
 table.table-hover td,
 table.table-hover th {
   border: none !important;
+}
+
+.bi {
+  color: var(--bs-primary);
 }
 </style>

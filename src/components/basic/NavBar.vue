@@ -45,7 +45,7 @@ const userData = reactive<UserData>({
           </CustomButton>
         </li>
         <li class="nav-item mb-3">
-          <CustomButton to="/new-journey">
+          <CustomButton to="/newjourney">
             <template #icon>
               <i class="bi bi-airplane"></i>
             </template>

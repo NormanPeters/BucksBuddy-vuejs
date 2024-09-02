@@ -1,6 +1,6 @@
 <!-- src/components/InputField.vue -->
 <template>
-  <div class="mb-2">
+  <div>
     <label :for="id" class="form-label">{{ label }}</label>
     <input
       :type="type"
@@ -32,3 +32,9 @@ function updateValue(event: Event) {
   emits('update:modelValue', (event.target as HTMLInputElement).value);
 }
 </script>
+
+<style scoped>
+.form-control {
+  background: var(--bs-secondary-bg);
+}
+</style>

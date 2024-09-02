@@ -15,5 +15,6 @@
   border-radius: 10px;
   background-color: var(--bs-secondary-bg);
   height: 100%;
+  border: none;
 }
 </style>

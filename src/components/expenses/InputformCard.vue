@@ -7,6 +7,7 @@ import eventBus from '@/services/eventBus'
 import CardComponent from '@/components/atoms/CardComponent.vue'
 import InputField from '@/components/atoms/InputField.vue'
 import BaseButton from '@/components/atoms/BaseButton.vue'
+import SectionHeader from '@/components/atoms/SectionHeader.vue'
 
 const emit = defineEmits(['refreshExpenditures'])
 const journeyId = ref<number | null>(Number(localStorage.getItem('selectedJourney')))
@@ -45,43 +46,46 @@ const todayDate = computed(() => {
   const year = now.getFullYear()
   return `${year}-${month}-${day}`
 })
-date.value = todayDate.value;
+date.value = todayDate.value
 
 const setupEventListeners = () => {
   eventBus.on('journeyIdChanged', (newJourneyId: number | null) => {
-    journeyId.value = newJourneyId;
-  });
+    journeyId.value = newJourneyId
+  })
 
   eventBus.on('vacCurrencyUpdated', (vacCurrencyName: string) => {
-    vacCurrency.value = vacCurrencyName;
-  });
+    vacCurrency.value = vacCurrencyName
+  })
 
   eventBus.on('exchangeRateUpdated', (rate: number | null) => {
-    exchangeRate.value = rate;
-  });
+    exchangeRate.value = rate
+  })
 }
-setupEventListeners();
+setupEventListeners()
 </script>
 
 <template>
   <CardComponent>
-    <div class="mb-2">
-      <h4>New Expense</h4>
-    </div>
-    <div class="row mb-2">
-      <div class="col">
-        <InputField
+    <SectionHeader title="New Expense" />
+    <div class="row mb-3 mt-4">
+      <div class="col-3 d-flex justify-content-center align-items-center">
+        <span class="fw-bold">Title</span>
+      </div>
+      <div class="col-9">
+        <input
           id="titleInput"
-          label="Title"
           type="text"
+          class="form-control"
           v-model="title"
           @keyup.enter="addExpenditure"
         />
       </div>
     </div>
-    <div class="row mb-2">
-      <div class="col">
-        <label for="amountInput" class="form-label">Amount</label>
+    <div class="row mb-3">
+      <div class="col-3 d-flex justify-content-center align-items-center">
+        <span class="fw-bold">Amount</span>
+      </div>
+      <div class="col-9">
         <div class="input-group">
           <span class="input-group-text">{{ vacCurrency }}</span>
           <input
@@ -93,19 +97,26 @@ setupEventListeners();
           />
         </div>
       </div>
-      <div class="col">
-        <InputField
-          id="dateInput"
-          label="Date"
-          type="date"
-          v-model="date"
-          @keyup.enter="addExpenditure"
-        />
+    </div>
+    <div class="row mb-3">
+      <div class="col-3 d-flex justify-content-center align-items-center">
+        <span class="fw-bold">Date</span>
+      </div>
+      <div class="col-9">
+        <div class="input-group">
+          <input
+            id="dateInput"
+            type="date"
+            class="form-control"
+            v-model="date"
+            @keyup.enter="addExpenditure"
+          />
+        </div>
       </div>
     </div>
-    <div class="row mb-2">
-      <div class="col">
-        <BaseButton @click="addExpenditure">Submit</BaseButton>
+    <div class="row d-flex justify-content-end">
+      <div class="col-9">
+        <BaseButton @click="addExpenditure">+ Add Expense</BaseButton>
       </div>
     </div>
   </CardComponent>

@@ -11877,6 +11877,16 @@ h1, .h1 {
   color: transparent;
 }
 
+h2, .h2 {
+  font-family: "Syncopate", sans-serif;
+  font-weight: 700;
+  font-size: 24px;
+  text-align: center;
+  background: linear-gradient(90deg, #a6fff2, #00dac6, #00644a);
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
 h4, .h4 {
   font-family: "Rubik", sans-serif;
   font-size: 14px;

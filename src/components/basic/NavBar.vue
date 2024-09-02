@@ -1,21 +1,11 @@
 <!--NavBar.vue -->
 <script setup lang="ts">
-import { useThemeStore } from '@/stores/themeStore'
 import { useRouter } from 'vue-router'
-import { computed } from 'vue'
-import logoLight from '@/assets/logo.png'
-import logoDark from '@/assets/logo_invert.png'
+import { reactive } from 'vue'
+import type { UserData } from '@/types'
+import CustomButton from '@/components/atoms/NavBarLink.vue'
 
-const isActive = (path) => router.currentRoute.value.path === path ? 'active' : '';
-
-// const themeStore = useThemeStore()
-// const toggleTheme = () => {
-//   themeStore.applyTheme(themeStore.theme === 'light' ? 'dark' : 'light')
-// }
-//
-// const logoSrc = computed(() => {
-//   return themeStore.theme === 'light' ? logoLight : logoDark
-// })
+const isActive = (path) => (router.currentRoute.value.path === path ? 'active' : '')
 
 const router = useRouter()
 const logout = () => {
@@ -23,57 +13,69 @@ const logout = () => {
   localStorage.removeItem('selectedJourney')
   router.push('/login')
 }
+
+const userData = reactive<UserData>({
+  username: localStorage.getItem('username') || ''
+})
 </script>
 
 <template>
   <nav class="navbar d-flex flex-column justify-content-between p-3">
-    <div>
+    <div class="mt-3">
+      <!-- Icon -->
+      <i
+        class="bi bi-currency-exchange d-flex justify-content-center align-items-center fs-2 mb-3"></i>
+
       <!-- Logo -->
-      <h1 class="text-center mb-4">BUCKS BUDDY</h1>
+      <h2 class="text-center mb-5">BUCKS BUDDY</h2>
+
+      <!-- User -->
+      <span class="d-flex mb-5 fs-6 text-center justify-content-center align-items-center fw-bold"
+            id="userName"
+              >{{userData.username}}</span>
+
       <!-- Navigation Links -->
       <ul class="nav flex-column">
         <li class="nav-item mb-3">
-          <RouterLink
-            to="/main"
-            class="nav-link"
-            :class="['bi bi-house fs-5', isActive('/main')]">
-            <span class="ms-2">Home</span>
-          </RouterLink>
+          <CustomButton to="/main">
+            <template #icon>
+              <i class="bi bi-house"></i>
+            </template>
+            Home
+          </CustomButton>
         </li>
         <li class="nav-item mb-3">
-          <RouterLink
-            to="/new-journey"
-            class="nav-link"
-            :class="['bi bi-airplane fs-5', isActive('/new-journey')]">
-            <span class="ms-2">New Journey</span>
-          </RouterLink>
+          <CustomButton to="/new-journey">
+            <template #icon>
+              <i class="bi bi-airplane"></i>
+            </template>
+            New Journey
+          </CustomButton>
         </li>
         <li class="nav-item mb-3">
-          <RouterLink
-            to="/settings"
-            class="nav-link"
-            :class="['bi bi-gear fs-5', isActive('/settings')]">
-            <span class="ms-2">Settings</span>
-          </RouterLink>
+          <CustomButton to="/settings">
+            <template #icon>
+              <i class="bi bi-gear"></i>
+            </template>
+            Settings
+          </CustomButton>
+        </li>
+        <li class="nav-item mb-3">
+          <CustomButton @click="logout">
+            <template #icon>
+              <i class="bi bi-box-arrow-right"></i>
+            </template>
+            Logout
+          </CustomButton>
         </li>
       </ul>
-    </div>
-    <div>
-      <li class="nav-item">
-        <a
-          @click="logout"
-          class="nav-link bi bi-box-arrow-right fs-5"
-          style="cursor: pointer">
-          <span class="ms-2">Logout</span>
-        </a>
-      </li>
     </div>
   </nav>
 </template>
 
 <style scoped>
 .navbar {
-  width: 250px;
+  width: 18%;
   background-color: var(--bs-secondary-bg);
   height: 100vh;
 }

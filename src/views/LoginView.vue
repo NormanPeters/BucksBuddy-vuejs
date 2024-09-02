@@ -11,7 +11,4 @@ import CenteredContainer from '@/views/viewAtoms/CenteredContainer.vue'
 </template>
 
 <style scoped>
-body {
-  background-color: #f8f9fa;
-}
 </style>

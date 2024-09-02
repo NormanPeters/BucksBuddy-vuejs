@@ -6,15 +6,16 @@ import { computed } from 'vue'
 import logoLight from '@/assets/logo.png'
 import logoDark from '@/assets/logo_invert.png'
 
-const themeStore = useThemeStore()
+const isActive = (path) => router.currentRoute.value.path === path ? 'active' : '';
 
-const toggleTheme = () => {
-  themeStore.applyTheme(themeStore.theme === 'light' ? 'dark' : 'light')
-}
-
-const logoSrc = computed(() => {
-  return themeStore.theme === 'light' ? logoLight : logoDark
-})
+// const themeStore = useThemeStore()
+// const toggleTheme = () => {
+//   themeStore.applyTheme(themeStore.theme === 'light' ? 'dark' : 'light')
+// }
+//
+// const logoSrc = computed(() => {
+//   return themeStore.theme === 'light' ? logoLight : logoDark
+// })
 
 const router = useRouter()
 const logout = () => {
@@ -25,84 +26,65 @@ const logout = () => {
 </script>
 
 <template>
-  <nav class="navbar shadow m-2 mb-3 navbar-expand">
-    <div class="container row-cols-2">
+  <nav class="navbar d-flex flex-column justify-content-between p-3">
+    <div>
       <!-- Logo -->
-      <div class="col-2 d-flex align-items-center">
-        <RouterLink to="/main">
-          <img
-            :src="logoSrc"
-            alt="Logo"
-            class="d-none d-md-inline"
-            style="width: auto; height: 70px;">
-        </RouterLink>
-      </div>
-      <div class="col-10 d-flex justify-content-end">
-        <ul class="navbar-nav ms-auto">
-          <!-- Theme toggle -->
-          <li class="nav-item d-flex align-items-center">
-            <i
-              :class="[themeStore.theme === 'light' ? 'bi bi-sun fs-3 text-dark' : 'bi bi-moon-stars fs-3 text-white']"></i>
-            <i
-              :class="[themeStore.theme === 'light' ? 'bi bi-toggle-off fs-3 mx-2 text-dark' : 'bi bi-toggle-on fs-3 mx-2 text-white']"
-              @click="toggleTheme"></i>
-          </li>
-
-          <!-- Dropdown Menu -->
-          <li class="nav-item dropdown">
-            <div class="dropstart">
-              <button
-                class="btn bi bi-list m-2 fs-3"
-                data-bs-toggle="dropdown"
-                aria-expanded="false">
-              </button>
-              <ul class="dropdown-menu dropdown-menu-start">
-                <li>
-                  <RouterLink
-                    to="/main"
-                    class="dropdown-item d-flex align-items-center"
-                    :class="[
-            'bi bi-card-list fs-6 icon-link-hover text-decoration-none w-100',
-            themeStore.theme === 'light' ? 'text-dark' : 'text-white'
-          ]">
-                    <span class="ms-2">Main</span>
-                  </RouterLink>
-                </li>
-                <li>
-                  <RouterLink
-                    to="/settings"
-                    class="dropdown-item d-flex align-items-center"
-                    :class="[
-            'bi bi-gear fs-6 icon-link-hover text-decoration-none w-100',
-            themeStore.theme === 'light' ? 'text-dark' : 'text-white'
-          ]">
-                    <span class="ms-2">Settings</span>
-                  </RouterLink>
-                </li>
-                <li>
-                  <a
-                    @click="logout"
-                    class="dropdown-item d-flex align-items-center"
-                    :class="[
-            'bi bi-box-arrow-right fs-6 icon-link-hover text-decoration-none w-100',
-            themeStore.theme === 'light' ? 'text-dark' : 'text-white'
-          ]"
-                    style="cursor: pointer;">
-                    <span class="ms-2">Logout</span>
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </li>
-        </ul>
-      </div>
+      <h1 class="text-center mb-4">BUCKS BUDDY</h1>
+      <!-- Navigation Links -->
+      <ul class="nav flex-column">
+        <li class="nav-item mb-3">
+          <RouterLink
+            to="/main"
+            class="nav-link"
+            :class="['bi bi-house fs-5', isActive('/main')]">
+            <span class="ms-2">Home</span>
+          </RouterLink>
+        </li>
+        <li class="nav-item mb-3">
+          <RouterLink
+            to="/new-journey"
+            class="nav-link"
+            :class="['bi bi-airplane fs-5', isActive('/new-journey')]">
+            <span class="ms-2">New Journey</span>
+          </RouterLink>
+        </li>
+        <li class="nav-item mb-3">
+          <RouterLink
+            to="/settings"
+            class="nav-link"
+            :class="['bi bi-gear fs-5', isActive('/settings')]">
+            <span class="ms-2">Settings</span>
+          </RouterLink>
+        </li>
+      </ul>
+    </div>
+    <div>
+      <li class="nav-item">
+        <a
+          @click="logout"
+          class="nav-link bi bi-box-arrow-right fs-5"
+          style="cursor: pointer">
+          <span class="ms-2">Logout</span>
+        </a>
+      </li>
     </div>
   </nav>
 </template>
 
 <style scoped>
 .navbar {
-  background-color: var(--bs-body-bg);
-  border-radius: 5px;
+  width: 250px;
+  background-color: var(--bs-secondary-bg);
+  height: 100vh;
+}
+
+.nav-link {
+  color: var(--bs-link-color);
+  text-decoration: none;
+}
+
+.nav-link.active {
+  color: var(--bs-primary);
+  font-weight: bold;
 }
 </style>

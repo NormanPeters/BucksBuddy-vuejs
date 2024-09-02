@@ -28,3 +28,4 @@ const updateValue = (event: Event) => {
   emits('update:modelValue', (event.target as HTMLSelectElement).value);
 };
 </script>
+

@@ -49,7 +49,7 @@ const login = async () => {
 </script>
 
 <template>
-  <CardComponent class="border-0">
+  <CardComponent class="border-0" style="background-color: var(--bs-body-bg)">
     <i class="bi bi-currency-exchange d-flex justify-content-center align-items-center fs-1 mb-3"></i>
     <h1 class="text-center mb-5">BUCKS BUDDY</h1>
     <form @submit.prevent="login">
@@ -69,3 +69,7 @@ const login = async () => {
     <div v-if="errorMessage" class="alert alert-danger mt-3">{{ errorMessage }}</div>
   </CardComponent>
 </template>
+
+<style scoped>
+
+</style>

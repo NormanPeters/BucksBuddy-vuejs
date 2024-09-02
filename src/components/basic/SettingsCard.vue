@@ -5,6 +5,7 @@ import type { UserData } from '@/types'
 import CardComponent from '@/components/atoms/CardComponent.vue'
 import BaseButton from '@/components/atoms/BaseButton.vue'
 import InputField from '@/components/atoms/InputField.vue'
+import { useThemeStore } from '@/stores/themeStore'
 
 const userData = reactive<UserData>({
   username: localStorage.getItem('username') || '',
@@ -84,6 +85,11 @@ function confirmDeleteUser() {
     deleteUser()
   }
 }
+
+const themeStore = useThemeStore()
+const toggleTheme = () => {
+  themeStore.applyTheme(themeStore.theme === 'light' ? 'dark' : 'light')
+}
 </script>
 
 <template>
@@ -92,13 +98,7 @@ function confirmDeleteUser() {
     <h3 class="text-center mb-4">Settings</h3>
     <div class="mb-3">
       <label for="userName" class="form-label">Username</label>
-      <input
-        type="text"
-        class="form-control"
-        id="userName"
-        v-model="userData.username"
-        disabled
-      />
+      <input type="text" class="form-control" id="userName" v-model="userData.username" disabled />
     </div>
     <!-- Change Password -->
     <div>
@@ -121,8 +121,8 @@ function confirmDeleteUser() {
           />
           <div class="text-center mb-3">
             <BaseButton type="submit" class="btn-primary custom-width-btn"
-              >Change Password</BaseButton
-            >
+              >Change Password
+            </BaseButton>
           </div>
         </form>
         <div v-if="passwordErrorMessage" class="alert alert-danger mt-3">
@@ -142,11 +142,32 @@ function confirmDeleteUser() {
       <p>Deleting your account is permanent and cannot be undone.</p>
     </div>
     <div class="text-center mb-3">
-      <BaseButton @click="confirmDeleteUser" class="btn-danger"> Delete User </BaseButton>
+      <BaseButton @click="confirmDeleteUser" class="btn-danger"> Delete User</BaseButton>
     </div>
     <div v-if="deleteErrorMessage" class="alert alert-danger mt-3">{{ deleteErrorMessage }}</div>
     <div v-if="deleteSuccessMessage" class="alert alert-success mt-3">
       {{ deleteSuccessMessage }}
     </div>
+
+    <!-- Theme toggle -->
+    <ul>
+      <li class="nav-item">
+        <i
+          :class="[
+            themeStore.theme === 'light'
+              ? 'bi bi-sun fs-3 text-dark'
+              : 'bi bi-moon-stars fs-3 text-white'
+          ]"
+        ></i>
+        <i
+          :class="[
+            themeStore.theme === 'light'
+              ? 'bi bi-toggle-off fs-3 mx-2 text-dark'
+              : 'bi bi-toggle-on fs-3 mx-2 text-white'
+          ]"
+          @click="toggleTheme"
+        ></i>
+      </li>
+    </ul>
   </CardComponent>
 </template>

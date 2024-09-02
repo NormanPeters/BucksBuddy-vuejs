@@ -11859,6 +11859,7 @@ html, body {
 
 body {
   font-family: "Rubik", sans-serif;
+  font-size: 12px;
   display: flex;
   flex-direction: column;
   background-size: cover;
@@ -11878,16 +11879,13 @@ h1, .h1 {
 
 h4, .h4 {
   font-family: "Rubik", sans-serif;
+  font-size: 14px;
   font-weight: 700;
 }
 
-/* Light/Dark Mode Styles */
-[data-bs-theme=light] body {
-  background-image: var(--bg-light);
-}
-
-[data-bs-theme=dark] body {
-  background-image: var(--bg-dark);
+.table {
+  --bs-table-bg: var(--bs-secondary-bg);
+  --bs-table-border-color: var(--bs-secondary-bg);
 }
 
 /*# sourceMappingURL=custom.css.map */

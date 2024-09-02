@@ -67,7 +67,7 @@ const signup = async () => {
 </script>
 
 <template>
-  <CardComponent class="border-0">
+  <CardComponent class="border-0" style="background-color: var(--bs-body-bg)">
     <!-- Icon und Überschrift -->
     <i class="bi bi-currency-exchange d-flex justify-content-center align-items-center fs-1 mb-3"></i>
     <h1 class="text-center mb-5">BUCKS BUDDY</h1>

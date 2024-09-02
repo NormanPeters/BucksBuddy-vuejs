@@ -1,6 +1,6 @@
 <!-- src/components/CardComponent.vue -->
 <template>
-  <div class="card mb-3 p-1">
+  <div class="card p-1">
     <div class="card-body">
       <slot></slot>
     </div>
@@ -11,4 +11,9 @@
 </script>
 
 <style scoped>
+.card {
+  border-radius: 10px;
+  background-color: var(--bs-secondary-bg);
+  height: 100%;
+}
 </style>

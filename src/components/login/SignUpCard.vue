@@ -1,22 +1,15 @@
 <!-- src/components/SignUpCard.vue -->
 <script setup lang="ts">
-import { computed, ref } from 'vue';
+import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import api from '@/services/api';
 import logoLight from '@/assets/logo.png';
-import logoDark from '@/assets/logo_invert.png';
-import { useThemeStore } from '@/stores/themeStore';
+
 import type { SignupData } from '@/types';
 
 import CardComponent from '@/components/atoms/CardComponent.vue';
 import InputField from '@/components/atoms/InputField.vue';
 import BaseButton from '@/components/atoms/BaseButton.vue';
-
-const themeStore = useThemeStore();
-
-const logoSrc = computed(() => {
-  return themeStore.theme === 'light' ? logoLight : logoDark;
-});
 
 const signupData = ref<SignupData>({
   username: '',
@@ -69,7 +62,7 @@ const signup = async () => {
 <template>
   <CardComponent>
     <div class="text-center my-5">
-      <img :src="logoSrc" alt="Logo" class="mx-auto h-18">
+      <img :src="logoLight" alt="Logo" class="mx-auto h-18">
     </div>
     <form @submit.prevent="signup">
       <InputField id="username" label="Username" v-model="signupData.username" />

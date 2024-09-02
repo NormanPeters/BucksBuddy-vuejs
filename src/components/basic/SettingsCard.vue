@@ -4,7 +4,6 @@ import api from '@/services/api'
 import type { UserData } from '@/types'
 import CardComponent from '@/components/atoms/CardComponent.vue'
 import BaseButton from '@/components/atoms/BaseButton.vue'
-import InputField from '@/components/atoms/InputField.vue'
 import { useThemeStore } from '@/stores/themeStore'
 import InputFieldDark from '@/components/atoms/InputFieldDark.vue'
 
@@ -98,10 +97,6 @@ const toggleTheme = () => {
     <!-- Username -->
     <h3 class="text-center mb-4">Settings</h3>
     <InputFieldDark id="username" label="Username" v-model="userData.username" disabled />
-<!--    <div class="mb-3">-->
-<!--      <label for="userName" class="form-label">Username</label>-->
-<!--      <input type="text" class="form-control" id="userName" v-model="userData.username" disabled />-->
-<!--    </div>-->
     <!-- Change Password -->
     <div>
       <BaseButton class="btn-secondary" @click="toggleChangePassword">

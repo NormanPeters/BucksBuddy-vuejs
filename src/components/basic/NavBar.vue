@@ -13,8 +13,11 @@ const logout = () => {
 }
 
 const userData = reactive<UserData>({
-  username: localStorage.getItem('username') || ''
+  username: localStorage.getItem('username') || '',
+  newPassword: '',
+  confirmPassword: ''
 })
+
 </script>
 
 <template>

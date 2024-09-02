@@ -6,6 +6,7 @@ import CardComponent from '@/components/atoms/CardComponent.vue'
 import BaseButton from '@/components/atoms/BaseButton.vue'
 import InputField from '@/components/atoms/InputField.vue'
 import { useThemeStore } from '@/stores/themeStore'
+import InputFieldDark from '@/components/atoms/InputFieldDark.vue'
 
 const userData = reactive<UserData>({
   username: localStorage.getItem('username') || '',
@@ -96,10 +97,11 @@ const toggleTheme = () => {
   <CardComponent>
     <!-- Username -->
     <h3 class="text-center mb-4">Settings</h3>
-    <div class="mb-3">
-      <label for="userName" class="form-label">Username</label>
-      <input type="text" class="form-control" id="userName" v-model="userData.username" disabled />
-    </div>
+    <InputFieldDark id="username" label="Username" v-model="userData.username" disabled />
+<!--    <div class="mb-3">-->
+<!--      <label for="userName" class="form-label">Username</label>-->
+<!--      <input type="text" class="form-control" id="userName" v-model="userData.username" disabled />-->
+<!--    </div>-->
     <!-- Change Password -->
     <div>
       <BaseButton class="btn-secondary" @click="toggleChangePassword">
@@ -107,13 +109,13 @@ const toggleTheme = () => {
       </BaseButton>
       <div class="mt-3" v-if="showChangePassword">
         <form @submit.prevent="submitNewPassword">
-          <InputField
+          <InputFieldDark
             id="newPassword"
             label="New Password"
             type="password"
             v-model="userData.newPassword"
           />
-          <InputField
+          <InputFieldDark
             id="confirmPassword"
             label="Confirm Password"
             type="password"

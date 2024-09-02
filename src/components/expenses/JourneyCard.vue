@@ -248,7 +248,7 @@ onMounted(async () => {
       </div>
       <div class="col-1 d-flex justify-content-end">
         <button
-          class="btn bi bi-trash fs-5"
+          class="btn bi bi-trash fs-6"
           @click="confirmAndDeleteJourney(selectedJourneyId)"
         ></button>
       </div>
@@ -315,5 +315,10 @@ table.table-hover th {
 
 .bi {
   color: var(--bs-primary);
+}
+
+.form-select {
+  border-radius: 50px;
+  font-size: 12px;
 }
 </style>

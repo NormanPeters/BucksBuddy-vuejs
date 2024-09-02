@@ -14,7 +14,7 @@
   border-radius: 50px; /* Runde die Ecken */
   padding: 10px 30px; /* Passe den Innenabstand an */
   font-family: 'Rubik', sans-serif; /* Verwende die Rubik-Schriftart */
-  font-size: 16px; /* Schriftgröße */
+  font-size: 14px; /* Schriftgröße */
   text-align: center; /* Zentriere den Text */
   transition: background-color 0.3s ease; /* Füge eine Übergangsanimation hinzu */
   width: 100%; /* Setze die Breite auf 100% */

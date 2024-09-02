@@ -5,10 +5,11 @@ import { useRouter } from 'vue-router'
 import api from '@/services/api'
 import type { Journey } from '@/types'
 import { currencyOptions } from '@/constants/currencyOptions'
-import InputField from '@/components/atoms/InputField.vue'
 import SelectField from '@/components/atoms/SelectField.vue'
 import BaseButton from '@/components/atoms/BaseButton.vue'
 import CardComponent from '@/components/atoms/CardComponent.vue'
+import SectionHeader from '@/components/atoms/SectionHeader.vue'
+import InputFieldDark from '@/components/atoms/InputFieldDark.vue'
 
 const router = useRouter()
 const uuid = localStorage.getItem('UUID')
@@ -16,7 +17,7 @@ const uuid = localStorage.getItem('UUID')
 const name = ref('')
 const homeCurr = ref('')
 const vacCurr = ref('')
-const budget = ref<string>('0');
+const budget = ref<string>('0')
 const startDate = ref('')
 const endDate = ref('')
 
@@ -73,10 +74,10 @@ const dateError = computed(() => {
 
 <template>
   <CardComponent>
-      <h3 class="text-center mb-3">Create New Journey</h3>
-
+    <SectionHeader title="Create New Journey" />
+    <div class="form-container p-3">
       <form @submit.prevent="addJourney">
-        <InputField id="name" label="Name" type="text" v-model="name" required />
+        <InputFieldDark id="name" label="Name" type="text" v-model="name" required />
 
         <SelectField
           id="homeCurrency"
@@ -94,10 +95,10 @@ const dateError = computed(() => {
           placeholder="Please select one"
         />
 
-        <InputField id="budget" label="Budget" type="number" v-model.number="budget" />
+        <InputFieldDark id="budget" label="Budget" type="number" v-model.number="budget" />
 
-        <div class="row">
-          <InputField
+        <div class="row mb-3">
+          <InputFieldDark
             id="startDate"
             label="Start Date"
             type="date"
@@ -105,7 +106,7 @@ const dateError = computed(() => {
             required
             class="col-6"
           />
-          <InputField
+          <InputFieldDark
             id="endDate"
             label="End Date"
             type="date"
@@ -115,16 +116,15 @@ const dateError = computed(() => {
           />
           <div v-if="dateError" class="text-danger">{{ dateError }}</div>
         </div>
-
-        <div class="mb-3">
-          <label class="form-label">Travel Duration</label>
-          <input type="text" class="form-control" :value="travelDuration" disabled />
-        </div>
-
         <BaseButton>Create Journey</BaseButton>
       </form>
 
       <div v-if="successMessage" class="alert alert-success mt-3">{{ successMessage }}</div>
       <div v-if="errorMessage" class="alert alert-danger mt-3">{{ errorMessage }}</div>
+    </div>
   </CardComponent>
 </template>
+
+<style scoped>
+
+</style>

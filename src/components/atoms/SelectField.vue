@@ -1,7 +1,7 @@
 <!-- src/components/SelectField.vue -->
 <template>
   <div class="mb-3">
-    <label :for="id" class="form-label">{{ label }}</label>
+    <label :for="id" class="form-label mx-1">{{ label }}</label>
     <select :id="id" class="form-select" :value="modelValue" @input="updateValue">
       <option disabled value="">{{ placeholder }}</option>
       <option v-for="option in options" :key="option.value" :value="option.value">
@@ -28,4 +28,10 @@ const updateValue = (event: Event) => {
   emits('update:modelValue', (event.target as HTMLSelectElement).value);
 };
 </script>
+
+<style scoped>
+.form-select {
+  border-radius: 50px;
+}
+</style>
 

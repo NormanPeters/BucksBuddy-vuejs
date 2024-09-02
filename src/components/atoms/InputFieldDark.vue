@@ -35,7 +35,7 @@ function updateValue(event: Event) {
 
 <style scoped>
 .form-control {
-  background-color: var(--bs-secondary-bg);
+  background-color: var(--bs-body-bg);
   border-radius: 50px;
 }
 </style>

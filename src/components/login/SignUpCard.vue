@@ -67,22 +67,30 @@ const signup = async () => {
 </script>
 
 <template>
-  <CardComponent>
-    <div class="text-center my-5">
-      <img :src="logoSrc" alt="Logo" class="img-fluid" style="height: 70px;">
-    </div>
+  <CardComponent class="border-0">
+    <!-- Icon und Überschrift -->
+    <i class="bi bi-currency-exchange d-flex justify-content-center align-items-center fs-1 mb-3"></i>
+    <h1 class="text-center mb-5">BUCKS BUDDY</h1>
+
+    <!-- Formular für die Registrierung -->
     <form @submit.prevent="signup">
-      <InputField id="username" label="Username" v-model="signupData.username" />
-      <InputField id="password" label="Password" type="password" v-model="signupData.password" />
-      <InputField id="confirmPassword" label="Confirm Password" type="password" v-model="signupData.confirmPassword" />
-      <div class="text-center mb-3">
-        <BaseButton>Sign up</BaseButton>
-      </div>
+      <InputField class="mb-3" id="username" label="Username" v-model="signupData.username" />
+      <InputField class="mb-3" id="password" label="Password" type="password" v-model="signupData.password" />
+      <InputField class="mb-3" id="confirmPassword" label="Confirm Password" type="password" v-model="signupData.confirmPassword" />
+      <BaseButton type="submit" class="d-none">Submit</BaseButton>
     </form>
-    <hr>
-    <div class="text-center mt-3">
-      <a href="#/login" class="text-decoration-none">Already have an account? Log in</a>
+
+    <!-- Buttons für Anmeldung und Registrierung -->
+    <div class="row mt-5">
+      <div class="col-6">
+        <BaseButton @click.prevent="signup">Sign up</BaseButton>
+      </div>
+      <div class="col-6">
+        <BaseButton @click="$router.push('/login')" class="btn-secondary">Log in</BaseButton>
+      </div>
     </div>
+
+    <!-- Erfolg- und Fehlermeldungen -->
     <div v-if="successMessage" class="alert alert-success mt-3">{{ successMessage }}</div>
     <div v-if="errorMessage" class="alert alert-danger mt-3">{{ errorMessage }}</div>
   </CardComponent>

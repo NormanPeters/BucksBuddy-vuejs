@@ -5,6 +5,7 @@ import api from '@/services/api'
 import { type Expenditure } from '@/types'
 import eventBus from '@/services/eventBus'
 import CardComponent from '@/components/atoms/CardComponent.vue'
+import SectionHeader from '@/components/atoms/SectionHeader.vue'
 
 const expendituresList = ref<Expenditure[]>([])
 const sortedExpenditures = ref<Expenditure[]>([])
@@ -169,79 +170,84 @@ const formatAmount = (amount: number): string => {
 
 <template>
   <CardComponent>
-    <table class="table table-hover align-text-bottom">
-      <thead>
-        <tr class="row fw-bold">
-          <th class="col-3" @click="toggleSort('name')" style="cursor: pointer">Title</th>
-          <th class="col-3 text-end" @click="toggleSort('amount')" style="cursor: pointer">
-            {{ vacCurrency }}
-          </th>
-          <th class="col-3 text-end" @click="toggleSort('homeCurrency')" style="cursor: pointer">
-            {{ homeCurrency }}
-          </th>
-          <th class="col-3 text-end" @click="toggleSort('date')" style="cursor: pointer">Datum</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr
-          class="row"
-          v-for="item in sortedExpenditures"
-          :key="item.id"
-          @click="editExpenditure(item.id)"
-          style="cursor: pointer"
-        >
-          <td class="col-3 align-middle" v-if="!item.isEditing">
-            {{ item.name }}
-          </td>
-          <td class="col-3 align-middle" v-else>
-            <input v-model="item.name" class="form-control" />
-          </td>
+    <SectionHeader title="History" />
+    <div class="table-container px-3">
+      <table class="table table-hover align-text-bottom">
+        <thead>
+          <tr class="row fw-bold">
+            <th class="col-3" @click="toggleSort('name')" style="cursor: pointer">Title</th>
+            <th class="col-3 text-end" @click="toggleSort('amount')" style="cursor: pointer">
+              {{ vacCurrency }}
+            </th>
+            <th class="col-3 text-end" @click="toggleSort('homeCurrency')" style="cursor: pointer">
+              {{ homeCurrency }}
+            </th>
+            <th class="col-3 text-end" @click="toggleSort('date')" style="cursor: pointer">
+              Datum
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            class="row"
+            v-for="item in sortedExpenditures"
+            :key="item.id"
+            @click="editExpenditure(item.id)"
+            style="cursor: pointer"
+          >
+            <td class="col-3 align-middle" v-if="!item.isEditing">
+              {{ item.name }}
+            </td>
+            <td class="col-3 align-middle" v-else>
+              <input v-model="item.name" class="form-control" />
+            </td>
 
-          <td class="col-3 text-end align-middle" v-if="!item.isEditing">
-            {{ formatAmount(item.amount) }}
-          </td>
-          <td class="col-2 align-middle" v-else>
-            <input v-model="item.amount" type="number" class="form-control" />
-          </td>
+            <td class="col-3 text-end align-middle" v-if="!item.isEditing">
+              {{ formatAmount(item.amount) }}
+            </td>
+            <td class="col-2 align-middle" v-else>
+              <input v-model="item.amount" type="number" class="form-control" />
+            </td>
 
-          <td class="col-3 text-end align-middle" v-if="!item.isEditing">
-            {{ formatAmount(amountInHomeCurrency(item.amount)) }}
-          </td>
-          <td class="col-2 align-middle" v-else>
-            <input
-              :value="amountInHomeCurrency(item.amount).toFixed(2)"
-              type="number"
-              class="form-control"
-              disabled
-            />
-          </td>
+            <td class="col-3 text-end align-middle" v-if="!item.isEditing">
+              {{ formatAmount(amountInHomeCurrency(item.amount)) }}
+            </td>
+            <td class="col-2 align-middle" v-else>
+              <input
+                :value="amountInHomeCurrency(item.amount).toFixed(2)"
+                type="number"
+                class="form-control"
+                disabled
+              />
+            </td>
 
-          <td class="col-3 text-end align-middle" v-if="!item.isEditing">
-            {{ formatDate(item.date) }}
-          </td>
-          <td class="col-3 align-middle" v-else>
-            <input v-model="item.date" type="date" class="form-control" />
-          </td>
+            <td class="col-3 text-end align-middle" v-if="!item.isEditing">
+              {{ formatDate(item.date) }}
+            </td>
+            <td class="col-3 align-middle" v-else>
+              <input v-model="item.date" type="date" class="form-control" />
+            </td>
 
-          <td class="col-2 text-center align-middle" v-if="item.isEditing">
-            <div class="d-flex justify-content-center align-items-center">
-              <div
-                class="bi bi-save fs-5 ps-3"
-                title="save"
-                style="cursor: pointer"
-                @click.stop="saveExpenditure(item.id, item)"
-              ></div>
-              <div
-                class="bi bi-trash fs-5 ps-3 ms-2"
-                title="delete"
-                style="cursor: pointer"
-                @click.stop="deleteExpenditure(item.id)"
-              ></div>
-            </div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+            <td class="col-2 text-center align-middle" v-if="item.isEditing">
+              <div class="d-flex justify-content-center align-items-center">
+                <div
+                  class="bi bi-save fs-5 ps-3"
+                  title="save"
+                  style="cursor: pointer"
+                  @click.stop="saveExpenditure(item.id, item)"
+                ></div>
+                <div
+                  class="bi bi-trash fs-5 ps-3 ms-2"
+                  title="delete"
+                  style="cursor: pointer"
+                  @click.stop="deleteExpenditure(item.id)"
+                ></div>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </CardComponent>
 </template>
 

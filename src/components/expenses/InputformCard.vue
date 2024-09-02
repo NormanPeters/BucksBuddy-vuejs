@@ -116,8 +116,25 @@ setupEventListeners()
     </div>
     <div class="row d-flex justify-content-end">
       <div class="col-9">
-        <BaseButton @click="addExpenditure">+ Add Expense</BaseButton>
+        <BaseButton class="custom-btn" @click="addExpenditure">+ Add Expense</BaseButton>
       </div>
     </div>
   </CardComponent>
 </template>
+
+<style scoped>
+.form-control {
+  border-radius: 50px;
+  font-size: 12px;
+}
+
+.input-group-text {
+  border-radius: 50px;
+  font-size: 12px;
+}
+
+.custom-btn {
+  font-size: 12px;
+  padding: 7px;
+}
+</style>

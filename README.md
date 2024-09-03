@@ -11,5 +11,6 @@ You can also edit or delete the expenses by clicking on the expense.
 In the Home section, you can see the total costs of the Journey and the costs converted into the home currency.
 
 ### Main Technologies Used
-Frontend: Vue.js, Typescript, CSS with Bootstrap
+Frontend: Vue.js, Typescript, CSS with Bootstrap 
+
 Backend (separate repository): Java, Spring Boot, Hibernate, PostgreSQL (Database) 

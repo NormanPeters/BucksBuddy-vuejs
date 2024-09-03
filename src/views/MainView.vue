@@ -33,25 +33,24 @@ onUnmounted(() => {
 
 <template>
   <!-- Desktop -->
-  <div v-if="isDesktop" class="app-container d-flex flex-column flex-md-row">
+  <div v-if="isDesktop" class="app-container d-flex flex-row">
     <NavBarVertical class="navbar" />
-    <div class="main-content row flex-grow-1">
-      <div class="row">
+    <div class="main-content row">
         <div class="col-xl-6 col-lg-12 col-md-12 d-flex flex-column">
           <!-- Card 1 -->
-          <total-expenditures class="flex-fill mb-3" />
+          <total-expenditures class="mb-3" />
           <!-- Card 2 -->
-          <input-form @refreshExpenditures="handleRefreshExpenditures" class="flex-fill" />
+          <input-form @refreshExpenditures="handleRefreshExpenditures" />
         </div>
         <div class="col-xl-6 col-lg-12 col-md-12">
           <history ref="historyComponent" />
         </div>
       </div>
     </div>
-  </div>
+
 
   <!-- Mobile -->
-  <div v-if="isMobile" class="app-container d-flex flex-column flex-md-row">
+  <div v-if="isMobile" class="app-container">
     <NavBarHorizontal v-if="isMobile" class="navbar" />
     <div class="main-content-mobile flex-grow-1">
       <div class="row">
@@ -82,7 +81,7 @@ onUnmounted(() => {
   background-color: var(--bs-body-bg);
   border-radius: 10px;
   display: flex;
-  flex-wrap: wrap;
+  flex-grow: 1;
 }
 
 .main-content-mobile {

@@ -13,7 +13,7 @@ export const useThemeStore = defineStore('theme', () => {
     };
 
     const loadTheme = () => {
-        const savedTheme = localStorage.getItem('theme') || 'light';
+        const savedTheme = localStorage.getItem('theme') || 'dark';
         applyTheme(savedTheme);
     };
 

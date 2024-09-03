@@ -82,8 +82,8 @@
   --bs-body-line-height: 1.5;
   --bs-body-color: #212529;
   --bs-body-color-rgb: 33, 37, 41;
-  --bs-body-bg: #fff;
-  --bs-body-bg-rgb: 255, 255, 255;
+  --bs-body-bg: #0b0b0b;
+  --bs-body-bg-rgb: 11, 11, 11;
   --bs-emphasis-color: #000;
   --bs-emphasis-color-rgb: 0, 0, 0;
   --bs-secondary-color: rgba(33, 37, 41, 0.75);
@@ -2458,10 +2458,10 @@ textarea.form-control-lg {
   outline: 0;
 }
 .form-range:focus::-webkit-slider-thumb {
-  box-shadow: 0 0 0 1px #fff, 0 0 0 0.25rem rgba(0, 218, 198, 0.25);
+  box-shadow: 0 0 0 1px #0b0b0b, 0 0 0 0.25rem rgba(0, 218, 198, 0.25);
 }
 .form-range:focus::-moz-range-thumb {
-  box-shadow: 0 0 0 1px #fff, 0 0 0 0.25rem rgba(0, 218, 198, 0.25);
+  box-shadow: 0 0 0 1px #0b0b0b, 0 0 0 0.25rem rgba(0, 218, 198, 0.25);
 }
 .form-range::-moz-focus-outer {
   border: 0;
@@ -11849,6 +11849,8 @@ textarea.form-control-lg {
 :root {
   --bg-light: var(--bs-light);
   --bg-dark: var(--bs-dark);
+  --bs-body-bg: #0b0b0b;
+  --bs-secondary-bg: #1b1b1b;
 }
 
 html, body {
@@ -11872,7 +11874,7 @@ h1, .h1 {
   font-family: "Syncopate", sans-serif;
   font-weight: 700;
   text-align: center;
-  background: linear-gradient(90deg, #a6fff2, #00dac6, #00644a);
+  background: linear-gradient(90deg, #00dac6, #00644a);
   -webkit-background-clip: text;
   color: transparent;
 }
@@ -11882,7 +11884,7 @@ h2, .h2 {
   font-weight: 700;
   font-size: 24px;
   text-align: center;
-  background: linear-gradient(90deg, #a6fff2, #00dac6, #00644a);
+  background: linear-gradient(90deg, #00dac6, #00644a);
   -webkit-background-clip: text;
   color: transparent;
 }

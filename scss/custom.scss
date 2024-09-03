@@ -8,7 +8,8 @@ $font-family-base: 'Rubik', sans-serif;
 $logo-font: 'Syncopate', sans-serif;
 
 $primary: #00dac6;
-$secondary: #6c757d;
+$body-bg: #0b0b0b;
+$secondary-bg: #1b1b1b;
 
 // Importiere Bootstrap
 @import '../node_modules/bootstrap/scss/bootstrap';
@@ -17,6 +18,8 @@ $secondary: #6c757d;
 :root {
   --bg-light: var(--bs-light);
   --bg-dark: var(--bs-dark);
+  --bs-body-bg: #{$body-bg};
+  --bs-secondary-bg: #{$secondary-bg};
 }
 
 // Grundlegende Stile für HTML und Body
@@ -41,7 +44,7 @@ h1 {
   font-family: 'Syncopate', sans-serif;
   font-weight: 700;
   text-align: center;
-  background: linear-gradient(90deg, #a6fff2, #00dac6, #00644a);
+  background: linear-gradient(90deg, #00dac6, #00644a);
   -webkit-background-clip: text;
   color: transparent;
 }
@@ -51,7 +54,7 @@ h2 {
   font-weight: 700;
   font-size: 24px;
   text-align: center;
-  background: linear-gradient(90deg, #a6fff2, #00dac6, #00644a);
+  background: linear-gradient(90deg, #00dac6, #00644a);
   -webkit-background-clip: text;
   color: transparent;
 }

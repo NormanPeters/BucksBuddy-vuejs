@@ -1,21 +1,12 @@
 <!-- src/components/LoginCard.vue -->
 <script setup lang="ts">
-import { computed, reactive, ref } from 'vue'
+import { reactive, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import api from '@/services/api'
-import { useThemeStore } from '@/stores/themeStore'
-import logoLight from '@/assets/logo.png'
-import logoDark from '@/assets/logo_invert.png'
 
 import CardComponent from '@/components/atoms/CardComponent.vue'
 import InputField from '@/components/atoms/InputField.vue'
 import BaseButton from '@/components/atoms/PrimaryButton.vue'
-
-const themeStore = useThemeStore()
-
-const logoSrc = computed(() => {
-  return themeStore.theme === 'light' ? logoLight : logoDark
-})
 
 const router = useRouter()
 const loginData = reactive({
@@ -50,11 +41,19 @@ const login = async () => {
 
 <template>
   <CardComponent class="border-0" style="background-color: var(--bs-body-bg)">
-    <i class="bi bi-currency-exchange d-flex justify-content-center align-items-center fs-1 mb-3"></i>
+    <i
+      class="bi bi-currency-exchange d-flex justify-content-center align-items-center fs-1 mb-3"
+    ></i>
     <h1 class="text-center mb-5">BUCKS BUDDY</h1>
     <form @submit.prevent="login">
       <InputField class="mb-3" id="username" label="Username" v-model="loginData.username" />
-      <InputField class="mb-3" id="password" label="Password" type="password" v-model="loginData.password" />
+      <InputField
+        class="mb-3"
+        id="password"
+        label="Password"
+        type="password"
+        v-model="loginData.password"
+      />
       <BaseButton type="submit" class="d-none">Submit</BaseButton>
     </form>
     <div class="row mt-5">
@@ -70,6 +69,4 @@ const login = async () => {
   </CardComponent>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>

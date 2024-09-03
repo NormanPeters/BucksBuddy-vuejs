@@ -3,7 +3,7 @@
 <script setup lang="ts">
 import {computed} from 'vue';
 import {useRoute} from 'vue-router';
-import NavBar from "@/components/basic/NavBar.vue";
+import NavBar from "@/components/basic/NavBarVertical.vue";
 
 // const route = useRoute();
 // const isAuthPage = computed(() => ['login', 'signup'].includes(route.name as string));

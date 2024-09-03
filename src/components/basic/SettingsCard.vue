@@ -175,10 +175,6 @@ const toggleTheme = () => {
       </div>
     </div>
 
-
-
-
-
     <hr />
 
     <!-- Delete User -->
@@ -192,7 +188,6 @@ const toggleTheme = () => {
         >
       </div>
     </div>
-    <hr />
     <div class="text-center mb-3"></div>
     <div v-if="deleteErrorMessage" class="alert alert-danger mt-3">{{ deleteErrorMessage }}</div>
     <div v-if="deleteSuccessMessage" class="alert alert-success mt-3">

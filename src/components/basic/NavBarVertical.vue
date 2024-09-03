@@ -1,9 +1,9 @@
-<!--NavBar.vue -->
+<!--NavBarVertical.vue -->
 <script setup lang="ts">
 import { useRouter } from 'vue-router'
 import { reactive } from 'vue'
 import type { UserData } from '@/types'
-import CustomButton from '@/components/atoms/NavBarLink.vue'
+import CustomButton from '@/components/atoms/NavBarLinkVertical.vue'
 
 const router = useRouter()
 const logout = () => {
@@ -26,7 +26,6 @@ const userData = reactive<UserData>({
       <!-- Icon -->
       <i
         class="bi bi-currency-exchange d-flex justify-content-center align-items-center fs-2 mb-3"></i>
-
       <!-- Logo -->
       <h2 class="text-center mb-5">BUCKS BUDDY</h2>
 
@@ -79,15 +78,5 @@ const userData = reactive<UserData>({
   width: 18%;
   background-color: var(--bs-secondary-bg);
   height: 100vh;
-}
-
-.nav-link {
-  color: var(--bs-link-color);
-  text-decoration: none;
-}
-
-.nav-link.active {
-  color: var(--bs-primary);
-  font-weight: bold;
 }
 </style>

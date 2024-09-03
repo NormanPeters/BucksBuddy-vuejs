@@ -3,9 +3,11 @@ import { reactive, ref } from 'vue'
 import api from '@/services/api'
 import type { UserData } from '@/types'
 import CardComponent from '@/components/atoms/CardComponent.vue'
-import BaseButton from '@/components/atoms/BaseButton.vue'
+import BaseButton from '@/components/atoms/PrimaryButton.vue'
 import { useThemeStore } from '@/stores/themeStore'
 import InputFieldDark from '@/components/atoms/InputFieldDark.vue'
+import SecondaryButton from '@/components/atoms/SecondaryButton.vue'
+import SectionHeader from '@/components/atoms/SectionHeader.vue'
 
 const userData = reactive<UserData>({
   username: localStorage.getItem('username') || '',
@@ -81,7 +83,7 @@ const deleteUser = async () => {
 }
 
 function confirmDeleteUser() {
-  if (confirm('Are you sure you want to delete your account? This action cannot be undone.')) {
+  if (confirm('Deleting your account is permanent and cannot be undone.')) {
     deleteUser()
   }
 }
@@ -94,61 +96,67 @@ const toggleTheme = () => {
 
 <template>
   <CardComponent>
+    <SectionHeader title="Settings" />
+
     <!-- Username -->
-    <h3 class="text-center mb-4">Settings</h3>
-    <InputFieldDark id="username" label="Username" v-model="userData.username" disabled />
+    <div class="row d-flex align-items-start mb-3">
+      <div class="col-5">
+        <h4 class="fw-bold">Username</h4>
+      </div>
+      <div class="col-7">
+        <h4>{{ userData.username }}</h4>
+      </div>
+    </div>
+
     <!-- Change Password -->
-    <div>
-      <BaseButton class="btn-secondary" @click="toggleChangePassword">
-        {{ showChangePassword ? 'Hide' : 'Change Password' }}
-      </BaseButton>
-      <div class="mt-3" v-if="showChangePassword">
-        <form @submit.prevent="submitNewPassword">
-          <InputFieldDark
-            id="newPassword"
-            label="New Password"
-            type="password"
-            v-model="userData.newPassword"
-          />
-          <InputFieldDark
-            id="confirmPassword"
-            label="Confirm Password"
-            type="password"
-            v-model="userData.confirmPassword"
-          />
-          <div class="text-center mb-3">
-            <BaseButton type="submit" class="btn-primary custom-width-btn"
-              >Change Password
-            </BaseButton>
+    <div class="row d-flex align-items-start mb-3">
+      <div class="col-5">
+        <h4 class="fw-bold">Password</h4>
+      </div>
+      <div class="col-7">
+        <SecondaryButton class="btn-secondary custom-btn" @click="toggleChangePassword">
+          {{ showChangePassword ? 'Hide' : 'Change Password' }}
+        </SecondaryButton>
+        <div>
+          <div class="mt-3" v-if="showChangePassword">
+            <form @submit.prevent="submitNewPassword">
+              <InputFieldDark
+                id="newPassword"
+                label="New Password"
+                type="password"
+                v-model="userData.newPassword"
+              />
+              <InputFieldDark
+                id="confirmPassword"
+                label="Confirm Password"
+                type="password"
+                v-model="userData.confirmPassword"
+              />
+              <div class="mb-3">
+                <BaseButton type="submit" class="btn-primary custom-btn"
+                  >Change Password
+                </BaseButton>
+              </div>
+            </form>
+            <div v-if="passwordErrorMessage" class="alert alert-danger mt-3">
+              {{ passwordErrorMessage }}
+            </div>
+            <div v-if="passwordSuccessMessage" class="alert alert-success mt-3">
+              {{ passwordSuccessMessage }}
+            </div>
           </div>
-        </form>
-        <div v-if="passwordErrorMessage" class="alert alert-danger mt-3">
-          {{ passwordErrorMessage }}
-        </div>
-        <div v-if="passwordSuccessMessage" class="alert alert-success mt-3">
-          {{ passwordSuccessMessage }}
         </div>
       </div>
     </div>
 
     <hr />
 
-    <!-- Delete User -->
-    <div class="text-center text-danger">
-      <h5>Danger Zone</h5>
-      <p>Deleting your account is permanent and cannot be undone.</p>
-    </div>
-    <div class="text-center mb-3">
-      <BaseButton @click="confirmDeleteUser" class="btn-danger"> Delete User</BaseButton>
-    </div>
-    <div v-if="deleteErrorMessage" class="alert alert-danger mt-3">{{ deleteErrorMessage }}</div>
-    <div v-if="deleteSuccessMessage" class="alert alert-success mt-3">
-      {{ deleteSuccessMessage }}
-    </div>
-
     <!-- Theme toggle -->
-    <ul>
-      <li class="nav-item">
+    <div class="row d-flex align-items-start mb-3">
+      <div class="col-5">
+        <h4 class="fw-bold">Theme</h4>
+      </div>
+      <div class="col-7">
         <i
           :class="[
             themeStore.theme === 'light'
@@ -164,7 +172,41 @@ const toggleTheme = () => {
           ]"
           @click="toggleTheme"
         ></i>
-      </li>
-    </ul>
+      </div>
+    </div>
+
+
+
+
+
+    <hr />
+
+    <!-- Delete User -->
+    <div class="row d-flex justify-content-center align-items-start text-danger">
+      <div class="col-5">
+        <h4>Danger Zone</h4>
+      </div>
+      <div class="col-7">
+        <SecondaryButton @click="confirmDeleteUser" class="btn-danger custom-btn"
+          >Delete User</SecondaryButton
+        >
+      </div>
+    </div>
+    <hr />
+    <div class="text-center mb-3"></div>
+    <div v-if="deleteErrorMessage" class="alert alert-danger mt-3">{{ deleteErrorMessage }}</div>
+    <div v-if="deleteSuccessMessage" class="alert alert-success mt-3">
+      {{ deleteSuccessMessage }}
+    </div>
+
+
   </CardComponent>
 </template>
+
+<style scoped>
+.custom-btn {
+  font-size: 12px;
+  padding: 7px;
+  width: 50%;
+}
+</style>

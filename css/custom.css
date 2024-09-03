@@ -82,8 +82,8 @@
   --bs-body-line-height: 1.5;
   --bs-body-color: #212529;
   --bs-body-color-rgb: 33, 37, 41;
-  --bs-body-bg: #0b0b0b;
-  --bs-body-bg-rgb: 11, 11, 11;
+  --bs-body-bg: #fff;
+  --bs-body-bg-rgb: 255, 255, 255;
   --bs-emphasis-color: #000;
   --bs-emphasis-color-rgb: 0, 0, 0;
   --bs-secondary-color: rgba(33, 37, 41, 0.75);
@@ -131,14 +131,14 @@
   color-scheme: dark;
   --bs-body-color: #dee2e6;
   --bs-body-color-rgb: 222, 226, 230;
-  --bs-body-bg: #212529;
-  --bs-body-bg-rgb: 33, 37, 41;
+  --bs-body-bg: #0b0b0b;
+  --bs-body-bg-rgb: 11, 11, 11;
   --bs-emphasis-color: #fff;
   --bs-emphasis-color-rgb: 255, 255, 255;
   --bs-secondary-color: rgba(222, 226, 230, 0.75);
   --bs-secondary-color-rgb: 222, 226, 230;
-  --bs-secondary-bg: #343a40;
-  --bs-secondary-bg-rgb: 52, 58, 64;
+  --bs-secondary-bg: #1b1b1b;
+  --bs-secondary-bg-rgb: 27, 27, 27;
   --bs-tertiary-color: rgba(222, 226, 230, 0.5);
   --bs-tertiary-color-rgb: 222, 226, 230;
   --bs-tertiary-bg: #2b3035;
@@ -2458,10 +2458,10 @@ textarea.form-control-lg {
   outline: 0;
 }
 .form-range:focus::-webkit-slider-thumb {
-  box-shadow: 0 0 0 1px #0b0b0b, 0 0 0 0.25rem rgba(0, 218, 198, 0.25);
+  box-shadow: 0 0 0 1px #fff, 0 0 0 0.25rem rgba(0, 218, 198, 0.25);
 }
 .form-range:focus::-moz-range-thumb {
-  box-shadow: 0 0 0 1px #0b0b0b, 0 0 0 0.25rem rgba(0, 218, 198, 0.25);
+  box-shadow: 0 0 0 1px #fff, 0 0 0 0.25rem rgba(0, 218, 198, 0.25);
 }
 .form-range::-moz-focus-outer {
   border: 0;
@@ -11849,8 +11849,8 @@ textarea.form-control-lg {
 :root {
   --bg-light: var(--bs-light);
   --bg-dark: var(--bs-dark);
-  --bs-body-bg: #0b0b0b;
-  --bs-secondary-bg: #1b1b1b;
+  --bs-body-bg-dark: #0b0b0b;
+  --bs-secondary-bg-dark: #1b1b1b;
 }
 
 html, body {

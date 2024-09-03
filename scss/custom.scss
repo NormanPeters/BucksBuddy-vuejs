@@ -8,8 +8,9 @@ $font-family-base: 'Rubik', sans-serif;
 $logo-font: 'Syncopate', sans-serif;
 
 $primary: #00dac6;
-$body-bg: #0b0b0b;
-$secondary-bg: #1b1b1b;
+
+$body-bg-dark: #0b0b0b;
+$body-secondary-bg-dark: #1b1b1b;
 
 // Importiere Bootstrap
 @import '../node_modules/bootstrap/scss/bootstrap';
@@ -18,8 +19,8 @@ $secondary-bg: #1b1b1b;
 :root {
   --bg-light: var(--bs-light);
   --bg-dark: var(--bs-dark);
-  --bs-body-bg: #{$body-bg};
-  --bs-secondary-bg: #{$secondary-bg};
+  --bs-body-bg-dark: #{$body-bg-dark};
+  --bs-secondary-bg-dark: #{$body-secondary-bg-dark};
 }
 
 // Grundlegende Stile für HTML und Body

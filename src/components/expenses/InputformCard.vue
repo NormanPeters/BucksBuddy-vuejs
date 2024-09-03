@@ -6,7 +6,7 @@ import eventBus from '@/services/eventBus'
 
 import CardComponent from '@/components/atoms/CardComponent.vue'
 import InputField from '@/components/atoms/InputField.vue'
-import BaseButton from '@/components/atoms/BaseButton.vue'
+import BaseButton from '@/components/atoms/PrimaryButton.vue'
 import SectionHeader from '@/components/atoms/SectionHeader.vue'
 
 const emit = defineEmits(['refreshExpenditures'])

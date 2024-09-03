@@ -9,7 +9,7 @@ import logoDark from '@/assets/logo_invert.png'
 
 import CardComponent from '@/components/atoms/CardComponent.vue'
 import InputField from '@/components/atoms/InputField.vue'
-import BaseButton from '@/components/atoms/BaseButton.vue'
+import BaseButton from '@/components/atoms/PrimaryButton.vue'
 
 const themeStore = useThemeStore()
 

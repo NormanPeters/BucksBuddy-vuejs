@@ -231,13 +231,13 @@ const formatAmount = (amount: number): string => {
             <td class="col-2 text-center align-middle" v-if="item.isEditing">
               <div class="d-flex justify-content-center align-items-center">
                 <div
-                  class="bi bi-save fs-5 ps-3"
+                  class="bi-s bi-save fs-5 ps-3"
                   title="save"
                   style="cursor: pointer"
                   @click.stop="saveExpenditure(item.id, item)"
                 ></div>
                 <div
-                  class="bi bi-trash fs-5 ps-3 ms-2"
+                  class="bi-d bi-trash fs-5 ps-3 ms-2"
                   title="delete"
                   style="cursor: pointer"
                   @click.stop="deleteExpenditure(item.id)"
@@ -256,4 +256,17 @@ table.table-hover td,
 table.table-hover th {
   border: none !important;
 }
+
+.form-control {
+  font-size: 10px;
+}
+
+.bi-s {
+  color: var(--bs-primary);
+}
+
+.bi-d {
+  color: var(--bs-danger);
+}
+
 </style>

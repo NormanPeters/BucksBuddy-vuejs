@@ -18,8 +18,8 @@ const handleRefreshExpenditures = () => {
 }
 
 const updateBreakpoint = () => {
-  isMobile.value = window.innerWidth < 768
-  isDesktop.value = window.innerWidth >= 769
+  isMobile.value = window.innerWidth < 1199
+  isDesktop.value = window.innerWidth >= 1200
 }
 
 onMounted(() => {
@@ -77,7 +77,7 @@ onUnmounted(() => {
 .main-content {
   padding: 30px;
   margin: 20px;
-  overflow-y: auto;
+  overflow-y: hidden;
   background-color: var(--bs-body-bg);
   border-radius: 10px;
   display: flex;

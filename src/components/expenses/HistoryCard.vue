@@ -268,5 +268,8 @@ table.table-hover th {
 .bi-d {
   color: var(--bs-danger);
 }
-
+.table-container {
+  overflow-y: auto;
+  max-height: 80vh;
+}
 </style>

@@ -61,7 +61,7 @@ const login = async () => {
         <BaseButton @click.prevent="login">Log in</BaseButton>
       </div>
       <div class="col-6">
-        <BaseButton @click="$router.push('/signup')">Sign up</BaseButton>
+        <BaseButton @click="$router.push('/signup')">Sign in</BaseButton>
       </div>
     </div>
     <div v-if="successMessage" class="alert alert-success mt-3">{{ successMessage }}</div>

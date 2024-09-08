@@ -85,8 +85,16 @@ const signup = async () => {
       <BaseButton type="submit" class="d-none">Submit</BaseButton>
     </form>
 
+    <!-- Erfolg- und Fehlermeldungen -->
+    <div class="alert alert-primary">
+      Username must be 3-20 characters long and can only contain letters, numbers, dots, underscores, and hyphens.<br />
+      Password must be at least 8 characters long, contain an uppercase letter, a lowercase letter, and a number.
+    </div>
+    <div v-if="successMessage" class="alert alert-primary mt-3">{{ successMessage }}</div>
+    <div v-if="errorMessage" class="alert alert-danger mt-3">{{ errorMessage }}</div>
+
     <!-- Buttons für Anmeldung und Registrierung -->
-    <div class="row mt-5">
+    <div class="row mt-3">
       <div class="col-6">
         <BaseButton @click.prevent="signup">Sign in</BaseButton>
       </div>
@@ -95,9 +103,9 @@ const signup = async () => {
       </div>
     </div>
 
-    <!-- Erfolg- und Fehlermeldungen -->
-    <div v-if="successMessage" class="alert alert-primary mt-3">{{ successMessage }}</div>
-    <div v-if="errorMessage" class="alert alert-danger mt-3">{{ errorMessage }}</div>
+
+
+
   </CardComponent>
 </template>
 

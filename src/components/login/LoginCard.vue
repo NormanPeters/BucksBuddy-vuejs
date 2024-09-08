@@ -56,12 +56,12 @@ const login = async () => {
       />
       <BaseButton type="submit" class="d-none">Submit</BaseButton>
     </form>
-    <div class="row mt-5">
+    <div class="row mt-5 justify-content-center">
       <div class="col-6">
         <BaseButton @click.prevent="login">Log in</BaseButton>
       </div>
       <div class="col-6">
-        <BaseButton @click="$router.push('/signup')">Sign in</BaseButton>
+        <BaseButton @click="$router.push('/signup')" class="btn-secondary">Sign in</BaseButton>
       </div>
     </div>
     <div v-if="successMessage" class="alert alert-primary mt-3">{{ successMessage }}</div>
@@ -69,4 +69,8 @@ const login = async () => {
   </CardComponent>
 </template>
 
-<style scoped></style>
+<style scoped>
+a {
+  font-size: 14px;
+}
+</style>

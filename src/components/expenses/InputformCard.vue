@@ -5,7 +5,6 @@ import { type Expenditure } from '@/types'
 import eventBus from '@/services/eventBus'
 
 import CardComponent from '@/components/atoms/CardComponent.vue'
-import InputField from '@/components/atoms/InputField.vue'
 import BaseButton from '@/components/atoms/PrimaryButton.vue'
 import SectionHeader from '@/components/atoms/SectionHeader.vue'
 
@@ -16,26 +15,38 @@ const vacCurrency = ref<string>('')
 const title = ref('')
 const amount = ref<number | null>(null)
 const date = ref<string>('')
+const errorMessage = ref<string | null>(null)
 
 const addExpenditure = async () => {
-  if (title.value && amount.value !== null && amount.value > 0 && date.value) {
-    const newExpenditure: Omit<Expenditure, 'id'> = {
-      name: title.value,
-      amount: amount.value,
-      date: new Date(date.value),
-      journeyId: journeyId.value!,
-      isEditing: false
-    }
-    try {
-      await api.createExpenditure(journeyId.value!, newExpenditure)
-      title.value = ''
-      amount.value = null
-      date.value = todayDate.value
-      emit('refreshExpenditures')
-      eventBus.emit('expenditureAdded', null)
-    } catch (error) {
-      console.error('Failed to add expenditure:', error)
-    }
+  if (!journeyId.value) {
+    errorMessage.value = 'Please create a journey first.';
+    return;
+  }
+
+  if (!title.value || amount.value === null || amount.value <= 0 || !date.value) {
+    errorMessage.value = 'Please fill in all fields correctly.';
+    return;
+  }
+
+  const newExpenditure: Omit<Expenditure, 'id'> = {
+    name: title.value,
+    amount: amount.value,
+    date: new Date(date.value),
+    journeyId: journeyId.value!,
+    isEditing: false
+  }
+
+  try {
+    await api.createExpenditure(journeyId.value!, newExpenditure)
+    title.value = ''
+    amount.value = null
+    date.value = todayDate.value
+    emit('refreshExpenditures')
+    eventBus.emit('expenditureAdded', null)
+    errorMessage.value = null; // Clear error if everything goes well
+  } catch (error) {
+    console.error('Failed to add expenditure:', error)
+    errorMessage.value = 'Failed to add expenditure. Please try again.';
   }
 }
 
@@ -67,6 +78,9 @@ setupEventListeners()
 <template>
   <CardComponent>
     <SectionHeader title="New Expense" />
+
+    <div v-if="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>
+
     <div class="row mb-3 mt-4">
       <div class="col-3 d-flex justify-content-center align-items-center">
         <span class="fw-bold">Title</span>
@@ -119,6 +133,7 @@ setupEventListeners()
         <BaseButton class="custom-btn" @click="addExpenditure">+ Add Expense</BaseButton>
       </div>
     </div>
+
   </CardComponent>
 </template>
 

@@ -88,7 +88,7 @@ const signup = async () => {
     <!-- Buttons für Anmeldung und Registrierung -->
     <div class="row mt-5">
       <div class="col-6">
-        <BaseButton @click.prevent="signup">Sign up</BaseButton>
+        <BaseButton @click.prevent="signup">Sign in</BaseButton>
       </div>
       <div class="col-6">
         <BaseButton @click="$router.push('/login')" class="btn-secondary">Log in</BaseButton>

@@ -240,7 +240,6 @@ onMounted(async () => {
       </div>
       <div class="col-5">
         <select class="form-select" v-model="selectedJourneyId">
-          <option v-if="journeys.length === 0" disabled value="">Please Create A Journey</option>
           <option v-for="journey in journeys" :key="journey.id" :value="journey.id">
             {{ journey.name }}
           </option>

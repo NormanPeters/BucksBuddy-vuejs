@@ -19,30 +19,7 @@ const budget = ref<number>(0)
 const startDate = ref<Date | null>(null)
 const endDate = ref<Date | null>(null)
 const exchangeRate = ref<number>(0)
-// Store the journey ID that will be deleted
 const journeyToDelete = ref<number | null>(null)
-
-// Open the delete confirmation modal
-const openDeleteJourneyModal = (journeyId: number) => {
-  journeyToDelete.value = journeyId
-  const modal = new bootstrap.Modal(document.getElementById('deleteJourneyModal'))
-  modal.show()
-}
-
-// Delete journey after confirmation in the modal
-const confirmAndDeleteJourney = async () => {
-  if (journeyToDelete.value === null) return
-
-  try {
-    await api.deleteJourney(journeyToDelete.value)
-    await fetchJourneys()
-    selectedJourneyId.value = null
-    localStorage.removeItem('selectedJourney')
-    eventBus.emit('journeyIdChanged', null)
-  } catch (error) {
-    console.error('Error deleting journey:', error)
-  }
-}
 
 // Funktion zum Abrufen der Ausgaben für eine bestimmte Reise
 const fetchExpenditures = async (journeyId: number) => {
@@ -94,6 +71,24 @@ const fetchJourneys = async () => {
     console.error('Error fetching journeys:', error)
   }
 }
+
+
+// Delete journey section
+const deleteJourney = async () => {
+  journeyToDelete.value = selectedJourneyId.value
+  if (journeyToDelete.value === null) return
+
+  try {
+    await api.deleteJourney(journeyToDelete.value);
+    await fetchJourneys();
+    selectedJourneyId.value = null;
+    localStorage.removeItem('selectedJourney');
+    eventBus.emit('journeyIdChanged', null);
+    journeyToDelete.value = null;
+  } catch (error) {
+    console.error('Error deleting journey:', error);
+  }
+};
 
 // Berechnet die Gesamtausgaben für die aktuelle Reise
 const totalExpenditures = computed(() => {
@@ -252,14 +247,15 @@ onMounted(async () => {
         </select>
       </div>
       <div class="col-1 d-flex justify-content-end">
-        <!-- Button to trigger the delete confirmation modal -->
+        <!-- Button to trigger the delete modal -->
         <button
           class="btn bi bi-trash fs-6"
-          @click="openDeleteJourneyModal(selectedJourneyId)"
+          data-bs-toggle="modal"
+          data-bs-target="#deleteJourneyModal"
         ></button>
       </div>
 
-      <!-- Modal for confirming journey deletion -->
+      <!-- Modal for journey deletion -->
       <div
         class="modal fade"
         id="deleteJourneyModal"
@@ -283,7 +279,10 @@ onMounted(async () => {
             </div>
             <div class="modal-footer d-flex justify-content-start">
               <div>
-                <SecondaryButton type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                <SecondaryButton
+                  type="button"
+                  class="btn btn-secondary"
+                  data-bs-dismiss="modal">
                   Cancel
                 </SecondaryButton>
               </div>
@@ -291,7 +290,7 @@ onMounted(async () => {
                 <SecondaryButton
                   type="button"
                   class="btn btn-danger"
-                  @click="confirmAndDeleteJourney"
+                  @click="deleteJourney"
                   data-bs-dismiss="modal"
                 >
                   Delete Journey

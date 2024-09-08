@@ -82,12 +82,6 @@ const deleteUser = async () => {
   }
 }
 
-function confirmDeleteUser() {
-  if (confirm('Deleting your account is permanent and cannot be undone.')) {
-    deleteUser()
-  }
-}
-
 const themeStore = useThemeStore()
 const toggleTheme = () => {
   themeStore.applyTheme(themeStore.theme === 'light' ? 'dark' : 'light')

@@ -119,7 +119,7 @@ const dateError = computed(() => {
         <BaseButton>Create Journey</BaseButton>
       </form>
 
-      <div v-if="successMessage" class="alert alert-success mt-3">{{ successMessage }}</div>
+      <div v-if="successMessage" class="alert alert-primary mt-3">{{ successMessage }}</div>
       <div v-if="errorMessage" class="alert alert-danger mt-3">{{ errorMessage }}</div>
     </div>
   </CardComponent>

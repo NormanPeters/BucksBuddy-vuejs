@@ -141,7 +141,7 @@ const toggleTheme = () => {
             <div v-if="passwordErrorMessage" class="alert alert-danger mt-3">
               {{ passwordErrorMessage }}
             </div>
-            <div v-if="passwordSuccessMessage" class="alert alert-success mt-3">
+            <div v-if="passwordSuccessMessage" class="alert alert-primary mt-3">
               {{ passwordSuccessMessage }}
             </div>
           </div>
@@ -190,7 +190,7 @@ const toggleTheme = () => {
     </div>
     <div class="text-center mb-3"></div>
     <div v-if="deleteErrorMessage" class="alert alert-danger mt-3">{{ deleteErrorMessage }}</div>
-    <div v-if="deleteSuccessMessage" class="alert alert-success mt-3">
+    <div v-if="deleteSuccessMessage" class="alert alert-primary mt-3">
       {{ deleteSuccessMessage }}
     </div>
 

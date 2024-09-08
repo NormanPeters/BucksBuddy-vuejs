@@ -64,7 +64,7 @@ const login = async () => {
         <BaseButton @click="$router.push('/signup')">Sign in</BaseButton>
       </div>
     </div>
-    <div v-if="successMessage" class="alert alert-success mt-3">{{ successMessage }}</div>
+    <div v-if="successMessage" class="alert alert-primary mt-3">{{ successMessage }}</div>
     <div v-if="errorMessage" class="alert alert-danger mt-3">{{ errorMessage }}</div>
   </CardComponent>
 </template>

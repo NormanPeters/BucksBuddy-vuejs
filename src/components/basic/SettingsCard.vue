@@ -183,9 +183,64 @@ const toggleTheme = () => {
         <h4>Danger Zone</h4>
       </div>
       <div class="col-7">
-        <SecondaryButton @click="confirmDeleteUser" class="btn-danger custom-btn"
-          >Delete User</SecondaryButton
+        <!-- Button to trigger the modal -->
+        <SecondaryButton
+          class="btn-danger custom-btn"
+          data-bs-toggle="modal"
+          data-bs-target="#deleteUserModal"
         >
+          Delete User
+        </SecondaryButton>
+
+        <!-- Modal Structure -->
+        <div
+          class="modal fade"
+          id="deleteUserModal"
+          tabindex="-1"
+          aria-labelledby="deleteUserModalLabel"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="deleteUserModalLabel">Delete Account</h5>
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                ></button>
+              </div>
+              <div class="modal-body">
+                Are you sure you want to delete your account? <br />
+                This action is permanent and cannot be undone.
+              </div>
+
+              <div class="modal-footer d-flex justify-content-start">
+                <div>
+                  <SecondaryButton
+                    type="button"
+                    class="btn btn-secondary"
+                    data-bs-dismiss="modal"
+                  >
+                    Cancel
+                  </SecondaryButton>
+                </div>
+                <div>
+                  <SecondaryButton
+                    type="button"
+                    class="btn btn-danger"
+                    @click="deleteUser"
+                    data-bs-dismiss="modal"
+                  >
+                    Delete User
+                  </SecondaryButton>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     <div class="text-center mb-3"></div>
@@ -193,8 +248,6 @@ const toggleTheme = () => {
     <div v-if="deleteSuccessMessage" class="alert alert-primary mt-3">
       {{ deleteSuccessMessage }}
     </div>
-
-
   </CardComponent>
 </template>
 

@@ -6,6 +6,7 @@ import type { Expenditure, Journey } from '@/types'
 import FreeCurrencyAPI from '@everapi/freecurrencyapi-js'
 import eventBus from '@/services/eventBus'
 import CardComponent from '@/components/atoms/CardComponent.vue'
+import SecondaryButton from '@/components/atoms/SecondaryButton.vue'
 
 const expendituresList = ref<Expenditure[]>([])
 const currencyAPI = new FreeCurrencyAPI(import.meta.env.VITE_API_KEY)
@@ -18,6 +19,30 @@ const budget = ref<number>(0)
 const startDate = ref<Date | null>(null)
 const endDate = ref<Date | null>(null)
 const exchangeRate = ref<number>(0)
+// Store the journey ID that will be deleted
+const journeyToDelete = ref<number | null>(null)
+
+// Open the delete confirmation modal
+const openDeleteJourneyModal = (journeyId: number) => {
+  journeyToDelete.value = journeyId
+  const modal = new bootstrap.Modal(document.getElementById('deleteJourneyModal'))
+  modal.show()
+}
+
+// Delete journey after confirmation in the modal
+const confirmAndDeleteJourney = async () => {
+  if (journeyToDelete.value === null) return
+
+  try {
+    await api.deleteJourney(journeyToDelete.value)
+    await fetchJourneys()
+    selectedJourneyId.value = null
+    localStorage.removeItem('selectedJourney')
+    eventBus.emit('journeyIdChanged', null)
+  } catch (error) {
+    console.error('Error deleting journey:', error)
+  }
+}
 
 // Funktion zum Abrufen der Ausgaben für eine bestimmte Reise
 const fetchExpenditures = async (journeyId: number) => {
@@ -26,25 +51,6 @@ const fetchExpenditures = async (journeyId: number) => {
     expendituresList.value = response.data
   } catch (error) {
     console.error('Error fetching expenditures:', error)
-  }
-}
-
-// Funktion zum Bestätigen und Löschen einer Reise
-const confirmAndDeleteJourney = async (journeyId: number | null) => {
-  if (journeyId === null) return
-
-  const confirmDelete = confirm('Are you sure you want to delete this journey?')
-  if (!confirmDelete) return
-
-  try {
-    await api.deleteJourney(journeyId)
-    alert('Journey deleted successfully')
-    await fetchJourneys()
-    selectedJourneyId.value = null
-    localStorage.removeItem('selectedJourney')
-    eventBus.emit('journeyIdChanged', null)
-  } catch (error) {
-    console.error('Error deleting journey:', error)
   }
 }
 
@@ -246,10 +252,54 @@ onMounted(async () => {
         </select>
       </div>
       <div class="col-1 d-flex justify-content-end">
+        <!-- Button to trigger the delete confirmation modal -->
         <button
           class="btn bi bi-trash fs-6"
-          @click="confirmAndDeleteJourney(selectedJourneyId)"
+          @click="openDeleteJourneyModal(selectedJourneyId)"
         ></button>
+      </div>
+
+      <!-- Modal for confirming journey deletion -->
+      <div
+        class="modal fade"
+        id="deleteJourneyModal"
+        tabindex="-1"
+        aria-labelledby="deleteJourneyModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="deleteJourneyModalLabel">Delete Journey</h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              Are you sure you want to delete this journey? This action cannot be undone.
+            </div>
+            <div class="modal-footer d-flex justify-content-start">
+              <div>
+                <SecondaryButton type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                  Cancel
+                </SecondaryButton>
+              </div>
+              <div>
+                <SecondaryButton
+                  type="button"
+                  class="btn btn-danger"
+                  @click="confirmAndDeleteJourney"
+                  data-bs-dismiss="modal"
+                >
+                  Delete Journey
+                </SecondaryButton>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     <hr />

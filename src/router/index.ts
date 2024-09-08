@@ -6,6 +6,8 @@ import Main from '@/views/MainView.vue';
 import Login from '@/views/LoginView.vue';
 import Settings from '@/views/SettingsView.vue'
 import SignUp from '@/views/SignUpView.vue';
+import Impressum from '@/views/ImpressumView.vue';
+import TermsOfUse from '@/views/TermsOfUseView.vue';
 
 const router = createRouter({
     history: createWebHashHistory(import.meta.env.BASE_URL),
@@ -23,6 +25,16 @@ const router = createRouter({
             path: '/signup',
             name: 'signup',
             component: SignUp
+        },
+        {
+            path: '/impressum',
+            name: 'impressum',
+            component: Impressum
+        },
+        {
+            path: '/termsofuse',
+            name: 'termsofuse',
+            component: TermsOfUse
         },
         {
             path: '/newjourney',

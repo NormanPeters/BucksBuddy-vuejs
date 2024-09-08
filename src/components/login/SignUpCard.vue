@@ -84,11 +84,24 @@ const signup = async () => {
       />
       <BaseButton type="submit" class="d-none">Submit</BaseButton>
     </form>
+    <div class="row mb-3">
+      <div class="col-12">
+        <button type="button" class="btn btn-link" @click="$router.push('termsofuse')">
+          Terms Of Use
+        </button>
+
+        <button type="button" class="btn btn-link" @click="$router.push('impressum')">
+          Impressum
+        </button>
+      </div>
+    </div>
 
     <!-- Erfolg- und Fehlermeldungen -->
     <div class="alert alert-primary">
-      Username must be 3-20 characters long and can only contain letters, numbers, dots, underscores, and hyphens.<br />
-      Password must be at least 8 characters long, contain an uppercase letter, a lowercase letter, and a number.
+      Username must be 3-20 characters long and can only contain letters, numbers, dots,
+      underscores, and hyphens.<br />
+      Password must be at least 8 characters long, contain an uppercase letter, a lowercase letter,
+      and a number.
     </div>
     <div v-if="successMessage" class="alert alert-primary mt-3">{{ successMessage }}</div>
     <div v-if="errorMessage" class="alert alert-danger mt-3">{{ errorMessage }}</div>
@@ -102,11 +115,11 @@ const signup = async () => {
         <BaseButton @click="$router.push('/login')" class="btn-secondary">Log in</BaseButton>
       </div>
     </div>
-
-
-
-
   </CardComponent>
 </template>
 
-<style scoped></style>
+<style scoped>
+a {
+  font-size: 14px;
+}
+</style>
